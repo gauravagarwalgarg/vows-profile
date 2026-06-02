@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Biodata</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="page" id="biodata">
+    <p style="text-align:center;padding:40mm 20mm;font-size:14pt;color:#65462f;">Loading biodata from metadata/details.json...</p>
+  </main>
+
+  <script>
+    // Data source: tries fetch first (server), falls back to embedded (file://)
+    const EMBEDDED_DATA = {"header":{"mantra":"|| श्री गणेशाय नमः ||","ganeshImage":"metadata/Ganesh.png","photo":"metadata/MyPhoto.png","name":"Gaurav Agarwal","subtitle":"Senior Software Engineer | The Boeing Company"},"personal":{"name":"Gaurav Agarwal","gotra":"Garg","dateOfBirth":"27 March 1995","timeOfBirth":"11:55 PM","placeOfBirth":"Jamshedpur, Jharkhand","height":"5' 9\""},"education":[{"degree":"B.E","field":"Electrical & Electronics Engineering","institution":"PES University, Bangalore"}],"professional":{"designation":"Senior Software Engineer","company":"The Boeing Company","workLocation":"Bangalore","officeAddress":"B.Marenahalli, Bhatramarenahalli, Hunachur, Karnataka - 562165","mapLink":"https://maps.app.goo.gl/cCPxDqosNKLyuBYQ7"},"profiles":[{"label":"LinkedIn","url":"https://www.linkedin.com/in/gauravagarwalgarg/"},{"label":"Jeevansathi","url":"https://www.jeevansathi.com/TUVR3909"},{"label":"Shaadi","url":"https://shaadi.com/SH45028289"}],"nativePlace":"Hodh, Sri Madhopur, Sikar, Rajasthan","permanentAddress":{"line1":"402, Mathura Villa, Tapadia Complex,","line2":"Station Road, Jamshedpur - 831006","mapLink":"https://maps.app.goo.gl/opJJvv2UNQqVtmLcA"},"contact":{"phones":["+91 8050837120","+91 6203229640"]},"family":{"grandmother":"Late Smt. Sumitra Devi","grandfather":"Shri Ram Ratan Agarwal","mother":"Smt. Usha Agarwal","father":"Shri Keshav Kumar Agarwal","siblings":[{"relation":"Elder Brother","name":"Harshit Agarwal","details":["Senior Manager, Yes Bank, Noida","MBA, XIM University, Bhubneshwar"]}]},"paternalFamily":[{"name":"Shri Subhash Garg","detail":"Business, Jaipur"},{"name":"Shri Sanjay Garg","detail":"Business, Jamshedpur"},{"name":"Shri Ajay Garg","detail":"Business, Jamshedpur"}],"maternalFamily":[{"name":"Shri Man Mohan Swaika","detail":"CEO, Angus Jute Company - Kolkata"},{"name":"Shri Subhash Chandra Swaika","detail":"Practicing CA - Kolkata"},{"name":"Shri Sudhir Kumar Swaika","detail":"Business - Rourkela"}],"businessFirms":[{"name":"M/s Mahadeolal Bhagirathmal Medicals","address":"Near Udivani Press, Main Road, Jugsalai, Jamshedpur - 831006","mapLink":"https://maps.app.goo.gl/mmJVLrhGJqveWRYB9"},{"name":"M/s Jai Shri Shyam Textiles","address":"Johari Bazar Road, Jaipur, Rajasthan - 302003","mapLink":"https://maps.app.goo.gl/HMnH6E7aRpDsofst5"}]};
+
+    (async function() {
+      let d;
+      try {
+        const res = await fetch('metadata/details.json');
+        if (!res.ok) throw new Error('fetch failed');
+        d = await res.json();
+      } catch(e) {
+        // Fallback to embedded data (works with file://)
+        d = EMBEDDED_DATA;
+      }
+
+      // Validate photo exists
+      const img = new Image();
+      img.src = d.header.photo;
+      img.onerror = () => alert('WARNING: Photo not found at "' + d.header.photo + '". Place your photo in metadata/ folder.');
+
+      const mapSvg = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7Zm0 9.6A2.6 2.6 0 1 1 14.6 9 2.6 2.6 0 0 1 12 11.6Z"/></svg>';
+
+      document.getElementById('biodata').innerHTML = `
+        <div class="border-frame">
+          <div class="content">
+            <!-- HERO -->
+            <section class="hero">
+              <div class="identity">
+                <img class="ganesh" src="${d.header.ganeshImage}" alt="Ganesh">
+                <div class="ganesh-line">${d.header.mantra}</div>
+                <h1 class="name">${d.header.name}</h1>
+                <p class="subtitle">${d.header.subtitle.replace(' | ', ' <span>|</span> ')}</p>
+              </div>
+              <div class="photo">
+                <img src="${d.header.photo}" alt="${d.header.name}">
+              </div>
+            </section>
+
+            <!-- Section divider -->
+            <div class="section-divider">
+              <span>Personal &amp; Professional Details</span>
+            </div>
+
+            <!-- TWO COLUMNS -->
+            <section class="columns">
+              <!-- LEFT -->
+              <div class="panel left">
+                <article class="entry">
+                  <div class="rail"><span class="icon icon-person"></span></div>
+                  <div class="entry-body">
+                    <h3 class="title">Personal Details</h3>
+                    <div class="details">
+                      <p><strong>Name:</strong> ${d.personal.name}</p>
+                      <p><strong>Gotra:</strong> ${d.personal.gotra}</p>
+                      <p><strong>Date of Birth:</strong> ${d.personal.dateOfBirth}</p>
+                      <p><strong>Time:</strong> ${d.personal.timeOfBirth}</p>
+                      <p><strong>Place:</strong> ${d.personal.placeOfBirth}</p>
+                      <p><strong>Height:</strong> ${d.personal.height}</p>
+                    </div>
+                  </div>
+                </article>
+
+                <article class="entry">
+                  <div class="rail"><span class="icon icon-edu"></span></div>
+                  <div class="entry-body">
+                    <h3 class="title">Education</h3>
+                    <div class="details">
+                      ${d.education.map(e => `<p><strong>${e.degree}:</strong> ${e.field}</p><p class="cont nobullet">${e.institution}</p>`).join('')}
+                    </div>
+                  </div>
+                </article>
+
+                <article class="entry">
+                  <div class="rail"><span class="icon icon-work"></span></div>
+                  <div class="entry-body">
+                    <h3 class="title">Professional Details</h3>
+                    <div class="details">
+                      <p><strong>Designation:</strong> ${d.professional.designation}</p>
+                      <p class="cont nobullet">${d.professional.company}</p>
+                      <p><strong>Work Location:</strong> ${d.professional.workLocation}</p>
+                      <p><strong>Office:</strong> ${d.professional.officeAddress} ${d.professional.mapLink ? `<a class="map-link" href="${d.professional.mapLink}" target="_blank" rel="noreferrer">${mapSvg}</a>` : ''}</p>
+                    </div>
+                  </div>
+                </article>
+
+                <article class="entry">
+                  <div class="rail"><span class="icon icon-link"></span></div>
+                  <div class="entry-body">
+                    <h3 class="title">Profiles</h3>
+                    <div class="details profiles">
+                      ${d.profiles.map(p => `<p><a href="${p.url}" target="_blank" rel="noreferrer">${p.url.replace('https://www.','').replace('https://','')}</a></p>`).join('')}
+                    </div>
+                  </div>
+                </article>
+
+                <article class="entry">
+                  <div class="rail"><span class="icon icon-location"></span></div>
+                  <div class="entry-body">
+                    <h3 class="title">Native Place</h3>
+                    <div class="details"><p>${d.nativePlace}</p></div>
+                  </div>
+                </article>
+
+                <article class="entry">
+                  <div class="rail"><span class="icon icon-home"></span></div>
+                  <div class="entry-body">
+                    <h3 class="title">Permanent Residence</h3>
+                    <div class="details">
+                      <p>${d.permanentAddress.line1}</p>
+                      <p class="cont-tight nobullet">${d.permanentAddress.line2} ${d.permanentAddress.mapLink ? `<a class="map-link" href="${d.permanentAddress.mapLink}" target="_blank" rel="noreferrer">${mapSvg}</a>` : ''}</p>
+                    </div>
+                  </div>
+                </article>
+
+                <article class="entry">
+                  <div class="rail"><span class="icon icon-phone"></span></div>
+                  <div class="entry-body">
+                    <h3 class="title">Contact</h3>
+                    <div class="details phones">
+                      ${(d.contact.phones || [d.contact.phone]).map(ph => `<p class="phone-number"><a href="tel:${ph.replace(/\\s/g,'')}">${ph}</a></p>`).join('')}
+                    </div>
+                  </div>
+                </article>
+              </div>
+
+              <!-- RIGHT -->
+              <div class="panel right">
+                <article class="entry">
+                  <div class="rail"><span class="icon icon-family"></span></div>
+                  <div class="entry-body">
+                    <h3 class="title">Family</h3>
+                    <div class="details">
+                      <p><strong>Grandmother:</strong> ${d.family.grandmother}</p>
+                      <p><strong>Grandfather:</strong> ${d.family.grandfather}</p>
+                      <p><strong>Mother:</strong> ${d.family.mother}</p>
+                      <p><strong>Father:</strong> ${d.family.father}</p>
+                      ${d.family.siblings.map(s => `
+                        <p class="brother-gap"><strong>${s.relation}:</strong> ${s.name}</p>
+                        ${s.details.map(det => `<p class="cont-tight nobullet">${det}</p>`).join('')}
+                      `).join('')}
+                    </div>
+                  </div>
+                </article>
+
+                <article class="entry">
+                  <div class="rail"><span class="icon icon-family"></span></div>
+                  <div class="entry-body">
+                    <h3 class="title">Paternal Family</h3>
+                    <div class="details">
+                      ${d.paternalFamily.map(p => `<p>${p.name}</p><p class="cont-tight nobullet">${p.detail}</p>`).join('')}
+                    </div>
+                  </div>
+                </article>
+
+                <article class="entry">
+                  <div class="rail"><span class="icon icon-family"></span></div>
+                  <div class="entry-body">
+                    <h3 class="title">Maternal Family</h3>
+                    <div class="details">
+                      ${d.maternalFamily.map(m => `<p>${m.name}</p><p class="cont-tight nobullet">${m.detail}</p>`).join('')}
+                    </div>
+                  </div>
+                </article>
+
+                <article class="entry">
+                  <div class="rail"><span class="icon icon-home"></span></div>
+                  <div class="entry-body">
+                    <h3 class="title">Business / Firm Details</h3>
+                    <div class="details">
+                      ${d.businessFirms.map(f => `
+                        <p><strong>${f.name}</strong> ${f.mapLink ? `<a class="map-link" href="${f.mapLink}" target="_blank" rel="noreferrer">${mapSvg}</a>` : ''}</p>
+                        <p class="cont-tight nobullet">${f.address}</p>
+                      `).join('')}
+                    </div>
+                  </div>
+                </article>
+              </div>
+            </section>
+
+            <!-- Footer divider -->
+            <div class="section-divider footer-divider">
+              <span>|| श्री गणेशाय नमः ||</span>
+            </div>
+          </div>
+        </div>
+      `;
+    })();
+  </script>
+</body>
+</html>

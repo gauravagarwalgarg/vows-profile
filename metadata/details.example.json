@@ -1,0 +1,78 @@
+{
+  "header": {
+    "mantra": "|| श्री गणेशाय नमः ||",
+    "ganeshImage": "metadata/Ganesh.png",
+    "photo": "metadata/MyPhoto.png",
+    "name": "YOUR FULL NAME",
+    "subtitle": "Your Designation | Your Company"
+  },
+  "personal": {
+    "name": "YOUR FULL NAME",
+    "gotra": "Your Gotra",
+    "dateOfBirth": "DD Month YYYY",
+    "timeOfBirth": "HH:MM AM/PM",
+    "placeOfBirth": "City, State",
+    "height": "X' Y\""
+  },
+  "education": [
+    {
+      "degree": "MBA / B.Tech / B.E. etc.",
+      "field": "Your Specialization",
+      "institution": "University Name, City"
+    },
+    {
+      "degree": "12th / Diploma etc.",
+      "field": "Stream",
+      "institution": "School/College Name, City"
+    }
+  ],
+  "professional": {
+    "designation": "Your Job Title",
+    "company": "Company Name",
+    "workLocation": "City",
+    "officeAddress": "Full Office Address with Pin Code",
+    "mapLink": "https://maps.app.goo.gl/YOUR_LINK"
+  },
+  "profiles": [
+    { "label": "LinkedIn", "url": "https://www.linkedin.com/in/your-profile/" },
+    { "label": "Jeevansathi", "url": "https://www.jeevansathi.com/YOUR_ID" },
+    { "label": "Shaadi", "url": "https://shaadi.com/YOUR_ID" }
+  ],
+  "nativePlace": "Village/Town, District, State",
+  "permanentAddress": {
+    "line1": "House No, Street, Locality,",
+    "line2": "City - Pin Code",
+    "mapLink": "https://maps.app.goo.gl/YOUR_LINK"
+  },
+  "contact": {
+    "phones": ["+91 XXXXXXXXXX", "+91 XXXXXXXXXX"]
+  },
+  "family": {
+    "grandmother": "Smt. Grandmother Name",
+    "grandfather": "Shri Grandfather Name",
+    "mother": "Smt. Mother Name",
+    "father": "Shri Father Name",
+    "siblings": [
+      {
+        "relation": "Elder/Younger Brother/Sister",
+        "name": "Sibling Name",
+        "details": ["Designation, Company, City", "Degree, University, City"]
+      }
+    ]
+  },
+  "paternalFamily": [
+    { "name": "Shri Uncle Name", "detail": "Occupation, City" },
+    { "name": "Shri Uncle Name", "detail": "Occupation, City" }
+  ],
+  "maternalFamily": [
+    { "name": "Shri Maternal Uncle Name", "detail": "Occupation, City" },
+    { "name": "Shri Maternal Uncle Name", "detail": "Occupation, City" }
+  ],
+  "businessFirms": [
+    {
+      "name": "M/s Your Family Business Name",
+      "address": "Full Address with Pin Code",
+      "mapLink": "https://maps.app.goo.gl/YOUR_LINK"
+    }
+  ]
+}
