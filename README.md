@@ -1,5 +1,12 @@
 # VowsProfile
 
+[![CI](https://github.com/gauravagarwalgarg/vows-profile/actions/workflows/ci.yml/badge.svg)](https://github.com/gauravagarwalgarg/vows-profile/actions/workflows/ci.yml) [![Docs](https://img.shields.io/badge/docs-live-blue?logo=github)](https://gauravagarwalgarg.github.io/vows-profile/) ![HTML/CSS/JS](https://img.shields.io/badge/HTML--CSS--JS-orange?logo=html5&logoColor=white) [![License](https://img.shields.io/github/license/gauravagarwalgarg/vows-profile)](https://github.com/gauravagarwalgarg/vows-profile/blob/main/LICENSE)
+
+> 📖 **Documentation**: [https://gauravagarwalgarg.github.io/vows-profile/](https://gauravagarwalgarg.github.io/vows-profile/)
+>
+> 📦 **Repository**: [GitHub](https://github.com/gauravagarwalgarg/vows-profile)
+
+
 Classic A4 matrimony biodata generator. Edit `metadata/details.json`, open in browser, print to PDF.
 
 ---
