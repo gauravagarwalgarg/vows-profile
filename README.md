@@ -1,119 +1,112 @@
 # VowsProfile
 
-[![CI](https://github.com/gauravagarwalgarg/vows-profile/actions/workflows/ci.yml/badge.svg)](https://github.com/gauravagarwalgarg/vows-profile/actions/workflows/ci.yml) [![Docs](https://img.shields.io/badge/docs-live-blue?logo=github)](https://gauravagarwalgarg.github.io/vows-profile/) ![HTML/CSS/JS](https://img.shields.io/badge/HTML--CSS--JS-orange?logo=html5&logoColor=white) [![License](https://img.shields.io/github/license/gauravagarwalgarg/vows-profile)](https://github.com/gauravagarwalgarg/vows-profile/blob/main/LICENSE)
+[![Deploy to GitHub Pages](https://github.com/gauravagarwalgarg/vows-profile/actions/workflows/deploy-pages.yml/badge.svg)](https://github.com/gauravagarwalgarg/vows-profile/actions/workflows/deploy-pages.yml) [![Live App](https://img.shields.io/badge/Live%20App-GitHub%20Pages-gold?logo=github)](https://gauravagarwalgarg.github.io/vows-profile/) ![Zero Backend](https://img.shields.io/badge/Architecture-100%25%20Client--Side-green) ![License](https://img.shields.io/github/license/gauravagarwalgarg/vows-profile)
 
-> 📖 **Documentation**: [https://gauravagarwalgarg.github.io/vows-profile/](https://gauravagarwalgarg.github.io/vows-profile/)  
+> 💍 **Live Generator**: [https://gauravagarwalgarg.github.io/vows-profile/](https://gauravagarwalgarg.github.io/vows-profile/)  
 > 📦 **Repository**: [GitHub](https://github.com/gauravagarwalgarg/vows-profile)
 
-Classic, royal A4 matrimony biodata generator designed for elegance, single-page print perfection, and instant PDF rendering. Edit `metadata/details.json`, preview in your browser, or compile directly to a print-ready A4 PDF with one command.
+**VowsProfile** is a modern, 100% client-side matrimonial biodata generator with a real-time reactive split-screen layout and high-resolution (300 DPI) client-side A4 PDF export. It is hosted purely as a static website on GitHub Pages with zero active backend or external servers — all text and images remain strictly private on your device.
 
 ---
 
-## Highlights & Features
+## ✨ Features & Architecture
 
-- **Strict Single-Page A4 Fit**: Calibrated geometry guaranteeing exact 1-page output (`Pages: 1`) on A4 paper (210mm × 297mm).
-- **Royal Golden Aesthetic**: Warm parchment gradient background, radiant double-line gold border frame (`border.svg`), ivory card bevels, and Lord Ganesha header emblem with Sanskrit mantra.
-- **Balanced 2-Column Wireframe**:
-  - **Left Column**: 3 framed portrait photos with golden bezels and soft elevation.
-  - **Right Column**: 2 harmoniously weighted cards:
-    - **Card 1 (Personal & Professional Details)**: Gotra, DOB/POB, Education, Profession with enlarged Google Maps pin, Profiles & Search IDs (Jeevansathi, Shaadi, and LinkedIn with active hyperlink), Residence & Native Place, and Contact row with generous breathing room (zero spillover).
-    - **Card 2 (Family)**: Parents (female-first hierarchy), Elder Brother (corporate designation & degree), Paternal Family (Grandparents, Bua, Chacha), and Maternal Family (3 Mama Families, then 3 Mausi Families).
-- **Linear Dotted Family Tree**: Unified, continuous vertical timeline connecting all family generations with centered circular gold badges.
-- **Optimized for Adobe Reader**: Lightweight PDF (~1.25 MB, down from 8+ MB) using high-performance 360 PPI JPEG assets, eliminating lag and blank boxes.
-- **Privacy First**: All personal photos (`*.png`, `*.jpg`, `*.jpeg`), personal data (`metadata/details.json`), and generated PDFs (`*.pdf`) are automatically gitignored. Only example templates and core design assets are committed.
+### 1. Responsive Split-Screen Workspace
+- **Left Panel (Editor Form)**: Categorized accordion sections covering Header, 3 Photo slots, Personal & Kundali, Education & Career, Profiles, Residence, Contact, and Family.
+- **Right Panel (Live A4 Preview)**: Real-time reactive preview rendering the royal gold parchment layout with auto-scaling to fit any display without distortion.
+- **Interactive Zoom Toolbar**: Zoom in (`+`), Zoom out (`-`), Fit to screen (`Fit`), or inspect at 100% print size.
+- **Mobile Friendly**: Floating segmented view switcher toggling between **Edit Form** and **Live Preview** on smaller screens.
+
+### 2. Comprehensive & Dynamic Indian Matrimonial Details
+- **Header & Auspicious Deity**: Customizable mantra (`|| श्री गणेशाय नमः ||`, Jain, Krishna, Shiva presets or custom), candidate name, and headline subtitle.
+- **Personal & Kundali**: Gotra, Height (ft/in selector), Date of Birth, Time of Birth, Place of Birth, and optional Manglik status (`Non-Manglik`, `Manglik`, `Anshik Manglik`).
+- **3 Profile Photos**: Dedicated slots for Primary Portrait, Traditional/Full-length, and Festive Kurta. Images are automatically cropped and framed with `object-fit: cover`.
+- **Education & Career**: Degree, stream/specialization, institution, job designation, company, work mode (Remote/Hybrid), office address, and Google Maps pin link.
+- **Matrimonial & Social Profiles**: Toggleable chips for Jeevansathi ID, Shaadi.com ID, and LinkedIn profile with external link indicators.
+- **Native & Current Residence**: Native place (Village/Town, Dist, State), residence address, and Google Maps pin link.
+- **Contact Numbers**: Primary & secondary phone numbers.
+- **Super-Dynamic Family Tree**:
+  - **Parents**: Mother & Father (Honorifics e.g. `Smt.` / `Late Smt.`, `Shri` / `Late Shri`, Name).
+  - **Siblings**: Toggleable section with dynamic `+ Add Sibling` support for multiple brothers/sisters (relation, name, career, education).
+  - **Paternal Family (Dadihal)**: Grandmother & Grandfather, plus structured dynamic inputs for **Bua Families** (count + cities) and **Chacha Families** (count + cities).
+  - **Maternal Family (Nanihal)**: Grandmother & Grandfather, plus structured dynamic inputs for **Mama Families** (Mama first!) and **Mausi Families** (Mausi second!).
+  - **Conditional Hiding**: Any field left blank or unchecked is automatically omitted from the live preview without leaving dangling separators, empty bullets, or broken icons.
+
+### 3. Local-Only Image Processing
+- Photos are processed in the browser using `URL.createObjectURL()` for 0ms instant preview and converted locally into base64 Data URLs via `FileReader`.
+- **Zero Server Uploads**: Your photos never leave your device.
+
+### 4. High-Resolution (300 DPI) Client-Side PDF Generation
+- Built-in `html2pdf.js` export engine targeting strictly the A4 biodata container.
+- Renders background parchment gradients, SVG decorative border (`border.svg`), and crisp typography at 3x canvas scale (~300 DPI print quality).
+- Automatically names the file: `<CandidateName>_Biodata.pdf`.
 
 ---
 
-## Project Structure
+## 📁 Project Structure
 
 ```
 VowsProfile/
-├── Biodata.html                # Main matrimony profile page (double-click to preview)
-├── style.css                   # Print-optimized stylesheet (exact A4 dimensions, typography)
-├── generate_pdf.sh             # Automated script to compile single-page A4 PDF
+├── index.html                  # Main dynamic split-screen biodata generator application
+├── app.css                     # Modern luxury dark-gold generator UI stylesheet
+├── app.js                      # Reactive state controller, photo handler, and PDF generator
+├── style.css                   # Exact A4 print stylesheet for the matrimonial biodata
+├── Biodata.html                # Standalone print-ready matrimony profile page
+├── generate_pdf.sh             # Local CLI script to compile PDF via headless Chromium
+├── vendor/
+│   └── html2pdf.bundle.min.js  # Vendored client-side PDF export engine (offline capable)
 ├── metadata/
-│   ├── details.example.json    # TEMPLATE (commit safe, copy to details.json)
-│   ├── details.json            # YOUR PRIVATE DATA (gitignored, never committed)
+│   ├── details.example.json    # Complete reference schema and sample dataset
+│   ├── details.json            # Local private data (gitignored)
 │   ├── Ganesh.png              # Header deity emblem
-│   └── border.svg              # Decorative double-line gold border
-└── README.md
+│   └── border.svg              # Decorative double-line gold border frame
+└── .github/workflows/
+    └── deploy-pages.yml        # GitHub Actions workflow for zero-build GitHub Pages deployment
 ```
 
 ---
 
-## Quick Start (Setup & Preview)
+## 🚀 Running Locally
 
-### 1. Configure Your Details
-Copy the example template and fill in your information:
+You can run this project locally with any static web server:
+
 ```bash
-cp metadata/details.example.json metadata/details.json
-```
-Edit `metadata/details.json` with your real personal, educational, professional, and family details.
-
-### 2. Add Your Photos
-Place your 3 portrait photos into `metadata/`:
-- `metadata/MyPhoto.jpg` (Primary profile portrait)
-- `metadata/JodhpuriSuit3.jpg` (Second portrait / traditional wear)
-- `metadata/YellowKurta.jpg` (Third portrait / casual or celebratory wear)
-
-> **Tip**: High-quality JPEGs (around 600×900px to 800×1200px) are recommended for optimal sharpness and lightweight PDF file sizes.
-
-### 3. Preview in Browser
-Because modern browsers restrict local `fetch()` requests on `file://` URLs, serve locally using Python or Node:
-```bash
-# Using Python
+# Using Python 3
 python3 -m http.server 8080
 
-# Using Node.js
+# Or using Node.js / npx
 npx serve .
 ```
-Then open `http://localhost:8080/Biodata.html` in your browser.
+
+Open `http://localhost:8080` in your web browser.
 
 ---
 
-## Generating the Print-Ready PDF
+## 🌐 Deploying to GitHub Pages
 
-### Option A: Using the Automated Script (Recommended)
+This project is configured for automated deployment via GitHub Actions:
 
-Run the included generation script:
+1. Push your repository to GitHub on branch `main`.
+2. Go to **Repository Settings** > **Pages**.
+3. Under **Build and deployment** > **Source**, select **GitHub Actions**.
+4. The workflow in `.github/workflows/deploy-pages.yml` will automatically build and publish your static site.
+
+---
+
+## 📄 Standalone CLI PDF Compilation
+
+If you prefer compiling the static `Biodata.html` locally via headless Chromium:
+
 ```bash
+chmod +x generate_pdf.sh
 ./generate_pdf.sh
 ```
-The script automatically:
-1. Detects your installed Chrome / Chromium browser.
-2. Runs headless print compilation with background graphics enabled and default headers/footers removed.
-3. Outputs `Biodata.pdf` (~1.25 MB).
-4. Verifies page count (`Pages: 1`) and A4 dimensions using `pdfinfo`.
 
-You can also pass custom input or output paths:
-```bash
-./generate_pdf.sh Biodata.html MyCustomBiodata.pdf
-```
-
-### Option B: Manual Print via Browser
-
-1. Open `http://localhost:8080/Biodata.html` in Chrome or Edge.
-2. Press `Ctrl + P` (or `Cmd + P` on Mac).
-3. Set the following options:
-   - **Destination**: Save as PDF
-   - **Layout**: Portrait
-   - **Paper size**: A4
-   - **Margins**: None
-   - **Options**: Check **Background graphics**
-4. Click **Save**.
+This generates `Biodata.pdf` calibrated to fit on 1 single A4 page.
 
 ---
 
-## Git & Privacy
+## 🔒 Privacy Guarantee
 
-This repository is preconfigured to protect your private information:
-- `metadata/details.json` is excluded from git.
-- All personal photos (`*.jpg`, `*.jpeg`, `*.png`, `*.webp` except `Ganesh.png`) are excluded.
-- Generated PDFs (`*.pdf`) are excluded.
-- Only `metadata/details.example.json` and essential design assets are tracked.
-
----
-
-## License
-
-MIT License. See [LICENSE](LICENSE) for details.
+- `.gitignore` is pre-configured to exclude all personal photos (`*.png`, `*.jpg`, `*.jpeg`), generated PDFs (`*.pdf`), and personal data (`metadata/details.json`).
+- When using the web generator, all image uploads and data modifications are handled strictly inside your browser's local sandbox memory.

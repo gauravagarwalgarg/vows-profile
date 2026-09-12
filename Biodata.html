@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="style.css">
 </head>
 
-<body>
+<body class="standalone-view">
   <main class="page" id="biodata">
     <div class="border-frame"></div>
     <div class="content" id="app">
@@ -84,7 +84,7 @@
           {
             "relation": "Elder Brother",
             "name": "Harshit Agarwal",
-            "details": ["Senior Manager, Yes Bank, Noida", "MBA (BM) @ XIMB"]
+            "details": ["Senior Manager, Yes Bank (LC), Noida", "MBA (BM) @ XIMB"]
           }
         ],
         "paternalFamily": {
@@ -94,7 +94,9 @@
           "chachas": "3 Chacha Families: 1 in Jaipur, 2 in Jamshedpur"
         },
         "maternalFamily": {
-          "mamas": "3 Mama Families: 2 in Kolkata, 1 in Bangalore",
+          "grandmother": "Late Smt. Narangi Devi Swaika",
+          "grandfather": "Late Shri Rabindra Prasad Swaika",
+          "mamas": "3 Mama Families: 1 in Kolkata, 1 in Bangalore, 1 in Bangalore",
           "mausis": "3 Mausi Families: 2 in Kolkata, 1 in Surat"
         }
       }
@@ -127,11 +129,13 @@
       document.getElementById('app').innerHTML = `
         <!-- HEADER: GANESHA PROFILE -->
         <header class="hero">
-          <div class="identity">
-            <img class="ganesh" src="${d.header.ganeshImage}" alt="Lord Ganesha Emblem">
-            <p class="ganesh-line">${d.header.mantra}</p>
+          <div class="hero-left">
             <h1 class="name">${d.header.name}</h1>
             <p class="subtitle">${d.header.subtitle.replace(' | ', ' <span>|</span> ')}</p>
+          </div>
+          <div class="hero-right">
+            <img class="ganesh" src="${d.header.ganeshImage}" alt="Lord Ganesha Emblem">
+            <p class="ganesh-line">${d.header.mantra}</p>
           </div>
         </header>
 
@@ -285,12 +289,14 @@
                   </div>
                 </div>
 
-                <!-- 4. Maternal Family (Nanihal) (Linear - 3 Mama Families first, then 3 Mausi Families) -->
+                <!-- 4. Maternal Family (Nanihal) (Linear - Grandmother, Grandfather, 3 Mama Families first, then 3 Mausi Families) -->
                 <div class="entry">
                   <div class="rail"><span class="icon icon-maternal"></span></div>
                   <div class="entry-body">
                     <div class="details">
                       <p class="section-lead"><strong>Maternal Family:</strong></p>
+                      <p><strong>Grandmother:</strong> Late Smt. Narangi Devi Swaika</p>
+                      <p><strong>Grandfather:</strong> Late Shri Rabindra Prasad Swaika</p>
                       <p><strong>3 Mama Families:</strong> 2 in Kolkata, 1 in Bangalore</p>
                       <p><strong>3 Mausi Families:</strong> 2 in Kolkata, 1 in Surat</p>
                     </div>
@@ -302,9 +308,7 @@
         </section>
 
         <!-- FOOTER: GANESH NAMAH -->
-        <footer class="section-divider footer-divider">
-          <span>|| श्री गणेशाय नमः ||</span>
-        </footer>
+        <footer class="footer-line"></footer>
       `;
 
       // Guarantee all images are 100% decoded

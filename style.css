@@ -1,241 +1,210 @@
-/* =============================================================================
-   VowsProfile - Matrimony Biodata Stylesheet
-   A4 portrait, print-ready, warm royal gradient theme with refined golden framing
-   Wireframe Layout: Full-width Ganesha header, 3 left framed photos, 2 right cards
-   ============================================================================= */
+/* ===================================================================
+   VowsProfile - Biodata Print Stylesheet (A4 at 96 DPI)
+   Royal Gold on Warm Parchment · No Build · No Framework
+   REDESIGNED HEADER: Name left, Ganesha right · No footer mantra
+   =================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Marcellus&display=swap');
-
+/* === CSS VARIABLES === */
 :root {
-  --paper: #fdf8f0;
-  --paper-warm: #f7ece0;
-  --gold: #c89455;
-  --gold-deep: #9f6733;
-  --gold-line: #b8860b;
-  --gold-soft: rgba(200, 148, 85, 0.18);
-  --ink: #341e10;
-  --ink-soft: #4a301d;
-  --link: #87522c;
+  --bg-parchment: #d4c4b0;
+  --ink-dark: #2e1c0d;
+  --ink-soft: #3a2515;
+  --gold-accent: #b8860b;
+  --gold-light: rgba(200, 150, 62, 0.45);
 }
 
-@page {
-  size: A4 portrait;
-  margin: 0;
-}
-
-* {
-  box-sizing: border-box;
-  -webkit-print-color-adjust: exact;
-  print-color-adjust: exact;
-}
-
-html, body {
-  margin: 0;
-  padding: 0;
-  width: 210mm;
-  height: 297mm;
-  max-height: 297mm;
-  background: #d4c4b0;
-  font-family: 'Lora', 'Palatino Linotype', 'Book Antiqua', Georgia, serif;
-  color: var(--ink);
-  overflow: hidden;
-}
-
-a { color: var(--link); text-decoration: none; }
-
-/* === PAGE CONTAINER === */
+/* === A4 PAGE CONTAINER === */
 .page {
-  position: relative;
   width: 210mm;
   height: 297mm;
-  max-height: 297mm;
-  margin: 0 auto;
+  background: var(--bg-parchment);
+  color: var(--ink-dark);
+  font-family: 'Lora', 'Georgia', 'Palatino Linotype', serif;
+  font-size: 11.4pt;
+  line-height: 1.45;
+  box-sizing: border-box;
   overflow: hidden;
-  background:
-    radial-gradient(ellipse at 50% 50%, transparent 50%, rgba(160,120,70,0.12) 100%),
-    linear-gradient(180deg, rgba(180,140,90,0.1) 0%, transparent 5%),
-    linear-gradient(0deg, rgba(180,140,90,0.08) 0%, transparent 4%),
-    radial-gradient(ellipse at 50% 45%, #f6ebd8 0%, #eedec6 50%, #e2c9a6 100%);
-  box-shadow: 0 10px 40px rgba(80, 50, 20, 0.2);
+  position: relative;
 }
 
-/* === DECORATIVE OUTER BORDER OVERLAY === */
+/* A4 overflow danger state */
+.page.overflow-danger {
+  box-shadow: inset 0 0 0 2px rgba(220, 50, 50, 0.6);
+}
+
+/* === ORNAMENTAL BORDER FRAME === */
 .border-frame {
   position: absolute;
-  inset: 0;
-  background-image: url('metadata/border.svg');
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
+  inset: 3.5mm;
   pointer-events: none;
-  z-index: 2;
+  z-index: 10;
+  border: 1.2mm solid rgba(170, 120, 50, 0.55);
+  border-image: url('metadata/border.svg') 22 fill stretch;
 }
 
-/* === CONTENT CONTAINER === */
+/* === CONTENT AREA === */
 .content {
   position: relative;
-  z-index: 1;
-  height: 100%;
-  padding: 6.5mm 9.5mm 5mm;
+  z-index: 5;
   display: flex;
   flex-direction: column;
-  gap: 2.2mm;
+  height: 100%;
+  padding: 8mm 9.5mm 5mm;
 }
 
-/* === SECTION DIVIDERS === */
-.section-divider {
+/* === REDESIGNED HEADER: NAME LEFT, GANESHA RIGHT === */
+.hero {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 3.5mm;
-  padding: 0.2mm 0;
+  justify-content: space-between;
+  gap: 5mm;
+  padding: 0 0 2.5mm;
+  margin-bottom: 0;
+}
+
+.hero-left {
+  flex: 1;
+  min-width: 0;
+}
+
+.hero-left .name {
+  margin: 0;
+  font-family: 'Cinzel', 'Marcellus', Georgia, serif;
+  font-size: 22pt;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #2e1c0d;
+  line-height: 1.15;
+}
+
+.hero-left .subtitle {
+  margin: 1mm 0 0;
+  font-family: 'Lora', Georgia, serif;
+  font-size: 10.8pt;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: #5d3a1e;
+  line-height: 1.3;
+}
+
+.hero-right {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+  gap: 1mm;
+}
+
+.hero-right .ganesh {
+  width: 18mm;
+  height: 18mm;
+  object-fit: contain;
+  filter: drop-shadow(0 1px 3px rgba(100, 65, 30, 0.3));
+}
+
+.hero-right .ganesh-line {
+  margin: 0;
+  font-family: 'Cinzel Decorative', 'Cinzel', 'Marcellus', serif;
+  font-size: 8.5pt;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: #6b4226;
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* === SECTION DIVIDER === */
+.section-divider {
+  text-align: center;
+  margin: 1.5mm 0 2.5mm;
+  position: relative;
 }
 .section-divider::before,
 .section-divider::after {
   content: "";
-  flex: 1;
-  height: 0.25mm;
-  background: linear-gradient(90deg, transparent, #c59b27 20%, #c59b27 80%, transparent);
+  position: absolute;
+  top: 50%;
+  height: 0;
+  border-top: 0.35mm solid #b8860b;
+  width: 30%;
+  opacity: 0.6;
 }
+.section-divider::before { left: 0; }
+.section-divider::after { right: 0; }
 .section-divider span {
-  font-family: 'Cinzel', 'Marcellus', serif;
-  font-size: 9.8pt;
+  display: inline-block;
+  padding: 0 4mm;
+  font-family: 'Cinzel', 'Marcellus', Georgia, serif;
+  font-size: 12.8pt;
   font-weight: 700;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: #634125;
-  white-space: nowrap;
+  color: #4a2c14;
+  background: var(--bg-parchment);
+  position: relative;
+  z-index: 2;
 }
 
+/* === FOOTER: Simple decorative line (no mantra) === */
+.footer-line {
+  margin-top: auto;
+  padding-top: 2mm;
+  border-top: 0.35mm solid rgba(184, 134, 11, 0.45);
+}
+
+/* Keep old footer-divider for backward compatibility but simplified */
 .footer-divider {
   margin-top: auto;
-  padding-bottom: 0.4mm;
-}
-.footer-divider span {
-  font-size: 10.2pt;
-  letter-spacing: 0.05em;
-  color: #724c29;
 }
 
-/* === HERO: GANESHA PROFILE === */
-.hero {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 2.2mm 5mm 2.2mm;
-  border-radius: 4mm;
-  background: rgba(255, 253, 248, 0.52);
-  border: 0.25mm solid rgba(190, 142, 75, 0.35);
-  box-shadow:
-    inset 0 0 0 0.25mm rgba(255, 255, 255, 0.7),
-    0 3px 10px rgba(110, 75, 40, 0.05);
-}
-
-.identity { text-align: center; }
-
-.ganesh {
-  width: 21mm;
-  height: auto;
-  display: block;
-  margin: 0 auto 0.3mm;
-  opacity: 0.88;
-}
-
-.ganesh-line {
-  margin: 0 0 0.4mm;
-  font-family: 'Cinzel', serif;
-  font-size: 12.5pt;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  color: #b0753b;
-}
-
-.name {
-  margin: 0 0 0.2mm;
-  font-family: 'Cinzel', 'Marcellus', Georgia, serif;
-  font-size: 22pt;
-  line-height: 1.05;
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
-  color: #4a2810;
-  font-weight: 700;
-}
-
-.subtitle {
-  margin: 0;
-  font-size: 11.2pt;
-  font-family: 'Marcellus', Georgia, serif;
-  letter-spacing: 0.04em;
-  color: #684d36;
-}
-.subtitle span { padding: 0 2mm; color: #b27a42; font-weight: 600; }
-
-/* === MAIN TWO COLUMNS === */
+/* === PHOTOS / DETAILS COLUMNS === */
 .columns {
-  display: grid;
-  grid-template-columns: 57mm 1fr;
-  gap: 3.5mm;
+  display: flex;
+  gap: 4.2mm;
   flex: 1;
   min-height: 0;
 }
-
-/* === LEFT COLUMN: 3 FRAMED PHOTOS === */
 .photos-column {
+  flex: 0 0 34%;
   display: flex;
   flex-direction: column;
-  gap: 3.5mm;
-  height: 100%;
-  min-height: 0;
+  gap: 2.5mm;
 }
-
 .photo-card {
   flex: 1;
-  border-radius: 4.2mm;
+  border-radius: 2.8mm;
   overflow: hidden;
-  border: 0.35mm solid #c8963e;
+  border: 0.8mm solid #c8963e;
   box-shadow:
-    0 0 0 0.3mm rgba(255, 252, 245, 0.95),
-    0 0 0 0.65mm rgba(200, 150, 62, 0.28),
-    0 4px 12px rgba(100, 65, 30, 0.12);
-  background: rgba(255, 252, 245, 0.6);
-  min-height: 0;
+    inset 0 0 0 0.5mm rgba(255, 255, 255, 0.3),
+    0 2px 8px rgba(100, 65, 30, 0.12);
 }
-
 .photo-card img {
   width: 100%;
   height: 100%;
-  display: block;
   object-fit: cover;
+  display: block;
 }
-.photo-card-1 img { object-position: center 15%; }
-.photo-card-2 img { object-position: center 8%; }
-.photo-card-3 img { object-position: center 10%; }
 
-/* === RIGHT COLUMN: 2 BALANCED CARDS === */
+/* === DETAILS CARDS === */
 .details-column {
+  flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 3.4mm;
-  height: 100%;
-  min-height: 0;
+  gap: 2.5mm;
+  min-width: 0;
 }
 
 .card {
-  position: relative;
-  background: rgba(255, 253, 248, 0.72);
-  border: 0.35mm solid #c8963e;
-  border-radius: 4.2mm;
-  box-shadow:
-    inset 0 0 0 0.3mm #fffcf5,
-    inset 0 0 0 0.65mm rgba(200, 150, 62, 0.25),
-    0 3px 12px rgba(120, 80, 40, 0.07);
-  padding: 3.6mm 5.2mm 3.6mm;
-  min-height: 0;
+  border: 0.4mm solid rgba(200, 150, 62, 0.35);
+  border-radius: 2.5mm;
+  padding: 2.4mm 3.6mm 2.0mm;
+  background: rgba(255, 253, 248, 0.18);
 }
 
-/* Card 1 & Card 2: flex allocation calibrated for generous clearance in both cards */
 .card-personal {
-  flex: 1.22;
+  flex: 1.35;
   display: flex;
   flex-direction: column;
 }
@@ -278,7 +247,7 @@ a { color: var(--link); text-decoration: none; }
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  gap: 2.3mm;
+  gap: 1.8mm;
 }
 
 .entry {
@@ -388,8 +357,8 @@ a { color: var(--link); text-decoration: none; }
 
 /* Card 2 tighter vertical rhythm claiming spaces UP */
 .card-family .details p {
-  margin: 0 0 0.45mm;
-  line-height: 1.38;
+  margin: 0 0 0.35mm;
+  line-height: 1.34;
 }
 .card-family .details p:last-child {
   margin-bottom: 0;
