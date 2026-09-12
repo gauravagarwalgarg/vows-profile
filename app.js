@@ -1663,9 +1663,10 @@ async function generatePDF() {
     // Small delay to ensure rendering is fully settled
     await new Promise(r => setTimeout(r, 300));
 
-    // Clone element to an unscaled off-screen sandbox to avoid canvas distortion
+    // Clone element to an unscaled sandbox positioned behind other elements
+    // html2canvas ignores elements far offscreen like -99999px
     const sandbox = document.createElement('div');
-    sandbox.style.cssText = 'position:fixed;top:-99999px;left:-99999px;width:210mm;height:297mm;overflow:hidden;z-index:-1000;';
+    sandbox.style.cssText = 'position:absolute;top:0;left:0;width:210mm;height:297mm;overflow:hidden;z-index:-1000;opacity:0.01;pointer-events:none;';
 
     const clone = preview.cloneNode(true);
     clone.style.transform = 'none';
@@ -1689,8 +1690,6 @@ async function generatePDF() {
         letterRendering: true,
         backgroundColor: '#d4c4b0',
         logging: false,
-        scrollX: 0,
-        scrollY: 0,
         windowWidth: 793,
         windowHeight: 1122
       },
@@ -1734,5 +1733,63 @@ function showToast(msg) {
   setTimeout(() => toast.classList.remove('show'), 2400);
 }
 
-// Initialize on DOM Ready
-document.addEventListener('DOMContentLoaded', initApp);
+// Ensure the page scales dynamically to fit the A4 preview in the UI viewport
+function updatePreviewScale() {
+  const previewWrap = document.querySelector('.preview-wrapper');
+  const preview = document.getElementById('biodata-preview');
+  if (!previewWrap || !preview) return;
+
+  const currentZoom = window.previewZoomLevel || 1;
+  const padding = 32;
+  const availableWidth = previewWrap.clientWidth - padding;
+  const availableHeight = previewWrap.clientHeight - padding;
+  
+  // A4 dimensions at 96 DPI
+  const a4Width = 793.7;
+  const a4Height = 1122.5;
+
+  const scaleX = availableWidth / a4Width;
+  const scaleY = availableHeight / a4Height;
+  const scaleToFit = Math.min(scaleX, scaleY, 1);
+  
+  const finalScale = scaleToFit * currentZoom;
+  preview.style.transform = `scale(${finalScale})`;
+}
+
+// ... Initial setup ...
+function handleZoom(action) {
+  if (typeof window.previewZoomLevel === 'undefined') {
+    window.previewZoomLevel = 1;
+  }
+  
+  if (action === 'in') window.previewZoomLevel += 0.1;
+  else if (action === 'out') window.previewZoomLevel = Math.max(0.5, window.previewZoomLevel - 0.1);
+  else if (action === 'fit') window.previewZoomLevel = 1;
+  
+  updatePreviewScale();
+}
+
+window.addEventListener('resize', updatePreviewScale);
+window.addEventListener('DOMContentLoaded', () => {
+  // Try to load state from localStorage
+  const savedState = localStorage.getItem('vowsProfileState');
+  if (savedState) {
+    try {
+      appData = JSON.parse(savedState);
+    } catch(e) {
+      console.error('Failed to parse saved state', e);
+    }
+  }
+
+  populateForm();
+  renderBiodataPreview();
+  updatePreviewScale();
+  
+  const form = document.getElementById('biodata-form');
+  if (form) {
+    form.addEventListener('input', () => {
+      syncStateFromForm();
+      renderBiodataPreview();
+    });
+  }
+});
