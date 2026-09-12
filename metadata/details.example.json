@@ -2,7 +2,7 @@
   "header": {
     "mantra": "|| श्री गणेशाय नमः ||",
     "ganeshImage": "metadata/Ganesh.png",
-    "photo": "metadata/MyPhoto.png",
+    "photo": "metadata/MyPhoto.jpg",
     "name": "YOUR FULL NAME",
     "subtitle": "Your Designation | Your Company"
   },
@@ -12,67 +12,77 @@
     "dateOfBirth": "DD Month YYYY",
     "timeOfBirth": "HH:MM AM/PM",
     "placeOfBirth": "City, State",
-    "height": "X' Y\""
+    "height": "5' 9\""
   },
   "education": [
     {
-      "degree": "MBA / B.Tech / B.E. etc.",
-      "field": "Your Specialization",
-      "institution": "University Name, City"
-    },
-    {
-      "degree": "12th / Diploma etc.",
-      "field": "Stream",
-      "institution": "School/College Name, City"
+      "degree": "B.E / B.Tech / MBA",
+      "field": "Specialization / Stream",
+      "institution": "University / College Name, City"
     }
   ],
   "professional": {
-    "designation": "Your Job Title",
+    "designation": "Job Title",
     "company": "Company Name",
-    "workLocation": "City",
-    "officeAddress": "Full Office Address with Pin Code",
-    "mapLink": "https://maps.app.goo.gl/YOUR_LINK"
+    "workLocation": "Remote / Hybrid / On-site",
+    "officeAddress": "City, Country",
+    "mapLink": "https://maps.google.com/?q=Office+Location"
   },
-  "profiles": [
-    { "label": "LinkedIn", "url": "https://www.linkedin.com/in/your-profile/" },
-    { "label": "Jeevansathi", "url": "https://www.jeevansathi.com/YOUR_ID" },
-    { "label": "Shaadi", "url": "https://shaadi.com/YOUR_ID" }
-  ],
+  "profileLinks": {
+    "jeevansathi": {
+      "label": "Jeevansathi ID",
+      "id": "YOUR_ID",
+      "url": "https://www.jeevansathi.com/YOUR_ID"
+    },
+    "shaadi": {
+      "label": "Shaadi ID",
+      "id": "YOUR_ID",
+      "url": "https://shaadi.com/YOUR_ID"
+    },
+    "linkedin": {
+      "label": "LinkedIn",
+      "id": "your-username",
+      "url": "https://www.linkedin.com/in/your-username/"
+    }
+  },
   "nativePlace": "Village/Town, District, State",
   "permanentAddress": {
-    "line1": "House No, Street, Locality,",
-    "line2": "City - Pin Code",
-    "mapLink": "https://maps.app.goo.gl/YOUR_LINK"
+    "line1": "Flat/House No, Building Name,",
+    "line2": "Street, City - Pin Code",
+    "mapLink": "https://maps.google.com/?q=Residence+Location"
   },
   "contact": {
-    "phones": ["+91 XXXXXXXXXX", "+91 XXXXXXXXXX"]
+    "phones": [
+      "+91 XXXXXXXXXX",
+      "+91 XXXXXXXXXX"
+    ]
   },
   "family": {
-    "grandmother": "Smt. Grandmother Name",
-    "grandfather": "Shri Grandfather Name",
     "mother": "Smt. Mother Name",
     "father": "Shri Father Name",
     "siblings": [
       {
-        "relation": "Elder/Younger Brother/Sister",
+        "relation": "Elder Brother",
         "name": "Sibling Name",
-        "details": ["Designation, Company, City", "Degree, University, City"]
+        "details": [
+          "Designation, Company, City",
+          "Degree @ Institution"
+        ]
       }
-    ]
-  },
-  "paternalFamily": [
-    { "name": "Shri Uncle Name", "detail": "Occupation, City" },
-    { "name": "Shri Uncle Name", "detail": "Occupation, City" }
-  ],
-  "maternalFamily": [
-    { "name": "Shri Maternal Uncle Name", "detail": "Occupation, City" },
-    { "name": "Shri Maternal Uncle Name", "detail": "Occupation, City" }
-  ],
-  "businessFirms": [
-    {
-      "name": "M/s Your Family Business Name",
-      "address": "Full Address with Pin Code",
-      "mapLink": "https://maps.app.goo.gl/YOUR_LINK"
+    ],
+    "paternalFamily": {
+      "grandmother": "Late Smt. Grandmother Name",
+      "grandfather": "Shri Grandfather Name",
+      "buas": "3 Bua Families: 2 in City A, 1 in City B",
+      "chachas": "3 Chacha Families: 1 in City C, 2 in City D"
+    },
+    "maternalFamily": {
+      "mamas": "3 Mama Families: 2 in City A, 1 in City B",
+      "mausis": "3 Mausi Families: 2 in City C, 1 in City D"
     }
+  },
+  "gallery": [
+    "metadata/Photo1.jpg",
+    "metadata/Photo2.jpg"
   ]
 }

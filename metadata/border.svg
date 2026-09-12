@@ -1,37 +1,61 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 794 1123" width="794" height="1123">
-  <!-- Clean gold double-line border with dots only. No arches, no shapes. -->
+  <!-- Radiant Royal Double-Line Gold Border - Warm Golden Tones (No Dark/Black Strokes) -->
 
   <!-- Outer gold line -->
-  <rect x="22" y="22" width="750" height="1079" fill="none" stroke="#b8860b" stroke-width="2" rx="2"/>
+  <rect x="22" y="22" width="750" height="1079" fill="none" stroke="#c59b27" stroke-width="1.4" rx="3"/>
 
   <!-- Inner thin gold line -->
-  <rect x="30" y="30" width="734" height="1063" fill="none" stroke="#c89455" stroke-width="0.7" rx="1"/>
+  <rect x="28" y="28" width="738" height="1067" fill="none" stroke="#dfb76c" stroke-width="0.75" rx="2"/>
 
-  <!-- Top dots -->
-  <circle cx="150" cy="22" r="3.5" fill="none" stroke="#c89455" stroke-width="0.8"/><circle cx="150" cy="22" r="1.5" fill="#c89455" opacity="0.5"/>
-  <circle cx="270" cy="22" r="3.5" fill="none" stroke="#c89455" stroke-width="0.8"/><circle cx="270" cy="22" r="1.5" fill="#c89455" opacity="0.5"/>
-  <circle cx="397" cy="22" r="3.5" fill="none" stroke="#c89455" stroke-width="0.8"/><circle cx="397" cy="22" r="1.5" fill="#c89455" opacity="0.5"/>
-  <circle cx="524" cy="22" r="3.5" fill="none" stroke="#c89455" stroke-width="0.8"/><circle cx="524" cy="22" r="1.5" fill="#c89455" opacity="0.5"/>
-  <circle cx="644" cy="22" r="3.5" fill="none" stroke="#c89455" stroke-width="0.8"/><circle cx="644" cy="22" r="1.5" fill="#c89455" opacity="0.5"/>
+  <!-- Fine innermost hairline -->
+  <rect x="32" y="32" width="730" height="1059" fill="none" stroke="#eccb8d" stroke-width="0.35" opacity="0.6"/>
 
-  <!-- Bottom dots -->
-  <circle cx="150" cy="1101" r="3.5" fill="none" stroke="#c89455" stroke-width="0.8"/><circle cx="150" cy="1101" r="1.5" fill="#c89455" opacity="0.5"/>
-  <circle cx="270" cy="1101" r="3.5" fill="none" stroke="#c89455" stroke-width="0.8"/><circle cx="270" cy="1101" r="1.5" fill="#c89455" opacity="0.5"/>
-  <circle cx="397" cy="1101" r="3.5" fill="none" stroke="#c89455" stroke-width="0.8"/><circle cx="397" cy="1101" r="1.5" fill="#c89455" opacity="0.5"/>
-  <circle cx="524" cy="1101" r="3.5" fill="none" stroke="#c89455" stroke-width="0.8"/><circle cx="524" cy="1101" r="1.5" fill="#c89455" opacity="0.5"/>
-  <circle cx="644" cy="1101" r="3.5" fill="none" stroke="#c89455" stroke-width="0.8"/><circle cx="644" cy="1101" r="1.5" fill="#c89455" opacity="0.5"/>
+  <!-- Four Elegant Corner Gold Accents (Fine Luminous Gold) -->
+  <!-- Top-Left Corner -->
+  <path d="M 22 42 L 22 22 L 42 22" fill="none" stroke="#c59b27" stroke-width="1.6"/>
+  <circle cx="30" cy="30" r="2.8" fill="#dfb76c" stroke="#c59b27" stroke-width="0.6"/>
+  <circle cx="30" cy="30" r="1.1" fill="#fff9f0"/>
 
-  <!-- Left dots -->
-  <circle cx="22" cy="200" r="3.5" fill="none" stroke="#c89455" stroke-width="0.8"/><circle cx="22" cy="200" r="1.5" fill="#c89455" opacity="0.5"/>
-  <circle cx="22" cy="380" r="3.5" fill="none" stroke="#c89455" stroke-width="0.8"/><circle cx="22" cy="380" r="1.5" fill="#c89455" opacity="0.5"/>
-  <circle cx="22" cy="562" r="3.5" fill="none" stroke="#c89455" stroke-width="0.8"/><circle cx="22" cy="562" r="1.5" fill="#c89455" opacity="0.5"/>
-  <circle cx="22" cy="742" r="3.5" fill="none" stroke="#c89455" stroke-width="0.8"/><circle cx="22" cy="742" r="1.5" fill="#c89455" opacity="0.5"/>
-  <circle cx="22" cy="922" r="3.5" fill="none" stroke="#c89455" stroke-width="0.8"/><circle cx="22" cy="922" r="1.5" fill="#c89455" opacity="0.5"/>
+  <!-- Top-Right Corner -->
+  <path d="M 772 42 L 772 22 L 752 22" fill="none" stroke="#c59b27" stroke-width="1.6"/>
+  <circle cx="764" cy="30" r="2.8" fill="#dfb76c" stroke="#c59b27" stroke-width="0.6"/>
+  <circle cx="764" cy="30" r="1.1" fill="#fff9f0"/>
 
-  <!-- Right dots -->
-  <circle cx="772" cy="200" r="3.5" fill="none" stroke="#c89455" stroke-width="0.8"/><circle cx="772" cy="200" r="1.5" fill="#c89455" opacity="0.5"/>
-  <circle cx="772" cy="380" r="3.5" fill="none" stroke="#c89455" stroke-width="0.8"/><circle cx="772" cy="380" r="1.5" fill="#c89455" opacity="0.5"/>
-  <circle cx="772" cy="562" r="3.5" fill="none" stroke="#c89455" stroke-width="0.8"/><circle cx="772" cy="562" r="1.5" fill="#c89455" opacity="0.5"/>
-  <circle cx="772" cy="742" r="3.5" fill="none" stroke="#c89455" stroke-width="0.8"/><circle cx="772" cy="742" r="1.5" fill="#c89455" opacity="0.5"/>
-  <circle cx="772" cy="922" r="3.5" fill="none" stroke="#c89455" stroke-width="0.8"/><circle cx="772" cy="922" r="1.5" fill="#c89455" opacity="0.5"/>
+  <!-- Bottom-Left Corner -->
+  <path d="M 22 1081 L 22 1101 L 42 1101" fill="none" stroke="#c59b27" stroke-width="1.6"/>
+  <circle cx="30" cy="1093" r="2.8" fill="#dfb76c" stroke="#c59b27" stroke-width="0.6"/>
+  <circle cx="30" cy="1093" r="1.1" fill="#fff9f0"/>
+
+  <!-- Bottom-Right Corner -->
+  <path d="M 772 1081 L 772 1101 L 752 1101" fill="none" stroke="#c59b27" stroke-width="1.6"/>
+  <circle cx="764" cy="1093" r="2.8" fill="#dfb76c" stroke="#c59b27" stroke-width="0.6"/>
+  <circle cx="764" cy="1093" r="1.1" fill="#fff9f0"/>
+
+  <!-- Top decorative gold dots -->
+  <circle cx="150" cy="22" r="3" fill="none" stroke="#dfb76c" stroke-width="0.7"/><circle cx="150" cy="22" r="1.3" fill="#c59b27" opacity="0.6"/>
+  <circle cx="270" cy="22" r="3" fill="none" stroke="#dfb76c" stroke-width="0.7"/><circle cx="270" cy="22" r="1.3" fill="#c59b27" opacity="0.6"/>
+  <circle cx="397" cy="22" r="3.6" fill="none" stroke="#c59b27" stroke-width="0.9"/><circle cx="397" cy="22" r="1.6" fill="#dfb76c" opacity="0.8"/>
+  <circle cx="524" cy="22" r="3" fill="none" stroke="#dfb76c" stroke-width="0.7"/><circle cx="524" cy="22" r="1.3" fill="#c59b27" opacity="0.6"/>
+  <circle cx="644" cy="22" r="3" fill="none" stroke="#dfb76c" stroke-width="0.7"/><circle cx="644" cy="22" r="1.3" fill="#c59b27" opacity="0.6"/>
+
+  <!-- Bottom decorative gold dots -->
+  <circle cx="150" cy="1101" r="3" fill="none" stroke="#dfb76c" stroke-width="0.7"/><circle cx="150" cy="1101" r="1.3" fill="#c59b27" opacity="0.6"/>
+  <circle cx="270" cy="1101" r="3" fill="none" stroke="#dfb76c" stroke-width="0.7"/><circle cx="270" cy="1101" r="1.3" fill="#c59b27" opacity="0.6"/>
+  <circle cx="397" cy="1101" r="3.6" fill="none" stroke="#c59b27" stroke-width="0.9"/><circle cx="397" cy="1101" r="1.6" fill="#dfb76c" opacity="0.8"/>
+  <circle cx="524" cy="1101" r="3" fill="none" stroke="#dfb76c" stroke-width="0.7"/><circle cx="524" cy="1101" r="1.3" fill="#c59b27" opacity="0.6"/>
+  <circle cx="644" cy="1101" r="3" fill="none" stroke="#dfb76c" stroke-width="0.7"/><circle cx="644" cy="1101" r="1.3" fill="#c59b27" opacity="0.6"/>
+
+  <!-- Left decorative dots -->
+  <circle cx="22" cy="200" r="3" fill="none" stroke="#dfb76c" stroke-width="0.7"/><circle cx="22" cy="200" r="1.3" fill="#c59b27" opacity="0.6"/>
+  <circle cx="22" cy="380" r="3" fill="none" stroke="#dfb76c" stroke-width="0.7"/><circle cx="22" cy="380" r="1.3" fill="#c59b27" opacity="0.6"/>
+  <circle cx="22" cy="562" r="3.6" fill="none" stroke="#c59b27" stroke-width="0.9"/><circle cx="22" cy="562" r="1.6" fill="#dfb76c" opacity="0.8"/>
+  <circle cx="22" cy="742" r="3" fill="none" stroke="#dfb76c" stroke-width="0.7"/><circle cx="22" cy="742" r="1.3" fill="#c59b27" opacity="0.6"/>
+  <circle cx="22" cy="922" r="3" fill="none" stroke="#dfb76c" stroke-width="0.7"/><circle cx="22" cy="922" r="1.3" fill="#c59b27" opacity="0.6"/>
+
+  <!-- Right decorative dots -->
+  <circle cx="772" cy="200" r="3" fill="none" stroke="#dfb76c" stroke-width="0.7"/><circle cx="772" cy="200" r="1.3" fill="#c59b27" opacity="0.6"/>
+  <circle cx="772" cy="380" r="3" fill="none" stroke="#dfb76c" stroke-width="0.7"/><circle cx="772" cy="380" r="1.3" fill="#c59b27" opacity="0.6"/>
+  <circle cx="772" cy="562" r="3.6" fill="none" stroke="#c59b27" stroke-width="0.9"/><circle cx="772" cy="562" r="1.6" fill="#dfb76c" opacity="0.8"/>
+  <circle cx="772" cy="742" r="3" fill="none" stroke="#dfb76c" stroke-width="0.7"/><circle cx="772" cy="742" r="1.3" fill="#c59b27" opacity="0.6"/>
+  <circle cx="772" cy="922" r="3" fill="none" stroke="#dfb76c" stroke-width="0.7"/><circle cx="772" cy="922" r="1.3" fill="#c59b27" opacity="0.6"/>
 </svg>

@@ -1,7 +1,27 @@
-# Personal data (never commit your actual details)
+# Personal data (never commit actual personal details)
 metadata/details.json
-metadata/MyPhoto.png
 
-# OS
+# Generated PDFs
+*.pdf
+Biodata.pdf
+
+# Personal photos & temporary image renders
+*.png
+*.jpg
+*.jpeg
+*.webp
+
+# Whitelist required repository assets
+!metadata/Ganesh.png
+!metadata/border.svg
+
+# Temporary test/debug files
+debug.html
+pdf_render*
+wireframe_render*
+current_render*
+
+# OS and editor files
 .DS_Store
 Thumbs.db
+*.log

@@ -1,203 +1,321 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Biodata</title>
+  <title>Biodata - Gaurav Agarwal</title>
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
   <main class="page" id="biodata">
-    <p style="text-align:center;padding:40mm 20mm;font-size:14pt;color:#65462f;">Loading biodata from metadata/details.json...</p>
+    <div class="border-frame"></div>
+    <div class="content" id="app">
+      <p style="text-align:center;padding:40mm 20mm;font-size:14pt;color:#65462f;">Loading biodata...</p>
+    </div>
   </main>
 
   <script>
-    // Data source: tries fetch first (server), falls back to embedded (file://)
-    const EMBEDDED_DATA = {"header":{"mantra":"|| श्री गणेशाय नमः ||","ganeshImage":"metadata/Ganesh.png","photo":"metadata/MyPhoto.png","name":"Gaurav Agarwal","subtitle":"Senior Software Engineer | The Boeing Company"},"personal":{"name":"Gaurav Agarwal","gotra":"Garg","dateOfBirth":"27 March 1995","timeOfBirth":"11:55 PM","placeOfBirth":"Jamshedpur, Jharkhand","height":"5' 9\""},"education":[{"degree":"B.E","field":"Electrical & Electronics Engineering","institution":"PES University, Bangalore"}],"professional":{"designation":"Senior Software Engineer","company":"The Boeing Company","workLocation":"Bangalore","officeAddress":"B.Marenahalli, Bhatramarenahalli, Hunachur, Karnataka - 562165","mapLink":"https://maps.app.goo.gl/cCPxDqosNKLyuBYQ7"},"profiles":[{"label":"LinkedIn","url":"https://www.linkedin.com/in/gauravagarwalgarg/"},{"label":"Jeevansathi","url":"https://www.jeevansathi.com/TUVR3909"},{"label":"Shaadi","url":"https://shaadi.com/SH45028289"}],"nativePlace":"Hodh, Sri Madhopur, Sikar, Rajasthan","permanentAddress":{"line1":"402, Mathura Villa, Tapadia Complex,","line2":"Station Road, Jamshedpur - 831006","mapLink":"https://maps.app.goo.gl/opJJvv2UNQqVtmLcA"},"contact":{"phones":["+91 8050837120","+91 6203229640"]},"family":{"grandmother":"Late Smt. Sumitra Devi","grandfather":"Shri Ram Ratan Agarwal","mother":"Smt. Usha Agarwal","father":"Shri Keshav Kumar Agarwal","siblings":[{"relation":"Elder Brother","name":"Harshit Agarwal","details":["Senior Manager, Yes Bank, Noida","MBA, XIM University, Bhubneshwar"]}]},"paternalFamily":[{"name":"Shri Subhash Garg","detail":"Business, Jaipur"},{"name":"Shri Sanjay Garg","detail":"Business, Jamshedpur"},{"name":"Shri Ajay Garg","detail":"Business, Jamshedpur"}],"maternalFamily":[{"name":"Shri Man Mohan Swaika","detail":"CEO, Angus Jute Company - Kolkata"},{"name":"Shri Subhash Chandra Swaika","detail":"Practicing CA - Kolkata"},{"name":"Shri Sudhir Kumar Swaika","detail":"Business - Rourkela"}],"businessFirms":[{"name":"M/s Mahadeolal Bhagirathmal Medicals","address":"Near Udivani Press, Main Road, Jugsalai, Jamshedpur - 831006","mapLink":"https://maps.app.goo.gl/mmJVLrhGJqveWRYB9"},{"name":"M/s Jai Shri Shyam Textiles","address":"Johari Bazar Road, Jaipur, Rajasthan - 302003","mapLink":"https://maps.app.goo.gl/HMnH6E7aRpDsofst5"}]};
+    const EMBEDDED_DATA = {
+      "header": {
+        "mantra": "|| श्री गणेशाय नमः ||",
+        "ganeshImage": "metadata/Ganesh.png",
+        "name": "Gaurav Agarwal",
+        "subtitle": "Senior Engineer | Weave Communications"
+      },
+      "photos": [
+        "metadata/MyPhoto.jpg",
+        "metadata/JodhpuriSuit3.jpg",
+        "metadata/YellowKurta.jpg"
+      ],
+      "personal": {
+        "name": "Gaurav Agarwal",
+        "gotra": "Garg",
+        "dateOfBirth": "27 March 1995",
+        "timeOfBirth": "11:55 PM",
+        "placeOfBirth": "Jamshedpur, Jharkhand",
+        "height": "5' 9\""
+      },
+      "education": [
+        {
+          "degree": "B.E",
+          "field": "Electrical & Electronics Engineering",
+          "institution": "PES University, Bangalore"
+        }
+      ],
+      "professional": {
+        "designation": "Senior Engineer",
+        "company": "Weave Communications",
+        "workLocation": "Remote",
+        "officeAddress": "Utah, USA",
+        "mapLink": "https://maps.google.com/?q=Weave+HQ+Lehi+Utah"
+      },
+      "profileLinks": {
+        "jeevansathi": {
+          "label": "Jeevansathi ID",
+          "id": "TUWA2925",
+          "url": "https://www.jeevansathi.com/TUWA2925"
+        },
+        "shaadi": {
+          "label": "Shaadi ID",
+          "id": "SH45028289",
+          "url": "https://shaadi.com/SH45028289"
+        },
+        "linkedin": {
+          "label": "LinkedIn",
+          "id": "gauravagarwalgarg",
+          "url": "https://www.linkedin.com/in/gauravagarwalgarg/"
+        }
+      },
+      "nativePlace": "Hodh, Sri Madhopur, Sikar, Rajasthan",
+      "permanentAddress": {
+        "line1": "402, Mathura Villa, Tapadia Complex,",
+        "line2": "Station Road, Jamshedpur - 831006",
+        "mapLink": "https://maps.google.com/?q=Mathura+Villa+Tapadia+Complex+Jamshedpur"
+      },
+      "contact": {
+        "phones": ["+91 8050837120", "+91 6203229640"]
+      },
+      "family": {
+        "mother": "Smt. Usha Agarwal",
+        "father": "Shri Keshav Kumar Agarwal",
+        "siblings": [
+          {
+            "relation": "Elder Brother",
+            "name": "Harshit Agarwal",
+            "details": ["Senior Manager, Yes Bank, Noida", "MBA (BM) @ XIMB"]
+          }
+        ],
+        "paternalFamily": {
+          "grandmother": "Late Smt. Sumitra Devi",
+          "grandfather": "Shri Ram Ratan Agarwal",
+          "buas": "3 Bua Families: 2 in Kolkata, 1 in Sambalpur",
+          "chachas": "3 Chacha Families: 1 in Jaipur, 2 in Jamshedpur"
+        },
+        "maternalFamily": {
+          "mamas": "3 Mama Families: 2 in Kolkata, 1 in Bangalore",
+          "mausis": "3 Mausi Families: 2 in Kolkata, 1 in Surat"
+        }
+      }
+    };
 
-    (async function() {
+    (async function () {
       let d;
       try {
         const res = await fetch('metadata/details.json');
         if (!res.ok) throw new Error('fetch failed');
         d = await res.json();
-      } catch(e) {
-        // Fallback to embedded data (works with file://)
+      } catch (e) {
         d = EMBEDDED_DATA;
       }
 
-      // Validate photo exists
-      const img = new Image();
-      img.src = d.header.photo;
-      img.onerror = () => alert('WARNING: Photo not found at "' + d.header.photo + '". Place your photo in metadata/ folder.');
+      // Prioritize optimized high-performance JPEGs
+      const rawPhotos = d.photos || [
+        (d.header && d.header.photo) || "metadata/MyPhoto.jpg",
+        (d.gallery && d.gallery[0]) || "metadata/JodhpuriSuit3.jpg",
+        (d.gallery && d.gallery[1]) || "metadata/YellowKurta.jpg"
+      ];
+      const photos = rawPhotos.map(p => p.replace(/\.png$/i, '.jpg'));
 
-      const mapSvg = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7Zm0 9.6A2.6 2.6 0 1 1 14.6 9 2.6 2.6 0 0 1 12 11.6Z"/></svg>';
+      const mapSvg = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 0 1 0-5 2.5 2.5 0 0 1 0 5z"/></svg>';
+      const extSvg = '<svg class="ext-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7zm5 16H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7h-2v7z"/></svg>';
 
-      document.getElementById('biodata').innerHTML = `
-        <div class="border-frame">
-          <div class="content">
-            <!-- HERO -->
-            <section class="hero">
-              <div class="identity">
-                <img class="ganesh" src="${d.header.ganeshImage}" alt="Ganesh">
-                <div class="ganesh-line">${d.header.mantra}</div>
-                <h1 class="name">${d.header.name}</h1>
-                <p class="subtitle">${d.header.subtitle.replace(' | ', ' <span>|</span> ')}</p>
+      const grandmotherName = (d.family.paternalFamily && d.family.paternalFamily.grandmother) || (d.family.paternal && d.family.paternal.grandmother) || d.family.grandmother || "Late Smt. Sumitra Devi";
+      const grandfatherName = (d.family.paternalFamily && d.family.paternalFamily.grandfather) || (d.family.paternal && d.family.paternal.grandfather) || d.family.grandfather || "Shri Ram Ratan Agarwal";
+
+      document.getElementById('app').innerHTML = `
+        <!-- HEADER: GANESHA PROFILE -->
+        <header class="hero">
+          <div class="identity">
+            <img class="ganesh" src="${d.header.ganeshImage}" alt="Lord Ganesha Emblem">
+            <p class="ganesh-line">${d.header.mantra}</p>
+            <h1 class="name">${d.header.name}</h1>
+            <p class="subtitle">${d.header.subtitle.replace(' | ', ' <span>|</span> ')}</p>
+          </div>
+        </header>
+
+        <!-- SECTION DIVIDER -->
+        <div class="section-divider">
+          <span>Biodata Profile</span>
+        </div>
+
+        <!-- TWO COLUMNS LAYOUT -->
+        <section class="columns">
+          <!-- LEFT COLUMN: 3 FRAMED PHOTOS -->
+          <div class="photos-column">
+            ${photos.slice(0, 3).map((src, i) => `
+              <div class="photo-card photo-card-${i + 1}">
+                <img src="${src}" alt="Photo ${i + 1}">
               </div>
-              <div class="photo">
-                <img src="${d.header.photo}" alt="${d.header.name}">
-              </div>
-            </section>
+            `).join('')}
+          </div>
 
-            <!-- Section divider -->
-            <div class="section-divider">
-              <span>Personal &amp; Professional Details</span>
-            </div>
-
-            <!-- TWO COLUMNS -->
-            <section class="columns">
-              <!-- LEFT -->
-              <div class="panel left">
-                <article class="entry">
+          <!-- RIGHT COLUMN: 2 BALANCED CARDS -->
+          <div class="details-column">
+            <!-- CARD 1: PERSONAL & PROFESSIONAL DETAILS -->
+            <article class="card card-personal">
+              <h2 class="card-title"><span class="flourish">❖</span>Personal &amp; Professional Details</h2>
+              <div class="entries-timeline">
+                <!-- Personal Info -->
+                <div class="entry">
                   <div class="rail"><span class="icon icon-person"></span></div>
                   <div class="entry-body">
-                    <h3 class="title">Personal Details</h3>
                     <div class="details">
-                      <p><strong>Name:</strong> ${d.personal.name}</p>
-                      <p><strong>Gotra:</strong> ${d.personal.gotra}</p>
-                      <p><strong>Date of Birth:</strong> ${d.personal.dateOfBirth}</p>
-                      <p><strong>Time:</strong> ${d.personal.timeOfBirth}</p>
-                      <p><strong>Place:</strong> ${d.personal.placeOfBirth}</p>
-                      <p><strong>Height:</strong> ${d.personal.height}</p>
+                      <p><strong>Gotra:</strong> ${d.personal.gotra} &nbsp;|&nbsp; <strong>Height:</strong> ${d.personal.height}</p>
+                      <p><strong>Date of Birth:</strong> ${d.personal.dateOfBirth} &nbsp;·&nbsp; <strong>Time:</strong> ${d.personal.timeOfBirth}</p>
+                      <p><strong>Place of Birth:</strong> ${d.personal.placeOfBirth}</p>
                     </div>
                   </div>
-                </article>
+                </div>
 
-                <article class="entry">
+                <!-- Education -->
+                <div class="entry">
                   <div class="rail"><span class="icon icon-edu"></span></div>
                   <div class="entry-body">
-                    <h3 class="title">Education</h3>
                     <div class="details">
-                      ${d.education.map(e => `<p><strong>${e.degree}:</strong> ${e.field}</p><p class="cont nobullet">${e.institution}</p>`).join('')}
+                      ${d.education.map(e => `
+                        <p><strong>Education:</strong> ${e.degree} (${e.field})</p>
+                        <p class="cont nobullet">${e.institution}</p>
+                      `).join('')}
                     </div>
                   </div>
-                </article>
+                </div>
 
-                <article class="entry">
+                <!-- Professional Details -->
+                <div class="entry">
                   <div class="rail"><span class="icon icon-work"></span></div>
                   <div class="entry-body">
-                    <h3 class="title">Professional Details</h3>
                     <div class="details">
-                      <p><strong>Designation:</strong> ${d.professional.designation}</p>
-                      <p class="cont nobullet">${d.professional.company}</p>
-                      <p><strong>Work Location:</strong> ${d.professional.workLocation}</p>
-                      <p><strong>Office:</strong> ${d.professional.officeAddress} ${d.professional.mapLink ? `<a class="map-link" href="${d.professional.mapLink}" target="_blank" rel="noreferrer">${mapSvg}</a>` : ''}</p>
+                      <p><strong>Profession:</strong> ${d.professional.designation} &nbsp;·&nbsp; ${d.professional.company}</p>
+                      <p class="cont nobullet">Work Location: ${d.professional.workLocation} &nbsp;·&nbsp; Office: ${d.professional.officeAddress} ${d.professional.mapLink ? `<a class="map-link" href="${d.professional.mapLink}" target="_blank" rel="noreferrer" title="Open office location in Google Maps">${mapSvg}</a>` : ''}</p>
                     </div>
                   </div>
-                </article>
+                </div>
 
-                <article class="entry">
+                <!-- Profiles & Search IDs -->
+                <div class="entry entry-profiles">
                   <div class="rail"><span class="icon icon-link"></span></div>
                   <div class="entry-body">
-                    <h3 class="title">Profiles</h3>
-                    <div class="details profiles">
-                      ${d.profiles.map(p => `<p><a href="${p.url}" target="_blank" rel="noreferrer">${p.url.replace('https://www.','').replace('https://','')}</a></p>`).join('')}
+                    <div class="details">
+                      <p class="profiles-heading"><strong>Profiles &amp; Search IDs:</strong></p>
+                      <div class="profile-chips">
+                        <a class="profile-chip" href="https://www.jeevansathi.com/TUWA2925" target="_blank" rel="noreferrer" title="Click to open profile or search ID on Jeevansathi">
+                          <span class="chip-platform">Jeevansathi ID:</span>
+                          <span class="chip-id">TUWA2925</span>
+                        </a>
+                        <a class="profile-chip" href="https://shaadi.com/SH45028289" target="_blank" rel="noreferrer" title="Click to open profile or search ID on Shaadi.com">
+                          <span class="chip-platform">Shaadi ID:</span>
+                          <span class="chip-id">SH45028289</span>
+                        </a>
+                        <a class="profile-chip profile-chip-linkedin" href="https://www.linkedin.com/in/gauravagarwalgarg/" target="_blank" rel="noreferrer" title="Open LinkedIn Profile">
+                          <span class="chip-platform">LinkedIn:</span>
+                          <span class="chip-id">gauravagarwalgarg</span>
+                          ${extSvg}
+                        </a>
+                      </div>
                     </div>
                   </div>
-                </article>
+                </div>
 
-                <article class="entry">
+                <!-- Residence & Native -->
+                <div class="entry">
                   <div class="rail"><span class="icon icon-location"></span></div>
                   <div class="entry-body">
-                    <h3 class="title">Native Place</h3>
-                    <div class="details"><p>${d.nativePlace}</p></div>
-                  </div>
-                </article>
-
-                <article class="entry">
-                  <div class="rail"><span class="icon icon-home"></span></div>
-                  <div class="entry-body">
-                    <h3 class="title">Permanent Residence</h3>
                     <div class="details">
-                      <p>${d.permanentAddress.line1}</p>
-                      <p class="cont-tight nobullet">${d.permanentAddress.line2} ${d.permanentAddress.mapLink ? `<a class="map-link" href="${d.permanentAddress.mapLink}" target="_blank" rel="noreferrer">${mapSvg}</a>` : ''}</p>
+                      <p><strong>Native Place:</strong> ${d.nativePlace}</p>
+                      <p><strong>Residence:</strong> ${d.permanentAddress.line1} ${d.permanentAddress.line2} ${d.permanentAddress.mapLink ? `<a class="map-link" href="${d.permanentAddress.mapLink}" target="_blank" rel="noreferrer" title="Open residence location in Google Maps">${mapSvg}</a>` : ''}</p>
                     </div>
                   </div>
-                </article>
+                </div>
 
-                <article class="entry">
+                <!-- Contact -->
+                <div class="entry entry-contact">
                   <div class="rail"><span class="icon icon-phone"></span></div>
                   <div class="entry-body">
-                    <h3 class="title">Contact</h3>
-                    <div class="details phones">
-                      ${(d.contact.phones || [d.contact.phone]).map(ph => `<p class="phone-number"><a href="tel:${ph.replace(/\\s/g,'')}">${ph}</a></p>`).join('')}
+                    <div class="details phones-inline">
+                      <p>
+                        <strong>Contact:</strong> ${(d.contact.phones || [d.contact.phone]).map(ph => `<a class="phone-link" href="tel:${ph.replace(/\s/g, '')}">${ph}</a>`).join(' &nbsp;&nbsp;|&nbsp;&nbsp; ')}
+                      </p>
                     </div>
                   </div>
-                </article>
+                </div>
               </div>
+            </article>
 
-              <!-- RIGHT -->
-              <div class="panel right">
-                <article class="entry">
+            <!-- CARD 2: FAMILY (LINEAR TIMELINE - 3 MAMA FIRST THEN 3 MAUSI) -->
+            <article class="card card-family">
+              <h3 class="card-title"><span class="flourish">❖</span>Family</h3>
+              <div class="family-timeline">
+                <!-- 1. Parents -->
+                <div class="entry">
                   <div class="rail"><span class="icon icon-family"></span></div>
                   <div class="entry-body">
-                    <h3 class="title">Family</h3>
                     <div class="details">
-                      <p><strong>Grandmother:</strong> ${d.family.grandmother}</p>
-                      <p><strong>Grandfather:</strong> ${d.family.grandfather}</p>
-                      <p><strong>Mother:</strong> ${d.family.mother}</p>
-                      <p><strong>Father:</strong> ${d.family.father}</p>
-                      ${d.family.siblings.map(s => `
-                        <p class="brother-gap"><strong>${s.relation}:</strong> ${s.name}</p>
-                        ${s.details.map(det => `<p class="cont-tight nobullet">${det}</p>`).join('')}
-                      `).join('')}
+                      <p><strong>Mother:</strong> ${d.family.mother || "Smt. Usha Agarwal"}</p>
+                      <p><strong>Father:</strong> ${d.family.father || "Shri Keshav Kumar Agarwal"}</p>
                     </div>
                   </div>
-                </article>
+                </div>
 
-                <article class="entry">
-                  <div class="rail"><span class="icon icon-family"></span></div>
-                  <div class="entry-body">
-                    <h3 class="title">Paternal Family</h3>
-                    <div class="details">
-                      ${d.paternalFamily.map(p => `<p>${p.name}</p><p class="cont-tight nobullet">${p.detail}</p>`).join('')}
+                <!-- 2. Sibling -->
+                ${(d.family.siblings || []).map(s => `
+                  <div class="entry">
+                    <div class="rail"><span class="icon icon-person"></span></div>
+                    <div class="entry-body">
+                      <div class="details">
+                        <p><strong>${s.relation}:</strong> ${s.name}</p>
+                        <p class="cont nobullet">${s.details.join(' &nbsp;·&nbsp; ')}</p>
+                      </div>
                     </div>
                   </div>
-                </article>
+                `).join('')}
 
-                <article class="entry">
-                  <div class="rail"><span class="icon icon-family"></span></div>
+                <!-- 3. Paternal Family (Linear) -->
+                <div class="entry">
+                  <div class="rail"><span class="icon icon-paternal"></span></div>
                   <div class="entry-body">
-                    <h3 class="title">Maternal Family</h3>
                     <div class="details">
-                      ${d.maternalFamily.map(m => `<p>${m.name}</p><p class="cont-tight nobullet">${m.detail}</p>`).join('')}
+                      <p class="section-lead"><strong>Paternal Family:</strong></p>
+                      <p><strong>Grandmother:</strong> ${grandmotherName}</p>
+                      <p><strong>Grandfather:</strong> ${grandfatherName}</p>
+                      <p><strong>3 Bua Families:</strong> 2 in Kolkata, 1 in Sambalpur</p>
+                      <p><strong>3 Chacha Families:</strong> 1 in Jaipur, 2 in Jamshedpur</p>
                     </div>
                   </div>
-                </article>
+                </div>
 
-                <article class="entry">
-                  <div class="rail"><span class="icon icon-home"></span></div>
+                <!-- 4. Maternal Family (Nanihal) (Linear - 3 Mama Families first, then 3 Mausi Families) -->
+                <div class="entry">
+                  <div class="rail"><span class="icon icon-maternal"></span></div>
                   <div class="entry-body">
-                    <h3 class="title">Business / Firm Details</h3>
                     <div class="details">
-                      ${d.businessFirms.map(f => `
-                        <p><strong>${f.name}</strong> ${f.mapLink ? `<a class="map-link" href="${f.mapLink}" target="_blank" rel="noreferrer">${mapSvg}</a>` : ''}</p>
-                        <p class="cont-tight nobullet">${f.address}</p>
-                      `).join('')}
+                      <p class="section-lead"><strong>Maternal Family:</strong></p>
+                      <p><strong>3 Mama Families:</strong> 2 in Kolkata, 1 in Bangalore</p>
+                      <p><strong>3 Mausi Families:</strong> 2 in Kolkata, 1 in Surat</p>
                     </div>
                   </div>
-                </article>
+                </div>
               </div>
-            </section>
-
-            <!-- Footer divider -->
-            <div class="section-divider footer-divider">
-              <span>|| श्री गणेशाय नमः ||</span>
-            </div>
+            </article>
           </div>
-        </div>
+        </section>
+
+        <!-- FOOTER: GANESH NAMAH -->
+        <footer class="section-divider footer-divider">
+          <span>|| श्री गणेशाय नमः ||</span>
+        </footer>
       `;
+
+      // Guarantee all images are 100% decoded
+      await Promise.all(
+        Array.from(document.images).map(img => {
+          if (img.complete) return Promise.resolve();
+          return new Promise(res => { img.onload = img.onerror = res; });
+        })
+      );
     })();
   </script>
 </body>
+
 </html>

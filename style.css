@@ -1,17 +1,26 @@
 /* =============================================================================
    VowsProfile - Matrimony Biodata Stylesheet
-   A4 portrait, print-ready, warm gradient theme with ornate border
+   A4 portrait, print-ready, warm royal gradient theme with refined golden framing
+   Wireframe Layout: Full-width Ganesha header, 3 left framed photos, 2 right cards
    ============================================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Marcellus&display=swap');
 
 :root {
   --paper: #fdf8f0;
   --paper-warm: #f7ece0;
   --gold: #c89455;
   --gold-deep: #9f6733;
-  --gold-soft: rgba(200, 148, 85, 0.15);
-  --ink: #4a3425;
-  --ink-soft: #6b5240;
+  --gold-line: #b8860b;
+  --gold-soft: rgba(200, 148, 85, 0.18);
+  --ink: #341e10;
+  --ink-soft: #4a301d;
   --link: #87522c;
+}
+
+@page {
+  size: A4 portrait;
+  margin: 0;
 }
 
 * {
@@ -24,180 +33,258 @@ html, body {
   margin: 0;
   padding: 0;
   width: 210mm;
-  min-height: 297mm;
+  height: 297mm;
+  max-height: 297mm;
   background: #d4c4b0;
-  font-family: "Palatino Linotype", "Book Antiqua", Georgia, serif;
+  font-family: 'Lora', 'Palatino Linotype', 'Book Antiqua', Georgia, serif;
   color: var(--ink);
+  overflow: hidden;
 }
 
 a { color: var(--link); text-decoration: none; }
 
-/* === PAGE === */
+/* === PAGE CONTAINER === */
 .page {
   position: relative;
   width: 210mm;
   height: 297mm;
+  max-height: 297mm;
   margin: 0 auto;
   overflow: hidden;
-  /* Solid warm beige with subtle darker edges -- NO WHITE */
   background:
-    /* Darker corners/edges */
     radial-gradient(ellipse at 50% 50%, transparent 50%, rgba(160,120,70,0.12) 100%),
-    /* Subtle top band */
     linear-gradient(180deg, rgba(180,140,90,0.1) 0%, transparent 5%),
-    /* Subtle bottom band */
     linear-gradient(0deg, rgba(180,140,90,0.08) 0%, transparent 4%),
-    /* Base: solid warm beige -- center slightly lighter but NEVER white */
-    radial-gradient(ellipse at 50% 45%, #f5e8d4 0%, #efdcc4 50%, #e4ccaa 100%);
+    radial-gradient(ellipse at 50% 45%, #f6ebd8 0%, #eedec6 50%, #e2c9a6 100%);
   box-shadow: 0 10px 40px rgba(80, 50, 20, 0.2);
 }
 
-/* === DECORATIVE BORDER === */
+/* === DECORATIVE OUTER BORDER OVERLAY === */
 .border-frame {
   position: absolute;
   inset: 0;
   background-image: url('metadata/border.svg');
   background-size: 100% 100%;
   background-repeat: no-repeat;
-  overflow: hidden;
+  pointer-events: none;
+  z-index: 2;
 }
 
-.border-frame > .content {
-  pointer-events: auto;
-}
-
-/* === CONTENT === */
+/* === CONTENT CONTAINER === */
 .content {
   position: relative;
   z-index: 1;
   height: 100%;
-  padding: 9mm 10mm 7mm;
-  display: grid;
-  grid-template-rows: auto auto 1fr auto;
-  gap: 2mm;
+  padding: 6.5mm 9.5mm 5mm;
+  display: flex;
+  flex-direction: column;
+  gap: 2.2mm;
 }
 
-/* === SECTION DIVIDER === */
+/* === SECTION DIVIDERS === */
 .section-divider {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 3mm;
-  padding: 1mm 0;
+  gap: 3.5mm;
+  padding: 0.2mm 0;
 }
 .section-divider::before,
 .section-divider::after {
   content: "";
   flex: 1;
-  height: 0.2mm;
-  background: linear-gradient(90deg, transparent, #b8860b 20%, #b8860b 80%, transparent);
+  height: 0.25mm;
+  background: linear-gradient(90deg, transparent, #c59b27 20%, #c59b27 80%, transparent);
 }
 .section-divider span {
-  font-size: 10.5pt;
+  font-family: 'Cinzel', 'Marcellus', serif;
+  font-size: 9.8pt;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: #6b4a2f;
+  letter-spacing: 0.12em;
+  color: #634125;
   white-space: nowrap;
 }
 
 .footer-divider {
   margin-top: auto;
+  padding-bottom: 0.4mm;
+}
+.footer-divider span {
+  font-size: 10.2pt;
+  letter-spacing: 0.05em;
+  color: #724c29;
 }
 
-/* === HERO === */
+/* === HERO: GANESHA PROFILE === */
 .hero {
-  display: grid;
-  grid-template-columns: 1fr 44mm;
-  column-gap: 4mm;
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  padding: 2.5mm 4mm 3mm;
+  justify-content: center;
+  padding: 2.2mm 5mm 2.2mm;
   border-radius: 4mm;
-  /* Hero blends with page gradient */
-  background: rgba(255, 252, 245, 0.35);
-  border: 0.15mm solid rgba(200, 148, 85, 0.12);
-  box-shadow: 0 3px 8px rgba(122, 84, 47, 0.04);
+  background: rgba(255, 253, 248, 0.52);
+  border: 0.25mm solid rgba(190, 142, 75, 0.35);
+  box-shadow:
+    inset 0 0 0 0.25mm rgba(255, 255, 255, 0.7),
+    0 3px 10px rgba(110, 75, 40, 0.05);
 }
 
 .identity { text-align: center; }
 
 .ganesh {
-  width: 28mm;
+  width: 21mm;
+  height: auto;
   display: block;
-  margin: 0 auto 0.5mm;
-  opacity: 0.75;
+  margin: 0 auto 0.3mm;
+  opacity: 0.88;
 }
 
 .ganesh-line {
-  margin: 0 0 1mm;
-  font-size: 14pt;
+  margin: 0 0 0.4mm;
+  font-family: 'Cinzel', serif;
+  font-size: 12.5pt;
   font-weight: 700;
-  letter-spacing: 0.03em;
-  color: #b47b42;
+  letter-spacing: 0.04em;
+  color: #b0753b;
 }
 
 .name {
-  margin: 0 0 0.3mm;
+  margin: 0 0 0.2mm;
+  font-family: 'Cinzel', 'Marcellus', Georgia, serif;
   font-size: 22pt;
   line-height: 1.05;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.03em;
   text-transform: uppercase;
-  color: #5a3820;
-  font-weight: 800;
+  color: #4a2810;
+  font-weight: 700;
 }
 
 .subtitle {
   margin: 0;
-  font-size: 11.5pt;
-  color: #6d533e;
+  font-size: 11.2pt;
+  font-family: 'Marcellus', Georgia, serif;
+  letter-spacing: 0.04em;
+  color: #684d36;
 }
-.subtitle span { padding: 0 2mm; color: #b27a42; }
+.subtitle span { padding: 0 2mm; color: #b27a42; font-weight: 600; }
 
-/* === PHOTO === */
-.photo {
-  justify-self: end;
-  width: 40mm;
-  height: 50mm;
-  padding: 1.2mm;
-  background: linear-gradient(160deg, #fdf6ed 0%, #ddb37d 40%, #aa6f36 100%);
-  clip-path: polygon(6% 0, 94% 0, 100% 6%, 100% 94%, 94% 100%, 6% 100%, 0 94%, 0 6%);
-  box-shadow: 0 4px 10px rgba(104, 72, 42, 0.12);
+/* === MAIN TWO COLUMNS === */
+.columns {
+  display: grid;
+  grid-template-columns: 57mm 1fr;
+  gap: 3.5mm;
+  flex: 1;
+  min-height: 0;
 }
-.photo img {
+
+/* === LEFT COLUMN: 3 FRAMED PHOTOS === */
+.photos-column {
+  display: flex;
+  flex-direction: column;
+  gap: 3.5mm;
+  height: 100%;
+  min-height: 0;
+}
+
+.photo-card {
+  flex: 1;
+  border-radius: 4.2mm;
+  overflow: hidden;
+  border: 0.35mm solid #c8963e;
+  box-shadow:
+    0 0 0 0.3mm rgba(255, 252, 245, 0.95),
+    0 0 0 0.65mm rgba(200, 150, 62, 0.28),
+    0 4px 12px rgba(100, 65, 30, 0.12);
+  background: rgba(255, 252, 245, 0.6);
+  min-height: 0;
+}
+
+.photo-card img {
   width: 100%;
   height: 100%;
   display: block;
   object-fit: cover;
-  object-position: center 15%;
-  clip-path: inherit;
 }
+.photo-card-1 img { object-position: center 15%; }
+.photo-card-2 img { object-position: center 8%; }
+.photo-card-3 img { object-position: center 10%; }
 
-/* === COLUMNS === */
-.columns {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 3.5mm;
-  min-height: 0;
-}
-
-.panel {
+/* === RIGHT COLUMN: 2 BALANCED CARDS === */
+.details-column {
   display: flex;
   flex-direction: column;
-  padding: 3.5mm 3.8mm 3mm;
-  border-radius: 4mm;
-  /* Subtle gradient box like hero */
-  background: rgba(255, 252, 245, 0.35);
-  border: 0.15mm solid rgba(200, 148, 85, 0.12);
-  box-shadow: 0 2px 6px rgba(122, 84, 47, 0.03);
+  gap: 3.4mm;
+  height: 100%;
   min-height: 0;
-  gap: 2.4mm;
 }
 
-/* === ENTRIES === */
+.card {
+  position: relative;
+  background: rgba(255, 253, 248, 0.72);
+  border: 0.35mm solid #c8963e;
+  border-radius: 4.2mm;
+  box-shadow:
+    inset 0 0 0 0.3mm #fffcf5,
+    inset 0 0 0 0.65mm rgba(200, 150, 62, 0.25),
+    0 3px 12px rgba(120, 80, 40, 0.07);
+  padding: 3.6mm 5.2mm 3.6mm;
+  min-height: 0;
+}
+
+/* Card 1 & Card 2: flex allocation calibrated for generous clearance in both cards */
+.card-personal {
+  flex: 1.22;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-family {
+  flex: 1.0;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-title {
+  margin: 0 0 2.0mm;
+  padding-bottom: 0.7mm;
+  font-family: 'Cinzel', 'Marcellus', Georgia, serif;
+  font-size: 12.4pt;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #4a2c14;
+  border-bottom: 0.3mm solid rgba(200, 150, 62, 0.45);
+  display: flex;
+  align-items: center;
+}
+.card-title .flourish {
+  margin-right: 2.2mm;
+  font-size: 9pt;
+  color: #b8860b;
+  opacity: 0.9;
+}
+
+/* === ENTRIES TIMELINE & LINEAR DOTTED CONNECTION === */
+.entries-timeline {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 2.1mm;
+}
+
+.family-timeline {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 2.3mm;
+}
+
 .entry {
   display: grid;
-  grid-template-columns: 6.5mm 1fr;
-  gap: 1.2mm;
+  grid-template-columns: 5.4mm 1fr;
+  gap: 2.6mm;
   align-items: start;
 }
 
@@ -206,32 +293,55 @@ a { color: var(--link); text-decoration: none; }
   display: flex;
   justify-content: center;
   min-height: 100%;
-  padding-top: 0.1mm;
+  padding-top: 0.2mm;
 }
-.rail::after {
+
+/* Linear timeline connecting dotted line */
+.card-personal .rail::after {
   content: "";
   position: absolute;
-  top: 5.5mm;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 5.4mm;
   bottom: -2.2mm;
-  width: 0.3mm;
-  background: #c89455;
-  opacity: 0.5;
+  width: 0;
+  border-left: 0.55mm dotted #b8860b;
+  opacity: 0.85;
 }
-.entry:last-child .rail::after { bottom: 0; }
+
+.card-family .rail::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 5.4mm;
+  bottom: -2.4mm;
+  width: 0;
+  border-left: 0.55mm dotted #b8860b;
+  opacity: 0.85;
+}
+
+/* Clean termination on the last entry of each card */
+.card-personal .entry:last-child .rail::after,
+.card-family .entry:last-child .rail::after {
+  display: none !important;
+}
 
 /* === ICONS === */
 .icon {
-  width: 5mm;
-  height: 5mm;
-  flex: 0 0 5mm;
+  width: 5.3mm;
+  height: 5.3mm;
+  flex: 0 0 5.3mm;
   border-radius: 50%;
   background-color: #c89455;
   background-repeat: no-repeat;
   background-position: center;
   background-size: 58% 58%;
-  box-shadow: inset 0 0 0 0.15mm rgba(126, 85, 43, 0.1);
+  box-shadow:
+    inset 0 0 0 0.2mm rgba(255, 255, 255, 0.55),
+    0 1px 4px rgba(100, 65, 30, 0.15);
   position: relative;
-  z-index: 1;
+  z-index: 2;
 }
 
 .icon-person { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23fff7ec' d='M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4Zm0 2c-3.87 0-7 2.24-7 5v1h14v-1c0-2.76-3.13-5-7-5Z'/%3E%3C/svg%3E"); }
@@ -240,107 +350,166 @@ a { color: var(--link); text-decoration: none; }
 .icon-work { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23fff7ec' d='M9 6V4h6v2h4a2 2 0 0 1 2 2v3H3V8a2 2 0 0 1 2-2Zm6 0V5H9v1Zm6 7v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-5h6v2h6v-2Z'/%3E%3C/svg%3E"); }
 .icon-link { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23fff7ec' d='M10.6 13.4a2 2 0 0 0 2.8 0l3.6-3.6a2 2 0 0 0-2.8-2.8L12.6 8.6l1.4 1.4 1.6-1.6a.5.5 0 0 1 .7.7l-3.6 3.6a.5.5 0 0 1-.7 0ZM6.3 17a2 2 0 0 0 2.8 0l1.6-1.6-1.4-1.4-1.6 1.6a.5.5 0 0 1-.7-.7l3.6-3.6a.5.5 0 1 1 .7.7l-.3.3 1.4 1.4.3-.3a2 2 0 1 0-2.8-2.8L6.3 14.2A2 2 0 0 0 6.3 17Z'/%3E%3C/svg%3E"); }
 .icon-family { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23fff7ec' d='M9 11a3 3 0 1 0-3-3 3 3 0 0 0 3 3Zm6 0a3 3 0 1 0-3-3 3 3 0 0 0 3 3Zm0 2c-2 0-3.8.8-5 2.1C8.8 13.8 7 13 5 13c-2.8 0-5 1.8-5 4v1h10v-1a4.8 4.8 0 0 0-.1-1H20v1h4v-1c0-2.2-2.2-4-5-4Z'/%3E%3C/svg%3E"); }
-.icon-home { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23fff7ec' d='M12 4 4 10v10h16V10Zm-4 9h8v5H8Z'/%3E%3C/svg%3E"); }
+.icon-paternal { background-color: #b8860b; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23fff7ec' d='M12 2A7 7 0 0 0 5 9c0 2.5 1.3 4.7 3.3 5.9V19H7v2h10v-2h-1.3v-4.1c2-1.2 3.3-3.4 3.3-5.9a7 7 0 0 0-7-7Zm-1.5 17v-3.5h3V19h-3Z'/%3E%3C/svg%3E"); }
+.icon-maternal { background-color: #b8860b; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23fff7ec' d='M12 2a5 5 0 0 1 5 5c0 2.1-1.3 3.9-3.2 4.6.4.7.7 1.4.9 2.2 2.6.4 4.8 2.3 5.2 4.9.1.7-.4 1.3-1.1 1.3H5.2c-.7 0-1.2-.6-1.1-1.3.4-2.6 2.6-4.5 5.2-4.9.2-.8.5-1.5.9-2.2C8.3 10.9 7 9.1 7 7a5 5 0 0 1 5-5Z'/%3E%3C/svg%3E"); }
 .icon-phone { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23fff7ec' d='M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1-.24 11.36 11.36 0 0 0 3.57.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.49a1 1 0 0 1 1 1 11.36 11.36 0 0 0 .57 3.57 1 1 0 0 1-.24 1Z'/%3E%3C/svg%3E"); }
 
-/* === TYPOGRAPHY === */
+/* === TYPOGRAPHY & DETAILS === */
 .entry-body { min-width: 0; }
-
-.title {
-  margin: 0 0 0.5mm;
-  font-size: 12.5pt;
-  font-weight: 700;
-  line-height: 1.1;
-  letter-spacing: 0.005em;
-  text-transform: uppercase;
-  color: #5a3820;
-}
 
 .details p {
   position: relative;
-  margin: 0;
-  padding-left: 3mm;
-  font-size: 11.5pt;
-  line-height: 1.35;
+  margin: 0 0 0.55mm;
+  padding-left: 3.6mm;
+  font-size: 11.4pt;
+  line-height: 1.40;
   color: var(--ink-soft);
-  margin-bottom: 1.2mm;
+}
+.details p:last-child {
+  margin-bottom: 0;
 }
 .details p::before {
   content: "";
   position: absolute;
-  left: 0.4mm;
-  top: 0.55em;
-  width: 1.4mm;
-  height: 1.4mm;
+  left: 0.5mm;
+  top: 0.62em;
+  width: 1.3mm;
+  height: 1.3mm;
   border-radius: 50%;
   background: #b8860b;
-  opacity: 0.7;
+  opacity: 0.85;
   transform: translateY(-50%);
 }
-.details strong { color: #4a3425; font-weight: 700; }
+.details strong {
+  color: #341e10;
+  font-weight: 700;
+  font-size: 11.8pt;
+}
+
+/* Card 2 tighter vertical rhythm claiming spaces UP */
+.card-family .details p {
+  margin: 0 0 0.45mm;
+  line-height: 1.38;
+}
+.card-family .details p:last-child {
+  margin-bottom: 0;
+}
+
+.section-lead {
+  margin: 0 0 0.55mm !important;
+  font-size: 11.8pt;
+}
+.section-lead strong {
+  color: #3e220f;
+}
 
 .details .cont,
-.details .cont-tight { display: block; margin-top: 0.3mm; margin-bottom: 0.6mm; }
-.details .cont { padding-left: 9mm; }
-.details .cont-tight { padding-left: 5mm; }
+.details .cont-tight {
+  display: block;
+  margin-top: 0.12mm;
+  margin-bottom: 0.3mm;
+}
+.details .cont { padding-left: 5.8mm; font-size: 10.8pt; line-height: 1.38; }
+.details .cont-tight { padding-left: 4.2mm; font-size: 10.8pt; line-height: 1.38; }
 .details .nobullet::before,
 .details .cont::before,
 .details .cont-tight::before { display: none; }
 
-.brother-gap { margin-bottom: 0.5mm; }
-
-.profiles a {
-  border-bottom: 0.5px dotted rgba(141,84,45,0.3);
-  overflow-wrap: anywhere;
+/* === PROFILES & SEARCH IDS (CHIPS) === */
+.entry-profiles .details p.profiles-heading {
+  margin-bottom: 0.9mm;
+}
+.profile-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2.2mm;
+  padding-left: 3.6mm;
+  margin-top: 0.3mm;
+  margin-bottom: 0.3mm;
+}
+.profile-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.6mm;
+  padding: 0.8mm 2.6mm;
+  border-radius: 2.5mm;
+  background: rgba(255, 253, 248, 0.92);
+  border: 0.28mm solid #c8963e;
+  box-shadow: 0 1px 3px rgba(100, 65, 30, 0.08);
+  font-size: 10.2pt;
+  line-height: 1.25;
+  color: #3e2412;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+.profile-chip:hover {
+  background: #fff8eb;
+  border-color: #a8732c;
+}
+.chip-platform {
+  font-weight: 700;
+  color: #5d3615;
+}
+.chip-id {
+  font-family: 'Cinzel', 'Marcellus', Georgia, serif;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  color: #8c5324;
+}
+.profile-chip-linkedin {
+  background: rgba(247, 243, 235, 0.95);
+  border-color: #b8860b;
+}
+.profile-chip-linkedin .chip-id {
+  font-family: 'Lora', Georgia, serif;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  font-size: 10.2pt;
+}
+.ext-icon {
+  width: 3.0mm;
+  height: 3.0mm;
+  fill: #8c5324;
+  opacity: 0.85;
 }
 
+/* === ENLARGED LOCATION PIN ICON & BADGE === */
 .map-link {
   display: inline-flex;
   align-items: center;
-  margin-left: 0.4mm;
-  vertical-align: middle;
+  justify-content: center;
+  margin-left: 1.6mm;
+  vertical-align: -0.7mm;
+  width: 4.8mm;
+  height: 4.8mm;
+  border-radius: 50%;
+  background: #c89455;
+  box-shadow: 0 1px 3px rgba(100, 65, 30, 0.2);
+  transition: transform 0.15s ease, background 0.15s ease;
 }
-.map-link svg { width: 2.5mm; height: 2.5mm; fill: #b46c34; display: block; }
-
-.contact-spacer { margin-top: 0; }
-
-.phones p.phone-number {
-  padding-left: 0;
-  margin-bottom: 1.2mm;
+.map-link:hover {
+  transform: scale(1.12);
+  background: #a8732c;
 }
-.phones p.phone-number::before { display: none; }
-.phones p.phone-number a {
-  font-size: 13pt;
-  font-weight: 700;
-  color: var(--ink);
-  text-decoration: none;
-}
-
-.phone {
-  display: flex;
-  align-items: center;
-  gap: 1.5mm;
-  font-size: 14pt;
-  font-weight: 700;
-  color: var(--ink);
-  text-decoration: none;
-}
-.phone .icon {
-  width: 5mm;
-  height: 5mm;
-  flex-basis: 5mm;
-  background-size: 55% 55%;
-  margin-left: -6.5mm;
+.map-link svg {
+  width: 3.4mm;
+  height: 3.4mm;
+  fill: #fff7ec;
+  display: block;
 }
 
-/* === PRINT === */
-@page {
-  size: A4 portrait;
+/* === CONTACT ROW === */
+.entry-contact {
+  margin-top: 0.2mm;
+}
+.entry-contact .rail::after {
+  display: none !important;
+}
+.entry-contact .details p {
   margin: 0;
 }
-
-@media print {
-  html, body, .page { width: 210mm; height: 297mm; }
-  body { background: #efdcc4; }
-  .page { box-shadow: none; }
+.phone-link {
+  color: #341e10;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-decoration: none;
 }
