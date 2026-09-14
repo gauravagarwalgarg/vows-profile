@@ -1,0 +1,116 @@
+{
+  "header": {
+    "mantra": "|| श्री गणेशाय नमः ||",
+    "ganeshImage": "metadata/Ganesh.png",
+    "name": "Gaurav Agarwal",
+    "subtitle": "Senior Engineer | Weave Communications"
+  },
+  "customLabels": {
+    "sectionDivider": "Biodata Profile",
+    "card1Title": "Personal & Professional Details",
+    "card2Title": "Family"
+  },
+  "photos": [
+    "metadata/1.png",
+    "metadata/2.png",
+    "metadata/3.jpg"
+  ],
+  "personal": {
+    "name": "Gaurav Agarwal",
+    "gotra": "Garg",
+    "dateOfBirth": "27 March 1995",
+    "timeOfBirth": "11:55 PM",
+    "placeOfBirth": "Jamshedpur, Jharkhand",
+    "height": "5' 9\""
+  },
+  "education": [
+    {
+      "degree": "B.E",
+      "field": "Electrical & Electronics Engineering",
+      "institution": "PES University, Bangalore"
+    }
+  ],
+  "professional": {
+    "designation": "Senior Engineer",
+    "company": "Weave Communications",
+    "workLocation": "Remote",
+    "officeAddress": "Utah, USA",
+    "mapLink": "https://maps.google.com/?q=Weave+HQ+Lehi+Utah"
+  },
+  "profileLinks": [
+    {
+      "enabled": true,
+      "platform": "Jeevansathi ID",
+      "id": "TUWA2925",
+      "url": "https://www.jeevansathi.com/TUWA2925",
+      "isExternal": false
+    },
+    {
+      "enabled": true,
+      "platform": "Shaadi ID",
+      "id": "SH45028289",
+      "url": "https://shaadi.com/SH45028289",
+      "isExternal": false
+    },
+    {
+      "enabled": true,
+      "platform": "LinkedIn",
+      "id": "gauravagarwalgarg",
+      "url": "https://www.linkedin.com/in/gauravagarwalgarg/",
+      "isExternal": true
+    }
+  ],
+  "nativePlace": "Hodh, Sri Madhopur, Sikar, Rajasthan",
+  "permanentAddress": {
+    "line1": "402, Mathura Villa, Tapadia Complex,",
+    "line2": "Station Road, Jamshedpur - 831006",
+    "mapLink": "https://maps.google.com/?q=Mathura+Villa+Tapadia+Complex+Jamshedpur"
+  },
+  "contact": {
+    "phones": [
+      "+91 8050837120",
+      "+91 6203229640"
+    ]
+  },
+  "family": {
+    "motherTitle": "Smt.",
+    "mother": "Usha Agarwal",
+    "fatherTitle": "Shri",
+    "father": "Keshav Kumar Agarwal",
+    "hasSiblings": true,
+    "siblings": [
+      {
+        "relation": "Elder Brother",
+        "name": "Harshit Agarwal",
+        "details": [
+          "Senior Manager, Yes Bank (LC), Noida",
+          "MBA (BM) @ XIMB"
+        ]
+      }
+    ],
+    "paternalFamily": {
+      "grandmotherTitle": "Late Smt.",
+      "grandmother": "Sumitra Devi",
+      "grandfatherTitle": "Shri",
+      "grandfather": "Ram Ratan Agarwal",
+      "hasBuas": true,
+      "buaCount": "3",
+      "buaLocation": "2 in Kolkata, 1 in Sambalpur",
+      "hasChachas": true,
+      "chachaCount": "3",
+      "chachaLocation": "1 in Jaipur, 2 in Jamshedpur"
+    },
+    "maternalFamily": {
+      "grandmotherTitle": "Late Smt.",
+      "grandmother": "Narangi Devi Swaika",
+      "grandfatherTitle": "Late Shri",
+      "grandfather": "Rabindra Prasad Swaika",
+      "hasMamas": true,
+      "mamaCount": "3",
+      "mamaLocation": "2 in Kolkata, 1 in Bangalore",
+      "hasMausis": true,
+      "mausiCount": "3",
+      "mausiLocation": "2 in Kolkata, 1 in Surat"
+    }
+  }
+}

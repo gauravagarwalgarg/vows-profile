@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Biodata - Gaurav Agarwal</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="standalone-view">
+  <main class="page" id="biodata">
+    <div class="border-frame"></div>
+    <div class="content" id="app">
+      <p style="text-align:center;padding:40mm 20mm;font-size:14pt;color:#65462f;">Loading biodata...</p>
+    </div>
+  </main>
+
+  <script>
+    const EMBEDDED_DATA = {
+      "header": {
+        "mantra": "|| श्री गणेशाय नमः ||",
+        "ganeshImage": "metadata/Ganesh.png",
+        "name": "Gaurav Agarwal",
+        "subtitle": "Senior Engineer | Weave Communications"
+      },
+      "photos": [
+        "metadata/1.png",
+        "metadata/2.png",
+        "metadata/3.jpg"
+      ],
+      "personal": {
+        "name": "Gaurav Agarwal",
+        "gotra": "Garg",
+        "dateOfBirth": "27 March 1995",
+        "timeOfBirth": "11:55 PM",
+        "placeOfBirth": "Jamshedpur, Jharkhand",
+        "height": "5' 9\""
+      },
+      "education": [
+        {
+          "degree": "B.E",
+          "field": "Electrical & Electronics Engineering",
+          "institution": "PES University, Bangalore"
+        }
+      ],
+      "professional": {
+        "designation": "Senior Engineer",
+        "company": "Weave Communications",
+        "workLocation": "Remote",
+        "officeAddress": "Utah, USA",
+        "mapLink": "https://maps.google.com/?q=Weave+HQ+Lehi+Utah"
+      },
+      "profileLinks": {
+        "jeevansathi": {
+          "label": "Jeevansathi ID",
+          "id": "TUWA2925",
+          "url": "https://www.jeevansathi.com/TUWA2925"
+        },
+        "shaadi": {
+          "label": "Shaadi ID",
+          "id": "SH45028289",
+          "url": "https://shaadi.com/SH45028289"
+        },
+        "linkedin": {
+          "label": "LinkedIn",
+          "id": "gauravagarwalgarg",
+          "url": "https://www.linkedin.com/in/gauravagarwalgarg/"
+        }
+      },
+      "nativePlace": "Hodh, Sri Madhopur, Sikar, Rajasthan",
+      "permanentAddress": {
+        "line1": "402, Mathura Villa, Tapadia Complex,",
+        "line2": "Station Road, Jamshedpur - 831006",
+        "mapLink": "https://maps.google.com/?q=Mathura+Villa+Tapadia+Complex+Jamshedpur"
+      },
+      "contact": {
+        "phones": ["+91 8050837120", "+91 6203229640"]
+      },
+      "family": {
+        "mother": "Smt. Usha Agarwal",
+        "father": "Shri Keshav Kumar Agarwal",
+        "siblings": [
+          {
+            "relation": "Elder Brother",
+            "name": "Harshit Agarwal",
+            "details": ["Senior Manager, Yes Bank (LC), Noida", "MBA (BM) @ XIMB"]
+          }
+        ],
+        "paternalFamily": {
+          "grandmother": "Late Smt. Sumitra Devi",
+          "grandfather": "Shri Ram Ratan Agarwal",
+          "buas": "3 Bua Families: 2 in Kolkata, 1 in Sambalpur",
+          "chachas": "3 Chacha Families: 1 in Jaipur, 2 in Jamshedpur"
+        },
+        "maternalFamily": {
+          "grandmother": "Late Smt. Narangi Devi Swaika",
+          "grandfather": "Late Shri Rabindra Prasad Swaika",
+          "mamas": "3 Mama Families: 1 in Kolkata, 1 in Bangalore, 1 in Bangalore",
+          "mausis": "3 Mausi Families: 2 in Kolkata, 1 in Surat"
+        }
+      }
+    };
+
+    (async function () {
+      let d;
+      try {
+        const res = await fetch('metadata/details.json');
+        if (!res.ok) throw new Error('fetch failed');
+        d = await res.json();
+      } catch (e) {
+        d = EMBEDDED_DATA;
+      }
+
+      // Prioritize optimized high-performance JPEGs
+      const rawPhotos = d.photos || [
+        (d.header && d.header.photo) || "metadata/MyPhoto.jpg",
+        (d.gallery && d.gallery[0]) || "metadata/JodhpuriSuit3.jpg",
+        (d.gallery && d.gallery[1]) || "metadata/YellowKurta.jpg"
+      ];
+      const photos = rawPhotos;
+
+      const mapSvg = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 0 1 0-5 2.5 2.5 0 0 1 0 5z"/></svg>';
+      const extSvg = '<svg class="ext-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7zm5 16H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7h-2v7z"/></svg>';
+
+      const grandmotherName = (d.family.paternalFamily && d.family.paternalFamily.grandmother) || (d.family.paternal && d.family.paternal.grandmother) || d.family.grandmother || "Late Smt. Sumitra Devi";
+      const grandfatherName = (d.family.paternalFamily && d.family.paternalFamily.grandfather) || (d.family.paternal && d.family.paternal.grandfather) || d.family.grandfather || "Shri Ram Ratan Agarwal";
+
+      document.getElementById('app').innerHTML = `
+        <!-- HEADER: GANESHA PROFILE -->
+        <header class="hero">
+          <div class="hero-left">
+            <h1 class="name">${d.header.name}</h1>
+            <p class="subtitle">${d.header.subtitle.replace(' | ', ' <span>|</span> ')}</p>
+          </div>
+          <div class="hero-right">
+            <img class="ganesh" src="${d.header.ganeshImage}" alt="Lord Ganesha Emblem">
+            <p class="ganesh-line">${d.header.mantra}</p>
+          </div>
+        </header>
+
+        <!-- SECTION DIVIDER -->
+        <div class="section-divider"></div>
+
+        <!-- TWO COLUMNS LAYOUT -->
+        <section class="columns">
+          <!-- LEFT COLUMN: 3 FRAMED PHOTOS -->
+          <div class="photos-column">
+            ${photos.slice(0, 3).map((src, i) => `
+              <div class="photo-card photo-card-${i + 1}">
+                <img src="${src}" alt="Photo ${i + 1}">
+              </div>
+            `).join('')}
+          </div>
+
+          <!-- RIGHT COLUMN: 2 BALANCED CARDS -->
+          <div class="details-column">
+            <!-- CARD 1: PERSONAL & PROFESSIONAL DETAILS -->
+            <article class="card card-personal">
+              <h2 class="card-title"><span class="flourish">❖</span>Personal &amp; Professional Details</h2>
+              <div class="entries-timeline">
+                <!-- Personal Info -->
+                <div class="entry">
+                  <div class="rail"><span class="icon icon-person"></span></div>
+                  <div class="entry-body">
+                    <div class="details">
+                      <p><strong>Gotra:</strong> ${d.personal.gotra} &nbsp;|&nbsp; <strong>Height:</strong> ${d.personal.height}</p>
+                      <p><strong>Date of Birth:</strong> ${d.personal.dateOfBirth} &nbsp;·&nbsp; <strong>Time:</strong> ${d.personal.timeOfBirth}</p>
+                      <p><strong>Place of Birth:</strong> ${d.personal.placeOfBirth}</p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Education -->
+                <div class="entry">
+                  <div class="rail"><span class="icon icon-edu"></span></div>
+                  <div class="entry-body">
+                    <div class="details">
+                      ${d.education.map(e => `
+                        <p><strong>Education:</strong> ${e.degree} (${e.field})</p>
+                        <p class="cont nobullet">${e.institution}</p>
+                      `).join('')}
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Professional Details -->
+                <div class="entry">
+                  <div class="rail"><span class="icon icon-work"></span></div>
+                  <div class="entry-body">
+                    <div class="details">
+                      <p><strong>Profession:</strong> ${d.professional.designation}, ${d.professional.company}</p>
+                      <p class="cont nobullet">Work Location: ${d.professional.workLocation} &nbsp;·&nbsp; Office: ${d.professional.officeAddress} ${d.professional.mapLink ? `<a class="map-link" href="${d.professional.mapLink}" target="_blank" rel="noreferrer" title="Open office location in Google Maps">${mapSvg}</a>` : ''}</p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Profiles & Search IDs -->
+                <div class="entry entry-profiles">
+                  <div class="rail"><span class="icon icon-link"></span></div>
+                  <div class="entry-body">
+                    <div class="details">
+                      <p class="profiles-heading"><strong>Profiles &amp; Search IDs:</strong></p>
+                      <div class="profile-chips">
+                        <a class="profile-chip" href="https://www.jeevansathi.com/TUWA2925" target="_blank" rel="noreferrer" title="Click to open profile or search ID on Jeevansathi">
+                          <span class="chip-platform">Jeevansathi ID:</span>
+                          <span class="chip-id">TUWA2925</span>
+                        </a>
+                        <a class="profile-chip" href="https://shaadi.com/SH45028289" target="_blank" rel="noreferrer" title="Click to open profile or search ID on Shaadi.com">
+                          <span class="chip-platform">Shaadi ID:</span>
+                          <span class="chip-id">SH45028289</span>
+                        </a>
+                        <a class="profile-chip profile-chip-linkedin" href="https://www.linkedin.com/in/gauravagarwalgarg/" target="_blank" rel="noreferrer" title="Open LinkedIn Profile">
+                          <span class="chip-platform">LinkedIn:</span>
+                          <span class="chip-id">gauravagarwalgarg</span>
+                          ${extSvg}
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Residence & Native -->
+                <div class="entry">
+                  <div class="rail"><span class="icon icon-location"></span></div>
+                  <div class="entry-body">
+                    <div class="details">
+                      <p><strong>Native Place:</strong> ${d.nativePlace}</p>
+                      <p><strong>Residence:</strong> ${d.permanentAddress.line1} ${d.permanentAddress.line2} ${d.permanentAddress.mapLink ? `<a class="map-link" href="${d.permanentAddress.mapLink}" target="_blank" rel="noreferrer" title="Open residence location in Google Maps">${mapSvg}</a>` : ''}</p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Contact -->
+                <div class="entry entry-contact">
+                  <div class="rail"><span class="icon icon-phone"></span></div>
+                  <div class="entry-body">
+                    <div class="details phones-inline">
+                      <p>
+                        <strong>Contact:</strong> ${(d.contact.phones || [d.contact.phone]).map(ph => `<a class="phone-link" href="tel:${ph.replace(/\s/g, '')}">${ph}</a>`).join(' &nbsp;&nbsp;|&nbsp;&nbsp; ')}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <!-- CARD 2: FAMILY (LINEAR TIMELINE - 3 MAMA FIRST THEN 3 MAUSI) -->
+            <article class="card card-family">
+              <h3 class="card-title"><span class="flourish">❖</span>Family</h3>
+              <div class="family-timeline">
+                <!-- 1. Parents -->
+                <div class="entry">
+                  <div class="rail"><span class="icon icon-family"></span></div>
+                  <div class="entry-body">
+                    <div class="details">
+                      <p><strong>Mother:</strong> ${d.family.mother || "Smt. Usha Agarwal"}</p>
+                      <p><strong>Father:</strong> ${d.family.father || "Shri Keshav Kumar Agarwal"}</p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- 2. Sibling -->
+                ${(d.family.siblings || []).map(s => `
+                  <div class="entry">
+                    <div class="rail"><span class="icon icon-person"></span></div>
+                    <div class="entry-body">
+                      <div class="details">
+                        <p><strong>${s.relation}:</strong> ${s.name}</p>
+                        <p class="cont nobullet">${s.details.join('<br>')}</p>
+                      </div>
+                    </div>
+                  </div>
+                `).join('')}
+
+                <!-- 3. Paternal Family (Linear) -->
+                <div class="entry">
+                  <div class="rail"><span class="icon icon-paternal"></span></div>
+                  <div class="entry-body">
+                    <div class="details">
+                      <p class="section-lead"><strong>Paternal Family:</strong></p>
+                      <p><strong>Grandmother:</strong> ${grandmotherName}</p>
+                      <p><strong>Grandfather:</strong> ${grandfatherName}</p>
+                      <p><strong>3 Bua Families:</strong> 2 in Kolkata, 1 in Sambalpur</p>
+                      <p><strong>3 Chacha Families:</strong> 1 in Jaipur, 2 in Jamshedpur</p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- 4. Maternal Family (Nanihal) (Linear - Grandmother, Grandfather, 3 Mama Families first, then 3 Mausi Families) -->
+                <div class="entry">
+                  <div class="rail"><span class="icon icon-maternal"></span></div>
+                  <div class="entry-body">
+                    <div class="details">
+                      <p class="section-lead"><strong>Maternal Family:</strong></p>
+                      <p><strong>Grandmother:</strong> Late Smt. Narangi Devi Swaika</p>
+                      <p><strong>Grandfather:</strong> Late Shri Rabindra Prasad Swaika</p>
+                      <p><strong>3 Mama Families:</strong> 2 in Kolkata, 1 in Bangalore</p>
+                      <p><strong>3 Mausi Families:</strong> 2 in Kolkata, 1 in Surat</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <!-- FOOTER: GANESH NAMAH -->
+        <footer class="footer-line"></footer>
+      `;
+
+      // Guarantee all images are 100% decoded
+      await Promise.all(
+        Array.from(document.images).map(img => {
+          if (img.complete) return Promise.resolve();
+          return new Promise(res => { img.onload = img.onerror = res; });
+        })
+      );
+    })();
+  </script>
+</body>
+
+</html>
