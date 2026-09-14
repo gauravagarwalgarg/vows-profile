@@ -25,9 +25,9 @@
         "subtitle": "Senior Engineer | Weave Communications"
       },
       "photos": [
-        "metadata/MyPhoto.jpg",
-        "metadata/JodhpuriSuit3.jpg",
-        "metadata/YellowKurta.jpg"
+        "metadata/1.png",
+        "metadata/2.png",
+        "metadata/3.jpg"
       ],
       "personal": {
         "name": "Gaurav Agarwal",
@@ -118,7 +118,7 @@
         (d.gallery && d.gallery[0]) || "metadata/JodhpuriSuit3.jpg",
         (d.gallery && d.gallery[1]) || "metadata/YellowKurta.jpg"
       ];
-      const photos = rawPhotos.map(p => p.replace(/\.png$/i, '.jpg'));
+      const photos = rawPhotos;
 
       const mapSvg = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 0 1 0-5 2.5 2.5 0 0 1 0 5z"/></svg>';
       const extSvg = '<svg class="ext-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7zm5 16H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7h-2v7z"/></svg>';
@@ -140,9 +140,7 @@
         </header>
 
         <!-- SECTION DIVIDER -->
-        <div class="section-divider">
-          <span>Biodata Profile</span>
-        </div>
+        <div class="section-divider"></div>
 
         <!-- TWO COLUMNS LAYOUT -->
         <section class="columns">
@@ -191,7 +189,7 @@
                   <div class="rail"><span class="icon icon-work"></span></div>
                   <div class="entry-body">
                     <div class="details">
-                      <p><strong>Profession:</strong> ${d.professional.designation} &nbsp;·&nbsp; ${d.professional.company}</p>
+                      <p><strong>Profession:</strong> ${d.professional.designation}, ${d.professional.company}</p>
                       <p class="cont nobullet">Work Location: ${d.professional.workLocation} &nbsp;·&nbsp; Office: ${d.professional.officeAddress} ${d.professional.mapLink ? `<a class="map-link" href="${d.professional.mapLink}" target="_blank" rel="noreferrer" title="Open office location in Google Maps">${mapSvg}</a>` : ''}</p>
                     </div>
                   </div>
@@ -269,7 +267,7 @@
                     <div class="entry-body">
                       <div class="details">
                         <p><strong>${s.relation}:</strong> ${s.name}</p>
-                        <p class="cont nobullet">${s.details.join(' &nbsp;·&nbsp; ')}</p>
+                        <p class="cont nobullet">${s.details.join('<br>')}</p>
                       </div>
                     </div>
                   </div>

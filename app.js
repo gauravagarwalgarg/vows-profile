@@ -29,9 +29,9 @@ const SAMPLE_DATA = {
     card2Title: "Family"
   },
   photos: [
-    "metadata/MyPhoto.jpg",
-    "metadata/JodhpuriSuit3.jpg",
-    "metadata/YellowKurta.jpg"
+    "metadata/1.png",
+    "metadata/2.png",
+    "metadata/3.jpg"
   ],
   personal: {
     name: "Gaurav Agarwal",
@@ -947,6 +947,24 @@ function setupDynamicButtons() {
       input.click();
     });
   }
+
+  const btnLoadExample = document.getElementById('btn-load-example');
+  if (btnLoadExample) {
+    btnLoadExample.addEventListener('click', async () => {
+      if (confirm("This will overwrite your current data with the example template. Continue?")) {
+        try {
+          const res = await fetch('metadata/details.example.json');
+          if (!res.ok) throw new Error('Failed to load example JSON');
+          const exampleData = await res.json();
+          populateForm(exampleData);
+          saveData();
+          renderPreview();
+        } catch (e) {
+          alert("Error loading example data: " + e.message);
+        }
+      }
+    });
+  }
 }
 
 /* ==========================================================================
@@ -1323,7 +1341,7 @@ function renderBiodataPreview(d) {
 
   if (pDesig || pComp || pLoc || pAddr) {
     let line1 = [];
-    if (pDesig && pComp) line1.push(`<strong>Profession:</strong> ${pDesig} &nbsp;\u00b7&nbsp; ${pComp}`);
+    if (pDesig && pComp) line1.push(`<strong>Profession:</strong> ${pDesig}, ${pComp}`);
     else if (pDesig || pComp) line1.push(`<strong>Profession:</strong> ${pDesig || pComp}`);
 
     let line2 = [];
@@ -1451,7 +1469,7 @@ function renderBiodataPreview(d) {
       siblingsHtml = sibs.map(s => {
         const rel = escapeHtml(s.relation || 'Sibling');
         const sName = escapeHtml(s.name || '');
-        const sDetails = (s.details || []).filter(Boolean).map(escapeHtml).join(' &nbsp;\u00b7&nbsp; ');
+        const sDetails = (s.details || []).filter(Boolean).map(escapeHtml).join('<br>');
         if (!sName && !sDetails) return '';
         return `
           <div class="entry">

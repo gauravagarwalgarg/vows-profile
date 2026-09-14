@@ -1,0 +1,13 @@
+site_name: Biodata Generator Docs
+site_description: Documentation for the Biodata Generator project.
+theme:
+  name: material
+  palette:
+    primary: brown
+    accent: amber
+
+nav:
+  - Introduction: index.md
+  - Requirements: requirements.md
+  - Design: design.md
+  - Architecture: architecture.md

@@ -1,0 +1,40 @@
+name: Build and Deploy MkDocs & Biodata Generator
+on:
+  push:
+    branches:
+      - main
+      - master
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.x
+
+      - name: Install dependencies
+        run: |
+          pip install mkdocs-material
+          
+      - name: Build MkDocs
+        run: mkdocs build
+
+      - name: Inject Standalone App into Build
+        run: |
+          cp Biodata.html site/
+          cp style.css site/
+          cp -r metadata site/
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./site
