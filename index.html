@@ -15,8 +15,10 @@
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="app.css">
 
-  <!-- Client-side PDF generation library -->
+  <!-- Client-side export libraries -->
   <script src="vendor/html2pdf.bundle.min.js"></script>
+  <script src="vendor/html2canvas.min.js"></script>
+  <script src="vendor/html-docx.js"></script>
 </head>
 <body>
   <div id="generator-app">
@@ -61,11 +63,28 @@
           <span class="zoom-text" id="zoom-value">Fit</span>
         </div>
 
-        <!-- Primary CTA: PDF Download -->
-        <button type="button" class="btn btn-gold" id="btn-download-pdf">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          <span>Download PDF</span>
-        </button>
+        <!-- Primary CTA: Download Dropdown -->
+        <div class="download-dropdown" id="download-dropdown">
+          <button type="button" class="btn btn-gold" id="btn-download-main">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            <span>Download</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="download-menu" id="download-menu">
+            <button type="button" class="download-option" data-format="pdf">
+              <span class="dl-icon">📄</span> PDF <span class="dl-badge">300 DPI</span>
+            </button>
+            <button type="button" class="download-option" data-format="jpg">
+              <span class="dl-icon">🖼️</span> JPG <span class="dl-badge">Image</span>
+            </button>
+            <button type="button" class="download-option" data-format="png">
+              <span class="dl-icon">🖼️</span> PNG <span class="dl-badge">Lossless</span>
+            </button>
+            <button type="button" class="download-option" data-format="docx">
+              <span class="dl-icon">📝</span> DOCX <span class="dl-badge">Word</span>
+            </button>
+          </div>
+        </div>
       </div>
     </header>
 

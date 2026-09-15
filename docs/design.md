@@ -17,3 +17,18 @@ The main output relies on CSS Grid and Flexbox for strict A4 dimensional control
 - **Grid Setup:** `grid-template-columns: 1fr 1fr` is used extensively for symmetric layouts, such as the Profile Chips.
 - **Overflow Protection:** Deep text truncation (`text-overflow: ellipsis`) and precise `mm` sizing ensures content does not break the strict physical bounds of the page.
 - **Print Optimization:** Dedicated `@media print` rules strip away browser margins, force `-webkit-print-color-adjust: exact`, and disable shadows for a pristine physical export.
+
+## Download Dropdown
+The application header features a "Download" button with a dropdown menu offering four export formats:
+
+| Format | Description |
+|--------|-------------|
+| **PDF** | High-resolution 300 DPI A4 document. Gold badge: "300 DPI" |
+| **JPG** | Compressed raster image. Gold badge: "Image" |
+| **PNG** | Lossless raster image. Gold badge: "Lossless" |
+| **DOCX** | Microsoft Word document. Gold badge: "Word" |
+
+The dropdown uses a dark-themed floating panel with hover effects, consistent with the app's luxury gold-on-dark aesthetic. Each option displays an emoji icon, format name, and a badge indicating the output type.
+
+## Application UI Theme
+The editor panel uses a dark luxury theme (`#12100e` background, `#c89455` gold accents) that contrasts with the warm parchment preview, creating a clear visual separation between "editing" and "output" modes.

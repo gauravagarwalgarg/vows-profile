@@ -27,11 +27,15 @@ jobs:
       - name: Build MkDocs
         run: mkdocs build
 
-      - name: Inject Standalone App into Build
+      - name: Inject Full App into Build
         run: |
+          cp index.html site/
           cp Biodata.html site/
+          cp app.js site/
+          cp app.css site/
           cp style.css site/
           cp -r metadata site/
+          cp -r vendor site/
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3

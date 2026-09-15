@@ -980,3 +980,70 @@ textarea.form-input {
 @keyframes spin {
   to { transform: rotate(360deg); }
 }
+
+/* === DOWNLOAD DROPDOWN === */
+.download-dropdown {
+  position: relative;
+}
+
+.download-menu {
+  display: none;
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  min-width: 180px;
+  background: #1e1a16;
+  border: 1px solid var(--app-card-border);
+  border-radius: var(--app-radius);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(200, 148, 85, 0.15);
+  z-index: 100;
+  padding: 4px;
+  animation: dropdown-in 0.15s ease-out;
+}
+
+@keyframes dropdown-in {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.download-dropdown.open .download-menu {
+  display: block;
+}
+
+.download-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 8px 12px;
+  border: none;
+  background: transparent;
+  color: var(--app-text);
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background 0.15s ease;
+}
+
+.download-option:hover {
+  background: rgba(200, 148, 85, 0.15);
+}
+
+.dl-icon {
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.dl-badge {
+  margin-left: auto;
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--app-gold);
+  background: rgba(200, 148, 85, 0.12);
+  padding: 2px 6px;
+  border-radius: 4px;
+}

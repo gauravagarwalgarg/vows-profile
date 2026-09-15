@@ -1200,12 +1200,8 @@ function setupActions() {
       showToast('\u2714 Progress saved!');
     });
   }
-
-  // Download PDF
-  const btnPdf = document.getElementById('btn-download-pdf');
-  if (btnPdf) {
-    btnPdf.addEventListener('click', generatePDF);
-  }
+  // Download dropdown
+  setupDownloadDropdown();
 }
 
 function setupMobileTabs() {
@@ -1749,6 +1745,204 @@ function showToast(msg) {
   toast.textContent = msg;
   toast.classList.add('show');
   setTimeout(() => toast.classList.remove('show'), 2400);
+}
+
+/* ==========================================================================
+   DOWNLOAD DROPDOWN & MULTI-FORMAT EXPORT
+   ========================================================================== */
+
+function setupDownloadDropdown() {
+  const dropdown = document.getElementById('download-dropdown');
+  const mainBtn = document.getElementById('btn-download-main');
+  const menu = document.getElementById('download-menu');
+  if (!dropdown || !mainBtn || !menu) return;
+
+  // Toggle dropdown
+  mainBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    dropdown.classList.toggle('open');
+  });
+
+  // Close on click outside
+  document.addEventListener('click', (e) => {
+    if (!dropdown.contains(e.target)) {
+      dropdown.classList.remove('open');
+    }
+  });
+
+  // Handle format selection
+  menu.querySelectorAll('.download-option').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const format = btn.dataset.format;
+      dropdown.classList.remove('open');
+      exportAs(format);
+    });
+  });
+}
+
+async function exportAs(format) {
+  switch (format) {
+    case 'pdf':
+      return generatePDF();
+    case 'jpg':
+      return exportAsImage('jpeg');
+    case 'png':
+      return exportAsImage('png');
+    case 'docx':
+      return exportAsDocx();
+    default:
+      showToast('Unknown format: ' + format);
+  }
+}
+
+async function exportAsImage(type) {
+  const mainBtn = document.getElementById('btn-download-main');
+  const originalHTML = mainBtn ? mainBtn.innerHTML : '';
+
+  try {
+    if (mainBtn) {
+      mainBtn.disabled = true;
+      mainBtn.innerHTML = `<span class="spinner"></span> Generating ${type.toUpperCase()}...`;
+    }
+
+    if (typeof html2canvas === 'undefined') {
+      showToast('Loading image engine...');
+      await loadScript('https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js');
+    }
+
+    const preview = document.getElementById('biodata-preview');
+    if (!preview) throw new Error('Preview element not found');
+
+    // Wait for fonts and images
+    if (document.fonts) await document.fonts.ready;
+    const images = Array.from(preview.querySelectorAll('img'));
+    await Promise.all(images.map(img => {
+      if (img.complete) return Promise.resolve();
+      return new Promise(resolve => { img.onload = resolve; img.onerror = resolve; });
+    }));
+    await new Promise(r => setTimeout(r, 200));
+
+    // Clone to unscaled sandbox
+    const sandbox = document.createElement('div');
+    sandbox.style.cssText = 'position:absolute;top:0;left:0;width:210mm;height:297mm;overflow:hidden;z-index:-1000;opacity:0.01;pointer-events:none;';
+    const clone = preview.cloneNode(true);
+    clone.style.transform = 'none';
+    clone.style.margin = '0';
+    clone.style.boxShadow = 'none';
+    clone.style.width = '210mm';
+    clone.style.height = '297mm';
+    clone.classList.remove('overflow-danger');
+    sandbox.appendChild(clone);
+    document.body.appendChild(sandbox);
+
+    const canvas = await html2canvas(clone, {
+      scale: 3,
+      useCORS: true,
+      allowTaint: true,
+      letterRendering: true,
+      backgroundColor: '#d4c4b0',
+      logging: false,
+      windowWidth: 793,
+      windowHeight: 1122
+    });
+
+    document.body.removeChild(sandbox);
+
+    const mimeType = type === 'jpeg' ? 'image/jpeg' : 'image/png';
+    const ext = type === 'jpeg' ? 'jpg' : 'png';
+    const quality = type === 'jpeg' ? 0.95 : undefined;
+
+    canvas.toBlob((blob) => {
+      const safeName = (appData.personal.name || appData.header.name || 'Biodata').replace(/[^a-zA-Z0-9_-]/g, '_');
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${safeName}_Biodata.${ext}`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast(`${ext.toUpperCase()} downloaded successfully!`);
+    }, mimeType, quality);
+
+  } catch (err) {
+    console.error('Image export error:', err);
+    showToast('Failed to generate image: ' + err.message);
+  } finally {
+    if (mainBtn) {
+      mainBtn.disabled = false;
+      mainBtn.innerHTML = originalHTML;
+    }
+  }
+}
+
+async function exportAsDocx() {
+  const mainBtn = document.getElementById('btn-download-main');
+  const originalHTML = mainBtn ? mainBtn.innerHTML : '';
+
+  try {
+    if (mainBtn) {
+      mainBtn.disabled = true;
+      mainBtn.innerHTML = `<span class="spinner"></span> Generating DOCX...`;
+    }
+
+    if (typeof htmlDocx === 'undefined') {
+      showToast('Loading DOCX engine...');
+      await loadScript('https://cdn.jsdelivr.net/npm/html-docx-js@0.3.1/dist/html-docx.js');
+    }
+
+    const preview = document.getElementById('biodata-preview');
+    if (!preview) throw new Error('Preview element not found');
+
+    // Build self-contained HTML with inline styles for Word
+    const previewHTML = preview.innerHTML;
+    const docContent = `
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <meta charset="utf-8">
+        <style>
+          @page { size: A4 portrait; margin: 10mm; }
+          body { font-family: Georgia, 'Times New Roman', serif; font-size: 11pt; color: #2e1c0d; line-height: 1.45; }
+          h1 { font-size: 22pt; font-weight: bold; text-transform: uppercase; letter-spacing: 2px; margin: 0 0 4pt; }
+          h2, h3 { font-size: 13pt; font-weight: bold; text-transform: uppercase; border-bottom: 1px solid #c89455; padding-bottom: 3pt; margin: 8pt 0 4pt; }
+          strong { font-weight: bold; }
+          p { margin: 2pt 0; }
+          img { max-width: 150px; max-height: 200px; }
+          a { color: #5d3615; }
+        </style>
+      </head>
+      <body>
+        ${previewHTML}
+      </body>
+      </html>
+    `;
+
+    const blob = htmlDocx.asBlob(docContent, {
+      orientation: 'portrait',
+      margins: { top: 720, right: 720, bottom: 720, left: 720 }
+    });
+
+    const safeName = (appData.personal.name || appData.header.name || 'Biodata').replace(/[^a-zA-Z0-9_-]/g, '_');
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${safeName}_Biodata.docx`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    showToast('DOCX downloaded successfully!');
+
+  } catch (err) {
+    console.error('DOCX export error:', err);
+    showToast('Failed to generate DOCX: ' + err.message);
+  } finally {
+    if (mainBtn) {
+      mainBtn.disabled = false;
+      mainBtn.innerHTML = originalHTML;
+    }
+  }
 }
 
 // Ensure the page scales dynamically to fit the A4 preview in the UI viewport
