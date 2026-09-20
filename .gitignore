@@ -25,3 +25,6 @@ current_render*
 .DS_Store
 Thumbs.db
 *.log
+
+# Dependencies
+node_modules/
