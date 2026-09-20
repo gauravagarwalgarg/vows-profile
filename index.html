@@ -15,8 +15,11 @@
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="app.css">
 
-  <!-- Client-side PDF generation library -->
+  <!-- Client-side export libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="vendor/html2pdf.bundle.min.js"></script>
+  <script src="vendor/html2canvas.min.js"></script>
+  <script src="vendor/html-docx.js"></script>
 </head>
 <body>
   <div id="generator-app">
@@ -36,7 +39,12 @@
 
       <div class="app-actions">
         <!-- Quick Action Buttons -->
-        <button type="button" class="btn btn-ghost" id="btn-load-sample" title="Load Gaurav's sample biodata details">
+        <a href="docs/" class="btn btn-ghost" title="View Documentation" target="_blank">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+          <span>Docs</span>
+        </a>
+
+        <button type="button" class="btn btn-ghost" id="btn-load-sample" title="Load example biodata details">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
           <span>Sample Data</span>
         </button>
@@ -61,11 +69,28 @@
           <span class="zoom-text" id="zoom-value">Fit</span>
         </div>
 
-        <!-- Primary CTA: PDF Download -->
-        <button type="button" class="btn btn-gold" id="btn-download-pdf">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          <span>Download PDF</span>
-        </button>
+        <!-- Primary CTA: Download Dropdown -->
+        <div class="download-dropdown" id="download-dropdown">
+          <button type="button" class="btn btn-gold" id="btn-download-main">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            <span>Download</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="download-menu" id="download-menu">
+            <button type="button" class="download-option" data-format="pdf">
+              <span class="dl-icon">📄</span> PDF <span class="dl-badge">300 DPI</span>
+            </button>
+            <button type="button" class="download-option" data-format="jpg">
+              <span class="dl-icon">🖼️</span> JPG <span class="dl-badge">Image</span>
+            </button>
+            <button type="button" class="download-option" data-format="png">
+              <span class="dl-icon">🖼️</span> PNG <span class="dl-badge">Lossless</span>
+            </button>
+            <button type="button" class="download-option" data-format="docx">
+              <span class="dl-icon">📝</span> DOCX <span class="dl-badge">Word</span>
+            </button>
+          </div>
+        </div>
       </div>
     </header>
 
@@ -100,11 +125,11 @@
               </div>
               <div class="form-group">
                 <label class="form-label" for="f-name">Candidate Full Name</label>
-                <input class="form-input" id="f-name" type="text" placeholder="e.g. Gaurav Agarwal">
+                <input class="form-input" id="f-name" type="text" placeholder="e.g. Rahul Sharma">
               </div>
               <div class="form-group">
                 <label class="form-label" for="f-subtitle">Header Subtitle (Designation | Company)</label>
-                <input class="form-input" id="f-subtitle" type="text" placeholder="e.g. Senior Engineer | Weave Communications">
+                <input class="form-input" id="f-subtitle" type="text" placeholder="e.g. Software Engineer | Tech Solutions">
               </div>
 
               <!-- Customizable Section Labels -->
@@ -256,7 +281,7 @@
                   </div>
                   <div class="form-group">
                     <label class="form-label" for="f-prof-comp">Company</label>
-                    <input class="form-input" id="f-prof-comp" type="text" placeholder="e.g. Weave Communications">
+                    <input class="form-input" id="f-prof-comp" type="text" placeholder="e.g. Tech Solutions">
                   </div>
                 </div>
 
@@ -596,11 +621,6 @@
         </div>
 
         <!-- Floating Zoom Control -->
-        <div class="floating-zoom">
-          <button type="button" class="zoom-btn" onclick="document.getElementById('zoom-out').click()">-</button>
-          <button type="button" class="zoom-btn" onclick="document.getElementById('zoom-fit').click()" style="width: auto; padding: 0 8px; font-size: 0.75rem;">Fit</button>
-          <button type="button" class="zoom-btn" onclick="document.getElementById('zoom-in').click()">+</button>
-        </div>
       </section>
     </main>
 

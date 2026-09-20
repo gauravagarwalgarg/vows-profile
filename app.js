@@ -4,10 +4,25 @@
  * Features: LocalStorage auto-save, dynamic entries, A4 overflow detection, customizable headers
  */
 
-// Global SVGs used in preview matching style.css
-const MAP_SVG = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 0 1 0-5 2.5 2.5 0 0 1 0 5z"/></svg>';
-const EXT_SVG = '<svg class="ext-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7zm5 16H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7h-2v7z"/></svg>';
+const MAP_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 0 1 0-5 2.5 2.5 0 0 1 0 5z"/></svg>';
+const EXT_SVG = '<svg xmlns="http://www.w3.org/2000/svg" class="ext-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7zm5 16H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7h-2v7z"/></svg>';
 const PLACEHOLDER_SVG = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="300" height="400" viewBox="0 0 300 400"><rect width="100%" height="100%" fill="%23ecdac0"/><circle cx="150" cy="140" r="50" fill="%23c4a98b"/><path d="M70 330 C70 230, 230 230, 230 330 Z" fill="%23c4a98b"/><text x="150" y="365" font-family="sans-serif" font-size="14" fill="%237d5d3e" text-anchor="middle">Photo Slot</text></svg>';
+
+const ICON_PATHS = {
+  person: "M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z",
+  location: "M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 0 1 0-5 2.5 2.5 0 0 1 0 5z",
+  edu: "M12 5 2 10l10 5 8-4v5h2v-6Zm-6 8v3.5C6 18.4 8.7 20 12 20s6-1.6 6-3.5V13l-6 3Z",
+  work: "M9 6V4h6v2h4a2 2 0 0 1 2 2v3H3V8a2 2 0 0 1 2-2Zm6 0V5H9v1Zm6 7v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-5h6v2h6v-2Z",
+  link: "M10.6 13.4a2 2 0 0 0 2.8 0l3.6-3.6a2 2 0 0 0-2.8-2.8L12.6 8.6l1.4 1.4 1.6-1.6a.5.5 0 0 1 .7.7l-3.6 3.6a.5.5 0 0 1-.7 0ZM6.3 17a2 2 0 0 0 2.8 0l1.6-1.6-1.4-1.4-1.6 1.6a.5.5 0 0 1-.7-.7l3.6-3.6a.5.5 0 1 1 .7.7l-.3.3 1.4 1.4.3-.3a2 2 0 1 0-2.8-2.8L6.3 14.2A2 2 0 0 0 6.3 17Z",
+  family: "M9 11a3 3 0 1 0-3-3 3 3 0 0 0 3 3Zm6 0a3 3 0 1 0-3-3 3 3 0 0 0 3 3Zm0 2c-2 0-3.8.8-5 2.1C8.8 13.8 7 13 5 13c-2.8 0-5 1.8-5 4v1h10v-1a4.8 4.8 0 0 0-.1-1H20v1h4v-1c0-2.2-2.2-4-5-4Z",
+  paternal: "M12 2A7 7 0 0 0 5 9c0 2.5 1.3 4.7 3.3 5.9V19H7v2h10v-2h-1.3v-4.1c2-1.2 3.3-3.4 3.3-5.9a7 7 0 0 0-7-7Zm-1.5 17v-3.5h3V19h-3Z",
+  maternal: "M12 2a5 5 0 0 1 5 5c0 2.1-1.3 3.9-3.2 4.6.4.7.7 1.4.9 2.2 2.6.4 4.8 2.3 5.2 4.9.1.7-.4 1.3-1.1 1.3H5.2c-.7 0-1.2-.6-1.1-1.3.4-2.6 2.6-4.5 5.2-4.9.2-.8.5-1.5.9-2.2C8.3 10.9 7 9.1 7 7a5 5 0 0 1 5-5Z",
+  phone: "M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1-.24 11.36 11.36 0 0 0 3.57.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.49a1 1 0 0 1 1 1 11.36 11.36 0 0 0 .57 3.57 1 1 0 0 1-.24 1Z"
+};
+
+function getSvgIcon(name) {
+  return `<span class="icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="#fff7ec" d="${ICON_PATHS[name]}"/></svg></span>`;
+}
 
 // Limits
 const MAX_EDUCATION = 3;
@@ -15,13 +30,13 @@ const MAX_SOCIAL_LINKS = 4;
 const MAX_PHONES = 3;
 const STORAGE_KEY = 'vowsprofile_data';
 
-// Default reference data matching Gaurav's authentic biodata & details.example.json
+// Default reference data matching Rahul Sharma's biodata
 const SAMPLE_DATA = {
   header: {
     mantra: "|| \u0936\u094d\u0930\u0940 \u0917\u0923\u0947\u0936\u093e\u092f \u0928\u092e\u0903 ||",
     ganeshImage: "metadata/Ganesh.png",
-    name: "Gaurav Agarwal",
-    subtitle: "Senior Engineer | Weave Communications"
+    name: "Rahul Sharma",
+    subtitle: "Software Engineer | Tech Solutions"
   },
   customLabels: {
     sectionDivider: "Biodata Profile",
@@ -34,78 +49,77 @@ const SAMPLE_DATA = {
     "metadata/3.jpg"
   ],
   personal: {
-    name: "Gaurav Agarwal",
-    gotra: "Garg",
-    height: "5' 9\"",
-    dateOfBirth: "27 March 1995",
-    timeOfBirth: "11:55 PM",
-    placeOfBirth: "Jamshedpur, Jharkhand",
+    name: "Rahul Sharma",
+    gotra: "Bharadwaj",
+    height: "5' 10\"",
+    dateOfBirth: "15 August 1996",
+    timeOfBirth: "10:30 AM",
+    placeOfBirth: "Delhi, India",
     manglik: ""
   },
   education: [
     {
-      degree: "B.E",
-      field: "Electrical & Electronics Engineering",
-      institution: "PES University, Bangalore"
+      degree: "B.Tech",
+      field: "Computer Science",
+      institution: "Delhi Technological University"
     }
   ],
   professional: {
-    designation: "Senior Engineer",
-    company: "Weave Communications",
-    workLocation: "Remote",
-    officeAddress: "Utah, USA",
-    mapLink: "https://maps.google.com/?q=Weave+HQ+Lehi+Utah"
+    designation: "Software Engineer",
+    company: "Tech Solutions",
+    workLocation: "Hybrid",
+    officeAddress: "Gurgaon, Haryana",
+    mapLink: "https://maps.google.com/?q=Gurgaon"
   },
   profileLinks: [
-    { enabled: true, platform: "Jeevansathi ID", id: "TUWA2925", url: "https://www.jeevansathi.com/TUWA2925", isExternal: false },
-    { enabled: true, platform: "Shaadi ID", id: "SH45028289", url: "https://shaadi.com/SH45028289", isExternal: false },
-    { enabled: true, platform: "LinkedIn", id: "gauravagarwalgarg", url: "https://www.linkedin.com/in/gauravagarwalgarg/", isExternal: true }
+    { enabled: true, platform: "Jeevansathi ID", id: "SAMPLE1234", url: "https://www.jeevansathi.com/", isExternal: false },
+    { enabled: true, platform: "LinkedIn", id: "rahulsharma_sample", url: "https://www.linkedin.com/", isExternal: true }
   ],
-  nativePlace: "Hodh, Sri Madhopur, Sikar, Rajasthan",
+  nativePlace: "Mathura, Uttar Pradesh",
   permanentAddress: {
-    line1: "402, Mathura Villa, Tapadia Complex,",
-    line2: "Station Road, Jamshedpur - 831006",
-    mapLink: "https://maps.google.com/?q=Mathura+Villa+Tapadia+Complex+Jamshedpur"
+    line1: "123, Sample Society, Example Road",
+    line2: "New Delhi - 110001",
+    mapLink: "https://maps.google.com/?q=New+Delhi"
   },
   contact: {
-    phones: ["+91 8050837120", "+91 6203229640"]
+    phones: ["+91 9876543210", "+91 9123456789"]
   },
   family: {
     motherTitle: "Smt.",
-    mother: "Usha Agarwal",
+    mother: "Sunita Sharma",
     fatherTitle: "Shri",
-    father: "Keshav Kumar Agarwal",
+    father: "Ramesh Sharma",
     hasSiblings: true,
     siblings: [
       {
-        relation: "Elder Brother",
-        name: "Harshit Agarwal",
-        details: ["Senior Manager, Yes Bank (LC), Noida", "MBA (BM) @ XIMB"]
+        relation: "Younger Sister",
+        name: "Priya Sharma",
+        details: ["Software Developer, MNC", "B.Tech (IT)"]
       }
     ],
     paternalFamily: {
       grandmotherTitle: "Late Smt.",
-      grandmother: "Sumitra Devi",
-      grandfatherTitle: "Shri",
-      grandfather: "Ram Ratan Agarwal",
+      grandmother: "Savitri Devi",
+      grandfatherTitle: "Late Shri",
+      grandfather: "Om Prakash Sharma",
       hasBuas: true,
-      buaCount: "3",
-      buaLocation: "2 in Kolkata, 1 in Sambalpur",
+      buaCount: "2",
+      buaLocation: "1 in Delhi, 1 in Agra",
       hasChachas: true,
-      chachaCount: "3",
-      chachaLocation: "1 in Jaipur, 2 in Jamshedpur"
+      chachaCount: "1",
+      chachaLocation: "1 in Mathura"
     },
     maternalFamily: {
-      grandmotherTitle: "Late Smt.",
-      grandmother: "Narangi Devi Swaika",
-      grandfatherTitle: "Late Shri",
-      grandfather: "Rabindra Prasad Swaika",
+      grandmotherTitle: "Smt.",
+      grandmother: "Kamla Devi",
+      grandfatherTitle: "Shri",
+      grandfather: "Ram Kumar",
       hasMamas: true,
-      mamaCount: "3",
-      mamaLocation: "2 in Kolkata, 1 in Bangalore",
+      mamaCount: "2",
+      mamaLocation: "Both in Noida",
       hasMausis: true,
-      mausiCount: "3",
-      mausiLocation: "2 in Kolkata, 1 in Surat"
+      mausiCount: "1",
+      mausiLocation: "1 in Ghaziabad"
     }
   }
 };
@@ -209,9 +223,11 @@ async function initApp() {
       if (res.ok) {
         const json = await res.json();
         appData = mergeWithDefault(json);
+      } else {
+        appData = JSON.parse(JSON.stringify(SAMPLE_DATA));
       }
     } catch (e) {
-      // Fallback to SAMPLE_DATA
+      appData = JSON.parse(JSON.stringify(SAMPLE_DATA));
     }
   }
 
@@ -1200,12 +1216,8 @@ function setupActions() {
       showToast('\u2714 Progress saved!');
     });
   }
-
-  // Download PDF
-  const btnPdf = document.getElementById('btn-download-pdf');
-  if (btnPdf) {
-    btnPdf.addEventListener('click', generatePDF);
-  }
+  // Download dropdown
+  setupDownloadDropdown();
 }
 
 function setupMobileTabs() {
@@ -1317,7 +1329,7 @@ function renderBiodataPreview(d) {
     if (eduItems.length > 0) {
       educationHtml = `
         <div class="entry">
-          <div class="rail"><span class="icon icon-edu"></span></div>
+          <div class="rail">${getSvgIcon('edu')}</div>
           <div class="entry-body">
             <div class="details">
               ${eduItems.map(e => `
@@ -1353,7 +1365,7 @@ function renderBiodataPreview(d) {
 
     professionalHtml = `
       <div class="entry">
-        <div class="rail"><span class="icon icon-work"></span></div>
+        <div class="rail">${getSvgIcon('work')}</div>
         <div class="entry-body">
           <div class="details">
             ${line1.length ? `<p>${line1.join('')}</p>` : ''}
@@ -1384,7 +1396,7 @@ function renderBiodataPreview(d) {
   if (chips.length > 0) {
     profileChipsHtml = `
       <div class="entry entry-profiles">
-        <div class="rail"><span class="icon icon-link"></span></div>
+        <div class="rail">${getSvgIcon('link')}</div>
         <div class="entry-body">
           <div class="details">
             <p class="profiles-heading"><strong>Profiles &amp; Search IDs:</strong></p>
@@ -1408,7 +1420,7 @@ function renderBiodataPreview(d) {
     const resMapBtn = rMap ? `<a class="map-link" href="${escapeHtml(rMap)}" target="_blank" rel="noreferrer" title="Open residence location in Google Maps">${MAP_SVG}</a>` : '';
     residenceHtml = `
       <div class="entry">
-        <div class="rail"><span class="icon icon-location"></span></div>
+        <div class="rail">${getSvgIcon('location')}</div>
         <div class="entry-body">
           <div class="details">
             ${native ? `<p><strong>Native Place:</strong> ${native}</p>` : ''}
@@ -1429,7 +1441,7 @@ function renderBiodataPreview(d) {
 
     contactHtml = `
       <div class="entry entry-contact">
-        <div class="rail"><span class="icon icon-phone"></span></div>
+        <div class="rail">${getSvgIcon('phone')}</div>
         <div class="entry-body">
           <div class="details phones-inline">
             <p><strong>Contact:</strong> ${phoneLinks}</p>
@@ -1450,7 +1462,7 @@ function renderBiodataPreview(d) {
   if (mName || fName) {
     parentsHtml = `
       <div class="entry">
-        <div class="rail"><span class="icon icon-family"></span></div>
+        <div class="rail">${getSvgIcon('family')}</div>
         <div class="entry-body">
           <div class="details">
             ${mName ? `<p><strong>Mother:</strong> ${mTitle} ${mName}</p>` : ''}
@@ -1473,7 +1485,7 @@ function renderBiodataPreview(d) {
         if (!sName && !sDetails) return '';
         return `
           <div class="entry">
-            <div class="rail"><span class="icon icon-person"></span></div>
+            <div class="rail">${getSvgIcon('person')}</div>
             <div class="entry-body">
               <div class="details">
                 <p><strong>${rel}:</strong> ${sName}</p>
@@ -1511,7 +1523,7 @@ function renderBiodataPreview(d) {
   if (patGmother || patGfather || buaLine || chachaLine) {
     paternalHtml = `
       <div class="entry">
-        <div class="rail"><span class="icon icon-paternal"></span></div>
+        <div class="rail">${getSvgIcon('paternal')}</div>
         <div class="entry-body">
           <div class="details">
             <p class="section-lead"><strong>Paternal Family:</strong></p>
@@ -1550,7 +1562,7 @@ function renderBiodataPreview(d) {
   if (matGmother || matGfather || mamaLine || mausiLine) {
     maternalHtml = `
       <div class="entry">
-        <div class="rail"><span class="icon icon-maternal"></span></div>
+        <div class="rail">${getSvgIcon('maternal')}</div>
         <div class="entry-body">
           <div class="details">
             <p class="section-lead"><strong>Maternal Family:</strong></p>
@@ -1572,11 +1584,13 @@ function renderBiodataPreview(d) {
       <!-- HEADER: REDESIGNED - Name Left, Ganesha Right -->
       <header class="hero">
         <div class="hero-left">
-          <h1 class="name">${candidateName}</h1>
-          ${subtitleFormatted ? `<p class="subtitle">${subtitleFormatted}</p>` : ''}
+          <div class="name-tile">
+            <h1 class="name">${candidateName}</h1>
+            ${subtitleFormatted ? `<p class="subtitle">${subtitleFormatted}</p>` : ''}
+          </div>
         </div>
         <div class="hero-right">
-          ${d.header.ganeshImage ? `<img class="ganesh" src="${escapeHtml(d.header.ganeshImage)}" alt="Lord Ganesha Emblem">` : ''}
+          ${d.header.ganeshImage ? `<div class="ganesh-wrapper"><img class="ganesh" src="${escapeHtml(d.header.ganeshImage)}" alt="Lord Ganesha Emblem"></div>` : ''}
           ${mantra ? `<p class="ganesh-line">${mantra}</p>` : ''}
         </div>
       </header>
@@ -1609,7 +1623,7 @@ function renderBiodataPreview(d) {
             <div class="entries-timeline">
               ${personalRowsHtml ? `
                 <div class="entry">
-                  <div class="rail"><span class="icon icon-person"></span></div>
+                  <div class="rail">${getSvgIcon('person')}</div>
                   <div class="entry-body">
                     <div class="details">${personalRowsHtml}</div>
                   </div>
@@ -1691,7 +1705,7 @@ async function generatePDF() {
     clone.style.margin = '0';
     clone.style.boxShadow = 'none';
     clone.style.width = '210mm';
-    clone.style.height = '297mm';
+    clone.style.height = '296.8mm'; // Slightly less than 297mm to prevent fractional spillover causing a 2nd blank page
     clone.classList.remove('overflow-danger');
     sandbox.appendChild(clone);
     document.body.appendChild(sandbox);
@@ -1706,8 +1720,12 @@ async function generatePDF() {
         useCORS: true,
         allowTaint: true,
         letterRendering: true,
-        backgroundColor: '#d4c4b0',
+        backgroundColor: null,
         logging: false,
+        scrollX: 0,
+        scrollY: 0,
+        x: 0,
+        y: 0,
         windowWidth: 793,
         windowHeight: 1122
       },
@@ -1718,7 +1736,28 @@ async function generatePDF() {
       }
     };
 
-    await html2pdf().set(opt).from(clone).save();
+    // Give clone 100ms to settle its layout
+    await new Promise(r => setTimeout(r, 100));
+
+    // 1. Manually capture canvas to guarantee all absolute positioned elements and text are drawn
+    const canvas = await html2canvas(clone, opt.html2canvas);
+
+    // 2. Generate JPEG data directly to guarantee compression (avoids massive 60MB PNG PDFs)
+    const imgData = canvas.toDataURL('image/jpeg', 0.98);
+
+    // 3. Manually create the jsPDF instance and add the image
+    const jsPdfConstructor = (window.jspdf && window.jspdf.jsPDF) || window.jsPDF;
+    if (jsPdfConstructor) {
+      const pdf = new jsPdfConstructor(opt.jsPDF);
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = (canvas.height * pdfWidth) / canvas.width; // Maintain aspect ratio
+      
+      pdf.addImage(imgData, 'JPEG', 0, 0, pdfWidth, pdfHeight);
+      pdf.save(opt.filename);
+    } else {
+      // Fallback: Pass the rendered canvas to html2pdf (this is safer than passing the clone)
+      await html2pdf().set(opt).from(canvas).save();
+    }
 
     document.body.removeChild(sandbox);
     showToast('PDF downloaded successfully!');
@@ -1749,6 +1788,204 @@ function showToast(msg) {
   toast.textContent = msg;
   toast.classList.add('show');
   setTimeout(() => toast.classList.remove('show'), 2400);
+}
+
+/* ==========================================================================
+   DOWNLOAD DROPDOWN & MULTI-FORMAT EXPORT
+   ========================================================================== */
+
+function setupDownloadDropdown() {
+  const dropdown = document.getElementById('download-dropdown');
+  const mainBtn = document.getElementById('btn-download-main');
+  const menu = document.getElementById('download-menu');
+  if (!dropdown || !mainBtn || !menu) return;
+
+  // Toggle dropdown
+  mainBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    dropdown.classList.toggle('open');
+  });
+
+  // Close on click outside
+  document.addEventListener('click', (e) => {
+    if (!dropdown.contains(e.target)) {
+      dropdown.classList.remove('open');
+    }
+  });
+
+  // Handle format selection
+  menu.querySelectorAll('.download-option').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const format = btn.dataset.format;
+      dropdown.classList.remove('open');
+      exportAs(format);
+    });
+  });
+}
+
+async function exportAs(format) {
+  switch (format) {
+    case 'pdf':
+      return generatePDF();
+    case 'jpg':
+      return exportAsImage('jpeg');
+    case 'png':
+      return exportAsImage('png');
+    case 'docx':
+      return exportAsDocx();
+    default:
+      showToast('Unknown format: ' + format);
+  }
+}
+
+async function exportAsImage(type) {
+  const mainBtn = document.getElementById('btn-download-main');
+  const originalHTML = mainBtn ? mainBtn.innerHTML : '';
+
+  try {
+    if (mainBtn) {
+      mainBtn.disabled = true;
+      mainBtn.innerHTML = `<span class="spinner"></span> Generating ${type.toUpperCase()}...`;
+    }
+
+    if (typeof html2canvas === 'undefined') {
+      showToast('Loading image engine...');
+      await loadScript('https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js');
+    }
+
+    const preview = document.getElementById('biodata-preview');
+    if (!preview) throw new Error('Preview element not found');
+
+    // Wait for fonts and images
+    if (document.fonts) await document.fonts.ready;
+    const images = Array.from(preview.querySelectorAll('img'));
+    await Promise.all(images.map(img => {
+      if (img.complete) return Promise.resolve();
+      return new Promise(resolve => { img.onload = resolve; img.onerror = resolve; });
+    }));
+    await new Promise(r => setTimeout(r, 200));
+
+    // Clone to unscaled sandbox
+    const sandbox = document.createElement('div');
+    sandbox.style.cssText = 'position:absolute;top:0;left:0;width:210mm;height:297mm;overflow:hidden;z-index:-1000;opacity:0.01;pointer-events:none;';
+    const clone = preview.cloneNode(true);
+    clone.style.transform = 'none';
+    clone.style.margin = '0';
+    clone.style.boxShadow = 'none';
+    clone.style.width = '210mm';
+    clone.style.height = '297mm';
+    clone.classList.remove('overflow-danger');
+    sandbox.appendChild(clone);
+    document.body.appendChild(sandbox);
+
+    const canvas = await html2canvas(clone, {
+      scale: 3,
+      useCORS: true,
+      allowTaint: true,
+      letterRendering: true,
+      backgroundColor: '#d4c4b0',
+      logging: false,
+      windowWidth: 793,
+      windowHeight: 1122
+    });
+
+    document.body.removeChild(sandbox);
+
+    const mimeType = type === 'jpeg' ? 'image/jpeg' : 'image/png';
+    const ext = type === 'jpeg' ? 'jpg' : 'png';
+    const quality = type === 'jpeg' ? 0.95 : undefined;
+
+    canvas.toBlob((blob) => {
+      const safeName = (appData.personal.name || appData.header.name || 'Biodata').replace(/[^a-zA-Z0-9_-]/g, '_');
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${safeName}_Biodata.${ext}`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast(`${ext.toUpperCase()} downloaded successfully!`);
+    }, mimeType, quality);
+
+  } catch (err) {
+    console.error('Image export error:', err);
+    showToast('Failed to generate image: ' + err.message);
+  } finally {
+    if (mainBtn) {
+      mainBtn.disabled = false;
+      mainBtn.innerHTML = originalHTML;
+    }
+  }
+}
+
+async function exportAsDocx() {
+  const mainBtn = document.getElementById('btn-download-main');
+  const originalHTML = mainBtn ? mainBtn.innerHTML : '';
+
+  try {
+    if (mainBtn) {
+      mainBtn.disabled = true;
+      mainBtn.innerHTML = `<span class="spinner"></span> Generating DOCX...`;
+    }
+
+    if (typeof htmlDocx === 'undefined') {
+      showToast('Loading DOCX engine...');
+      await loadScript('https://cdn.jsdelivr.net/npm/html-docx-js@0.3.1/dist/html-docx.js');
+    }
+
+    const preview = document.getElementById('biodata-preview');
+    if (!preview) throw new Error('Preview element not found');
+
+    // Build self-contained HTML with inline styles for Word
+    const previewHTML = preview.innerHTML;
+    const docContent = `
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <meta charset="utf-8">
+        <style>
+          @page { size: A4 portrait; margin: 10mm; }
+          body { font-family: Georgia, 'Times New Roman', serif; font-size: 11pt; color: #2e1c0d; line-height: 1.45; }
+          h1 { font-size: 22pt; font-weight: bold; text-transform: uppercase; letter-spacing: 2px; margin: 0 0 4pt; }
+          h2, h3 { font-size: 13pt; font-weight: bold; text-transform: uppercase; border-bottom: 1px solid #c89455; padding-bottom: 3pt; margin: 8pt 0 4pt; }
+          strong { font-weight: bold; }
+          p { margin: 2pt 0; }
+          img { max-width: 150px; max-height: 200px; }
+          a { color: #5d3615; }
+        </style>
+      </head>
+      <body>
+        ${previewHTML}
+      </body>
+      </html>
+    `;
+
+    const blob = htmlDocx.asBlob(docContent, {
+      orientation: 'portrait',
+      margins: { top: 720, right: 720, bottom: 720, left: 720 }
+    });
+
+    const safeName = (appData.personal.name || appData.header.name || 'Biodata').replace(/[^a-zA-Z0-9_-]/g, '_');
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${safeName}_Biodata.docx`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    showToast('DOCX downloaded successfully!');
+
+  } catch (err) {
+    console.error('DOCX export error:', err);
+    showToast('Failed to generate DOCX: ' + err.message);
+  } finally {
+    if (mainBtn) {
+      mainBtn.disabled = false;
+      mainBtn.innerHTML = originalHTML;
+    }
+  }
 }
 
 // Ensure the page scales dynamically to fit the A4 preview in the UI viewport
@@ -1788,26 +2025,4 @@ function handleZoom(action) {
 }
 
 window.addEventListener('resize', updatePreviewScale);
-window.addEventListener('DOMContentLoaded', () => {
-  // Try to load state from localStorage
-  const savedState = localStorage.getItem('vowsProfileState');
-  if (savedState) {
-    try {
-      appData = JSON.parse(savedState);
-    } catch(e) {
-      console.error('Failed to parse saved state', e);
-    }
-  }
-
-  populateForm();
-  renderBiodataPreview();
-  updatePreviewScale();
-  
-  const form = document.getElementById('biodata-form');
-  if (form) {
-    form.addEventListener('input', () => {
-      syncStateFromForm();
-      renderBiodataPreview();
-    });
-  }
-});
+window.addEventListener('DOMContentLoaded', initApp);
