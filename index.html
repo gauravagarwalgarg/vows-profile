@@ -16,6 +16,7 @@
   <link rel="stylesheet" href="app.css">
 
   <!-- Client-side export libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="vendor/html2pdf.bundle.min.js"></script>
   <script src="vendor/html2canvas.min.js"></script>
   <script src="vendor/html-docx.js"></script>
@@ -38,7 +39,7 @@
 
       <div class="app-actions">
         <!-- Quick Action Buttons -->
-        <button type="button" class="btn btn-ghost" id="btn-load-sample" title="Load Gaurav's sample biodata details">
+        <button type="button" class="btn btn-ghost" id="btn-load-sample" title="Load example biodata details">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
           <span>Sample Data</span>
         </button>
@@ -119,11 +120,11 @@
               </div>
               <div class="form-group">
                 <label class="form-label" for="f-name">Candidate Full Name</label>
-                <input class="form-input" id="f-name" type="text" placeholder="e.g. Gaurav Agarwal">
+                <input class="form-input" id="f-name" type="text" placeholder="e.g. Rahul Sharma">
               </div>
               <div class="form-group">
                 <label class="form-label" for="f-subtitle">Header Subtitle (Designation | Company)</label>
-                <input class="form-input" id="f-subtitle" type="text" placeholder="e.g. Senior Engineer | Weave Communications">
+                <input class="form-input" id="f-subtitle" type="text" placeholder="e.g. Software Engineer | Tech Solutions">
               </div>
 
               <!-- Customizable Section Labels -->
@@ -275,7 +276,7 @@
                   </div>
                   <div class="form-group">
                     <label class="form-label" for="f-prof-comp">Company</label>
-                    <input class="form-input" id="f-prof-comp" type="text" placeholder="e.g. Weave Communications">
+                    <input class="form-input" id="f-prof-comp" type="text" placeholder="e.g. Tech Solutions">
                   </div>
                 </div>
 
@@ -615,11 +616,6 @@
         </div>
 
         <!-- Floating Zoom Control -->
-        <div class="floating-zoom">
-          <button type="button" class="zoom-btn" onclick="document.getElementById('zoom-out').click()">-</button>
-          <button type="button" class="zoom-btn" onclick="document.getElementById('zoom-fit').click()" style="width: auto; padding: 0 8px; font-size: 0.75rem;">Fit</button>
-          <button type="button" class="zoom-btn" onclick="document.getElementById('zoom-in').click()">+</button>
-        </div>
       </section>
     </main>
 
