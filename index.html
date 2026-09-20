@@ -1,509 +1,634 @@
-
-<!doctype html>
-<html lang="en" class="no-js">
-  <head>
-    
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width,initial-scale=1">
-      
-        <meta name="description" content="Documentation for the Biodata Generator project.">
-      
-      
-      
-      
-      
-        <link rel="next" href="requirements/">
-      
-      
-        
-      
-      
-      <link rel="icon" href="assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
-    
-    
-      
-        <title>Biodata Generator Docs</title>
-      
-    
-    
-      <link rel="stylesheet" href="assets/stylesheets/main.ec1eaa64.min.css">
-      
-        
-        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
-      
-      
-
-
-    
-    
-      
-    
-    
-      
-        
-        
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
-        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
-      
-    
-    
-    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
-    
-      
-
-    
-    
-  </head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VowsProfile - Matrimonial Biodata Generator &amp; PDF Creator</title>
+  <meta name="description" content="Dynamic client-side matrimonial biodata generator. Live real-time preview and instant high-resolution 300 DPI A4 PDF export with zero server upload.">
   
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Marcellus&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   
-    
-    
-    
-    
-    
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="brown" data-md-color-accent="amber">
-  
-    
-    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
-    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
-    <label class="md-overlay" for="__drawer"></label>
-    <div data-md-component="skip">
-      
-        
-        <a href="#biodata-generator" class="md-skip">
-          Skip to content
+  <!-- Biodata print styles & Generator app styles -->
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="app.css">
+
+  <!-- Client-side export libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="vendor/html2pdf.bundle.min.js"></script>
+  <script src="vendor/html2canvas.min.js"></script>
+  <script src="vendor/html-docx.js"></script>
+</head>
+<body>
+  <div id="generator-app">
+    <!-- TOP NAVIGATION BAR -->
+    <header class="app-header">
+      <div class="brand">
+        <div class="brand-icon">&#10054;</div>
+        <h1 class="brand-title">Vows<span>Profile</span></h1>
+        <span class="brand-badge">A4 Live Generator</span>
+      </div>
+
+      <!-- Mobile Segmented Tab Control -->
+      <div class="mobile-view-tabs">
+        <button type="button" class="tab-btn active" id="tab-edit">Edit Form</button>
+        <button type="button" class="tab-btn" id="tab-prev">Live Preview</button>
+      </div>
+
+      <div class="app-actions">
+        <!-- Quick Action Buttons -->
+        <a href="docs/" class="btn btn-ghost" title="View Documentation" target="_blank">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+          <span>Docs</span>
         </a>
-      
-    </div>
-    <div data-md-component="announce">
-      
-    </div>
-    
-    
-      
 
-  
-
-<header class="md-header md-header--shadow" data-md-component="header">
-  <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="." title="Biodata Generator Docs" class="md-header__button md-logo" aria-label="Biodata Generator Docs" data-md-component="logo">
-      
-  
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
-
-    </a>
-    <label class="md-header__button md-icon" for="__drawer">
-      
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
-    </label>
-    <div class="md-header__title" data-md-component="header-title">
-      <div class="md-header__ellipsis">
-        <div class="md-header__topic">
-          <span class="md-ellipsis">
-            Biodata Generator Docs
-          </span>
-        </div>
-        <div class="md-header__topic" data-md-component="header-topic">
-          <span class="md-ellipsis">
-            
-              Introduction
-            
-          </span>
-        </div>
-      </div>
-    </div>
-    
-      
-    
-    
-    
-    
-      
-      
-        <label class="md-header__button md-icon" for="__search">
-          
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
-        </label>
-        <div class="md-search" data-md-component="search" role="dialog">
-  <label class="md-search__overlay" for="__search"></label>
-  <div class="md-search__inner" role="search">
-    <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
-      <label class="md-search__icon md-icon" for="__search">
-        
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
-        
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
-      </label>
-      <nav class="md-search__options" aria-label="Search">
-        
-        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
-          
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        <button type="button" class="btn btn-ghost" id="btn-load-sample" title="Load example biodata details">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
+          <span>Sample Data</span>
         </button>
-      </nav>
-      
-    </form>
-    <div class="md-search__output">
-      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
-        <div class="md-search-result" data-md-component="search-result">
-          <div class="md-search-result__meta">
-            Initializing search
+
+        <button type="button" class="btn btn-ghost" id="btn-clear-form" title="Clear all form fields">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
+          <span>Clear</span>
+        </button>
+
+        <!-- Save Progress -->
+        <button type="button" class="btn btn-ghost btn-save" id="btn-save-progress" title="Save progress to browser">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+          <span>Save</span>
+        </button>
+        <span class="save-indicator" id="save-indicator">&#10004; Saved</span>
+
+        <!-- Zoom / Scale Controls -->
+        <div class="zoom-controls">
+          <button type="button" class="zoom-btn" id="zoom-out" title="Zoom Out">-</button>
+          <button type="button" class="zoom-btn" id="zoom-fit" title="Fit to Screen" style="width: auto; padding: 0 6px; font-size: 0.72rem;">Fit</button>
+          <button type="button" class="zoom-btn" id="zoom-in" title="Zoom In">+</button>
+          <span class="zoom-text" id="zoom-value">Fit</span>
+        </div>
+
+        <!-- Primary CTA: Download Dropdown -->
+        <div class="download-dropdown" id="download-dropdown">
+          <button type="button" class="btn btn-gold" id="btn-download-main">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            <span>Download</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="download-menu" id="download-menu">
+            <button type="button" class="download-option" data-format="pdf">
+              <span class="dl-icon">📄</span> PDF <span class="dl-badge">300 DPI</span>
+            </button>
+            <button type="button" class="download-option" data-format="jpg">
+              <span class="dl-icon">🖼️</span> JPG <span class="dl-badge">Image</span>
+            </button>
+            <button type="button" class="download-option" data-format="png">
+              <span class="dl-icon">🖼️</span> PNG <span class="dl-badge">Lossless</span>
+            </button>
+            <button type="button" class="download-option" data-format="docx">
+              <span class="dl-icon">📝</span> DOCX <span class="dl-badge">Word</span>
+            </button>
           </div>
-          <ol class="md-search-result__list" role="presentation"></ol>
         </div>
       </div>
-    </div>
-  </div>
-</div>
-      
-    
-    
-  </nav>
-  
-</header>
-    
-    <div class="md-container" data-md-component="container">
-      
-      
-        
-          
-        
-      
-      <main class="md-main" data-md-component="main">
-        <div class="md-main__inner md-grid">
-          
-            
-              
-              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
-                <div class="md-sidebar__scrollwrap">
-                  <div class="md-sidebar__inner">
-                    
+    </header>
 
-
-
-<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
-  <label class="md-nav__title" for="__drawer">
-    <a href="." title="Biodata Generator Docs" class="md-nav__button md-logo" aria-label="Biodata Generator Docs" data-md-component="logo">
-      
-  
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
-
-    </a>
-    Biodata Generator Docs
-  </label>
-  
-  <ul class="md-nav__list" data-md-scrollfix>
-    
-      
-      
-  
-  
-    
-  
-  
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Introduction
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="." class="md-nav__link md-nav__link--active">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Introduction
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#overview" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Overview
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#quick-links" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Quick Links
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="requirements/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Requirements
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="design/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Design
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="architecture/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Architecture
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-    
-  </ul>
-</nav>
-                  </div>
-                </div>
-              </div>
-            
-            
-              
-              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
-                <div class="md-sidebar__scrollwrap">
-                  <div class="md-sidebar__inner">
-                    
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#overview" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Overview
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#quick-links" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Quick Links
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-                  </div>
-                </div>
-              </div>
-            
-          
-          
-            <div class="md-content" data-md-component="content">
-              
-              <article class="md-content__inner md-typeset">
-                
-                  
-
-
-
-<h1 id="biodata-generator">Biodata Generator</h1>
-<p>Welcome to the documentation for the Biodata Generator project.</p>
-<h2 id="overview">Overview</h2>
-<p>The Biodata Generator is a client-side web application that allows users to rapidly input their personal, professional, and family details to generate a stunning, print-ready, A4-sized Biodata profile. </p>
-<p>This project aims to combine traditional aesthetics with modern web technologies, offering an intuitive UI and a high-quality PDF export capability.</p>
-<h2 id="quick-links">Quick Links</h2>
-<ul>
-<li><a href="requirements/">Requirements</a></li>
-<li><a href="design/">Design</a></li>
-<li><a href="architecture/">Architecture</a></li>
-</ul>
-
-
-
-
-
-
-
-
-
-
-
-
-                
-              </article>
-            </div>
-          
-          
-<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+    <!-- MAIN SPLIT WORKSPACE -->
+    <main class="app-body" id="app-body">
+      <!-- LEFT COLUMN: SCROLLABLE INPUT FORM -->
+      <section class="editor-panel" aria-label="Biodata Editor Form">
+        <div class="editor-header">
+          <h2 class="editor-title">Candidate Information</h2>
+          <p class="editor-desc">Fill in details below. The preview updates instantly. Progress auto-saves to your browser.</p>
+          <div class="editor-actions-row">
+            <button type="button" class="btn btn-ghost btn-xs" id="btn-load-example" title="Load example JSON data">&#128229; Load Example</button>
+            <button type="button" class="btn btn-ghost btn-xs" id="btn-export-json" title="Export data as JSON">&#128190; Export JSON</button>
+            <button type="button" class="btn btn-ghost btn-xs" id="btn-import-json" title="Import data from JSON">&#128194; Import JSON</button>
+          </div>
         </div>
-        
-      </main>
-      
-        <footer class="md-footer">
-  
-  <div class="md-footer-meta md-typeset">
-    <div class="md-footer-meta__inner md-grid">
-      <div class="md-copyright">
-  
-  
-    Made with
-    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
-      Material for MkDocs
-    </a>
-  
-</div>
-      
-    </div>
+
+        <form id="biodata-form" onsubmit="return false;">
+          <!-- 1. DEITY & HEADER -->
+          <details class="form-section" open>
+            <summary class="section-summary">
+              <div class="section-header-left">
+                <span class="section-icon">&#x1F549;&#xFE0F;</span>
+                <h3 class="section-heading">Header &amp; Deity</h3>
+              </div>
+              <svg class="chevron-icon" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </summary>
+            <div class="section-content">
+              <div class="form-group">
+                <label class="form-label" for="f-mantra">Auspicious Mantra</label>
+                <input class="form-input" id="f-mantra" type="text" placeholder="|| &#2358;&#2381;&#2352;&#2368; &#2327;&#2339;&#2375;&#2358;&#2366;&#2351; &#2344;&#2350;&#2307; ||">
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="f-name">Candidate Full Name</label>
+                <input class="form-input" id="f-name" type="text" placeholder="e.g. Rahul Sharma">
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="f-subtitle">Header Subtitle (Designation | Company)</label>
+                <input class="form-input" id="f-subtitle" type="text" placeholder="e.g. Software Engineer | Tech Solutions">
+              </div>
+
+              <!-- Customizable Section Labels -->
+              <div class="repeatable-card">
+                <span class="entry-label">CUSTOMIZABLE LABELS</span>
+                <div class="form-group">
+                  <label class="form-label" for="f-section-divider">Section Divider Text</label>
+                  <input class="form-input" id="f-section-divider" type="text" placeholder="Biodata Profile">
+                </div>
+                <div class="form-row-2">
+                  <div class="form-group">
+                    <label class="form-label" for="f-card1-title">Card 1 Heading</label>
+                    <input class="form-input" id="f-card1-title" type="text" placeholder="Personal &amp; Professional Details">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="f-card2-title">Card 2 Heading</label>
+                    <input class="form-input" id="f-card2-title" type="text" placeholder="Family">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </details>
+
+          <!-- 2. PHOTOS -->
+          <details class="form-section">
+            <summary class="section-summary">
+              <div class="section-header-left">
+                <span class="section-icon">&#128247;</span>
+                <h3 class="section-heading">Profile Photos (3 Slots)</h3>
+              </div>
+              <svg class="chevron-icon" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </summary>
+            <div class="section-content">
+              <div class="photo-upload-grid">
+                <!-- Photo Slot 0 -->
+                <div class="photo-slot">
+                  <div class="photo-dropzone" id="photo-dropzone-0">
+                    <img class="photo-thumb" id="photo-thumb-0" alt="Photo 1">
+                    <div class="dropzone-empty" id="dropzone-empty-0">
+                      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12h14"/></svg>
+                      <span>Primary Portrait</span>
+                    </div>
+                  </div>
+                  <input type="file" accept="image/*" id="photo-input-0" class="sr-only">
+                  <button type="button" class="btn-remove-photo" id="photo-remove-0" style="display:none">&times; Remove</button>
+                </div>
+
+                <!-- Photo Slot 1 -->
+                <div class="photo-slot">
+                  <div class="photo-dropzone" id="photo-dropzone-1">
+                    <img class="photo-thumb" id="photo-thumb-1" alt="Photo 2">
+                    <div class="dropzone-empty" id="dropzone-empty-1">
+                      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12h14"/></svg>
+                      <span>Full-length</span>
+                    </div>
+                  </div>
+                  <input type="file" accept="image/*" id="photo-input-1" class="sr-only">
+                  <button type="button" class="btn-remove-photo" id="photo-remove-1" style="display:none">&times; Remove</button>
+                </div>
+
+                <!-- Photo Slot 2 -->
+                <div class="photo-slot">
+                  <div class="photo-dropzone" id="photo-dropzone-2">
+                    <img class="photo-thumb" id="photo-thumb-2" alt="Photo 3">
+                    <div class="dropzone-empty" id="dropzone-empty-2">
+                      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12h14"/></svg>
+                      <span>Traditional</span>
+                    </div>
+                  </div>
+                  <input type="file" accept="image/*" id="photo-input-2" class="sr-only">
+                  <button type="button" class="btn-remove-photo" id="photo-remove-2" style="display:none">&times; Remove</button>
+                </div>
+              </div>
+            </div>
+          </details>
+
+          <!-- 3. PERSONAL DETAILS -->
+          <details class="form-section">
+            <summary class="section-summary">
+              <div class="section-header-left">
+                <span class="section-icon">&#128100;</span>
+                <h3 class="section-heading">Personal &amp; Kundali</h3>
+              </div>
+              <svg class="chevron-icon" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </summary>
+            <div class="section-content">
+              <div class="form-row-2">
+                <div class="form-group">
+                  <label class="form-label" for="f-gotra">Gotra</label>
+                  <input class="form-input" id="f-gotra" type="text" placeholder="e.g. Garg">
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="f-height">Height</label>
+                  <input class="form-input" id="f-height" type="text" placeholder="e.g. 5' 9&quot;">
+                </div>
+              </div>
+
+              <div class="form-row-2">
+                <div class="form-group">
+                  <label class="form-label" for="f-dob">Date of Birth</label>
+                  <input class="form-input" id="f-dob" type="text" placeholder="e.g. 27 March 1995">
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="f-tob">Time of Birth</label>
+                  <input class="form-input" id="f-tob" type="text" placeholder="e.g. 11:55 PM">
+                </div>
+              </div>
+
+              <div class="form-row-2">
+                <div class="form-group">
+                  <label class="form-label" for="f-pob">Place of Birth</label>
+                  <input class="form-input" id="f-pob" type="text" placeholder="e.g. Jamshedpur, Jharkhand">
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="f-manglik">Manglik Status <span class="optional">(optional)</span></label>
+                  <select class="form-input" id="f-manglik">
+                    <option value="">Don't mention</option>
+                    <option value="Non-Manglik">Non-Manglik</option>
+                    <option value="Manglik">Manglik</option>
+                    <option value="Anshik Manglik">Anshik Manglik</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </details>
+
+          <!-- 4. EDUCATION & CAREER (Dynamic) -->
+          <details class="form-section">
+            <summary class="section-summary">
+              <div class="section-header-left">
+                <span class="section-icon">&#127891;</span>
+                <h3 class="section-heading">Education &amp; Profession</h3>
+              </div>
+              <svg class="chevron-icon" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </summary>
+            <div class="section-content">
+              <!-- Dynamic Education Entries -->
+              <div id="edu-container">
+                <!-- Populated by app.js -->
+              </div>
+              <button type="button" class="btn-add" id="btn-add-edu">+ Add Degree (1/3)</button>
+
+              <div class="repeatable-card" style="margin-top:12px;">
+                <span class="entry-label">CAREER / PROFESSION</span>
+                <div class="form-row-2">
+                  <div class="form-group">
+                    <label class="form-label" for="f-prof-desig">Designation / Role</label>
+                    <input class="form-input" id="f-prof-desig" type="text" placeholder="e.g. Senior Engineer">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="f-prof-comp">Company</label>
+                    <input class="form-input" id="f-prof-comp" type="text" placeholder="e.g. Tech Solutions">
+                  </div>
+                </div>
+
+                <div class="form-row-2">
+                  <div class="form-group">
+                    <label class="form-label" for="f-prof-loc">Work Location Mode</label>
+                    <input class="form-input" id="f-prof-loc" type="text" placeholder="e.g. Remote / Hybrid / Bangalore">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="f-prof-addr">Office City / Country</label>
+                    <input class="form-input" id="f-prof-addr" type="text" placeholder="e.g. Utah, USA">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="f-prof-map">Office Google Maps Link <span class="optional">(optional pin icon)</span></label>
+                  <input class="form-input" id="f-prof-map" type="url" placeholder="https://maps.google.com/?q=...">
+                </div>
+              </div>
+            </div>
+          </details>
+
+          <!-- 5. PROFILES & SEARCH IDS (Dynamic) -->
+          <details class="form-section">
+            <summary class="section-summary">
+              <div class="section-header-left">
+                <span class="section-icon">&#128279;</span>
+                <h3 class="section-heading">Matrimonial &amp; Social Profiles</h3>
+              </div>
+              <svg class="chevron-icon" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </summary>
+            <div class="section-content">
+              <div id="social-container">
+                <!-- Populated by app.js -->
+              </div>
+              <button type="button" class="btn-add" id="btn-add-social">+ Add Profile Link (3/4)</button>
+            </div>
+          </details>
+
+          <!-- 6. RESIDENCE & NATIVE -->
+          <details class="form-section">
+            <summary class="section-summary">
+              <div class="section-header-left">
+                <span class="section-icon">&#128205;</span>
+                <h3 class="section-heading">Native &amp; Residence</h3>
+              </div>
+              <svg class="chevron-icon" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </summary>
+            <div class="section-content">
+              <div class="form-group">
+                <label class="form-label" for="f-native">Native Place / Mool</label>
+                <input class="form-input" id="f-native" type="text" placeholder="e.g. Hodh, Sri Madhopur, Sikar, Rajasthan">
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="f-res-line1">Residence Address (Line 1)</label>
+                <input class="form-input" id="f-res-line1" type="text" placeholder="e.g. 402, Mathura Villa, Tapadia Complex,">
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="f-res-line2">Residence Address (Line 2)</label>
+                <input class="form-input" id="f-res-line2" type="text" placeholder="e.g. Station Road, Jamshedpur - 831006">
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="f-res-map">Residence Google Maps Link <span class="optional">(optional pin icon)</span></label>
+                <input class="form-input" id="f-res-map" type="url" placeholder="https://maps.google.com/?q=...">
+              </div>
+            </div>
+          </details>
+
+          <!-- 7. CONTACT NUMBERS (Dynamic) -->
+          <details class="form-section">
+            <summary class="section-summary">
+              <div class="section-header-left">
+                <span class="section-icon">&#128222;</span>
+                <h3 class="section-heading">Contact Information</h3>
+              </div>
+              <svg class="chevron-icon" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </summary>
+            <div class="section-content">
+              <div id="phone-container">
+                <!-- Populated by app.js -->
+              </div>
+              <button type="button" class="btn-add" id="btn-add-phone">+ Add Phone (2/3)</button>
+            </div>
+          </details>
+
+          <!-- 8. FAMILY DETAILS -->
+          <details class="form-section">
+            <summary class="section-summary">
+              <div class="section-header-left">
+                <span class="section-icon">&#128104;&#8205;&#128105;&#8205;&#128103;&#8205;&#128102;</span>
+                <h3 class="section-heading">Family Tree &amp; Relatives</h3>
+              </div>
+              <svg class="chevron-icon" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </summary>
+            <div class="section-content">
+              <!-- Parents -->
+              <div class="repeatable-card">
+                <span class="entry-label">PARENTS</span>
+                <div class="form-row-2">
+                  <div class="form-group" style="flex: 0 0 32%;">
+                    <label class="form-label" for="f-mother-title">Title</label>
+                    <select class="form-input" id="f-mother-title">
+                      <option value="Smt.">Smt.</option>
+                      <option value="Late Smt.">Late Smt.</option>
+                    </select>
+                  </div>
+                  <div class="form-group" style="flex: 1;">
+                    <label class="form-label" for="f-mother">Mother's Name</label>
+                    <input class="form-input" id="f-mother" type="text" placeholder="e.g. Usha Agarwal">
+                  </div>
+                </div>
+
+                <div class="form-row-2">
+                  <div class="form-group" style="flex: 0 0 32%;">
+                    <label class="form-label" for="f-father-title">Title</label>
+                    <select class="form-input" id="f-father-title">
+                      <option value="Shri">Shri</option>
+                      <option value="Late Shri">Late Shri</option>
+                    </select>
+                  </div>
+                  <div class="form-group" style="flex: 1;">
+                    <label class="form-label" for="f-father">Father's Name</label>
+                    <input class="form-input" id="f-father" type="text" placeholder="e.g. Keshav Kumar Agarwal">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Siblings -->
+              <div class="repeatable-card">
+                <label class="toggle-row" for="f-has-siblings">
+                  <input type="checkbox" id="f-has-siblings" checked>
+                  <span class="toggle-label">Has Siblings?</span>
+                </label>
+                <div class="conditional-fields" id="group-siblings">
+                  <div class="form-row-2">
+                    <div class="form-group">
+                      <label class="form-label" for="f-sib-rel">Relation</label>
+                      <select class="form-input" id="f-sib-rel">
+                        <option value="Elder Brother">Elder Brother</option>
+                        <option value="Younger Brother">Younger Brother</option>
+                        <option value="Elder Sister">Elder Sister</option>
+                        <option value="Younger Sister">Younger Sister</option>
+                        <option value="Brother">Brother</option>
+                        <option value="Sister">Sister</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label" for="f-sib-name">Sibling Name</label>
+                      <input class="form-input" id="f-sib-name" type="text" placeholder="e.g. Harshit Agarwal">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="f-sib-d1">Career Detail (Line 1)</label>
+                    <input class="form-input" id="f-sib-d1" type="text" placeholder="e.g. Senior Manager, Yes Bank (LC), Noida">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="f-sib-d2">Education / Other Detail (Line 2)</label>
+                    <input class="form-input" id="f-sib-d2" type="text" placeholder="e.g. MBA (BM) @ XIMB">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Paternal Family -->
+              <div class="repeatable-card">
+                <span class="entry-label">PATERNAL FAMILY (DADIHAL)</span>
+                
+                <div class="form-row-2">
+                  <div class="form-group" style="flex: 0 0 35%;">
+                    <label class="form-label" for="f-pat-gmother-title">Title</label>
+                    <select class="form-input" id="f-pat-gmother-title">
+                      <option value="Late Smt.">Late Smt.</option>
+                      <option value="Smt.">Smt.</option>
+                    </select>
+                  </div>
+                  <div class="form-group" style="flex: 1;">
+                    <label class="form-label" for="f-pat-gmother">Grandmother (Dadi)</label>
+                    <input class="form-input" id="f-pat-gmother" type="text" placeholder="e.g. Sumitra Devi">
+                  </div>
+                </div>
+
+                <div class="form-row-2">
+                  <div class="form-group" style="flex: 0 0 35%;">
+                    <label class="form-label" for="f-pat-gfather-title">Title</label>
+                    <select class="form-input" id="f-pat-gfather-title">
+                      <option value="Shri">Shri</option>
+                      <option value="Late Shri">Late Shri</option>
+                    </select>
+                  </div>
+                  <div class="form-group" style="flex: 1;">
+                    <label class="form-label" for="f-pat-gfather">Grandfather (Dada)</label>
+                    <input class="form-input" id="f-pat-gfather" type="text" placeholder="e.g. Ram Ratan Agarwal">
+                  </div>
+                </div>
+
+                <!-- Bua Families -->
+                <div style="border-top: 1px solid rgba(200, 148, 85, 0.15); padding-top: 8px; margin-top: 6px;">
+                  <label class="toggle-row" for="f-has-buas">
+                    <input type="checkbox" id="f-has-buas" checked>
+                    <span class="toggle-label">Has Bua Families?</span>
+                  </label>
+                  <div class="conditional-fields" id="group-buas">
+                    <div class="form-row-2">
+                      <div class="form-group" style="flex: 0 0 30%;">
+                        <label class="form-label" for="f-bua-count">How many?</label>
+                        <input class="form-input" id="f-bua-count" type="text" placeholder="e.g. 3">
+                      </div>
+                      <div class="form-group" style="flex: 1;">
+                        <label class="form-label" for="f-bua-loc">Where do they stay?</label>
+                        <input class="form-input" id="f-bua-loc" type="text" placeholder="e.g. 2 in Kolkata, 1 in Sambalpur">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Chacha Families -->
+                <div style="border-top: 1px solid rgba(200, 148, 85, 0.15); padding-top: 8px; margin-top: 6px;">
+                  <label class="toggle-row" for="f-has-chachas">
+                    <input type="checkbox" id="f-has-chachas" checked>
+                    <span class="toggle-label">Has Chacha Families?</span>
+                  </label>
+                  <div class="conditional-fields" id="group-chachas">
+                    <div class="form-row-2">
+                      <div class="form-group" style="flex: 0 0 30%;">
+                        <label class="form-label" for="f-chacha-count">How many?</label>
+                        <input class="form-input" id="f-chacha-count" type="text" placeholder="e.g. 3">
+                      </div>
+                      <div class="form-group" style="flex: 1;">
+                        <label class="form-label" for="f-chacha-loc">Where do they stay?</label>
+                        <input class="form-input" id="f-chacha-loc" type="text" placeholder="e.g. 1 in Jaipur, 2 in Jamshedpur">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Maternal Family -->
+              <div class="repeatable-card">
+                <span class="entry-label">MATERNAL FAMILY (NANIHAL)</span>
+
+                <div class="form-row-2">
+                  <div class="form-group" style="flex: 0 0 35%;">
+                    <label class="form-label" for="f-mat-gmother-title">Title</label>
+                    <select class="form-input" id="f-mat-gmother-title">
+                      <option value="Late Smt.">Late Smt.</option>
+                      <option value="Smt.">Smt.</option>
+                    </select>
+                  </div>
+                  <div class="form-group" style="flex: 1;">
+                    <label class="form-label" for="f-mat-gmother">Grandmother (Nani)</label>
+                    <input class="form-input" id="f-mat-gmother" type="text" placeholder="e.g. Narangi Devi Swaika">
+                  </div>
+                </div>
+
+                <div class="form-row-2">
+                  <div class="form-group" style="flex: 0 0 35%;">
+                    <label class="form-label" for="f-mat-gfather-title">Title</label>
+                    <select class="form-input" id="f-mat-gfather-title">
+                      <option value="Late Shri">Late Shri</option>
+                      <option value="Shri">Shri</option>
+                    </select>
+                  </div>
+                  <div class="form-group" style="flex: 1;">
+                    <label class="form-label" for="f-mat-gfather">Grandfather (Nana)</label>
+                    <input class="form-input" id="f-mat-gfather" type="text" placeholder="e.g. Rabindra Prasad Swaika">
+                  </div>
+                </div>
+
+                <!-- Mama Families (FIRST) -->
+                <div style="border-top: 1px solid rgba(200, 148, 85, 0.15); padding-top: 8px; margin-top: 6px;">
+                  <label class="toggle-row" for="f-has-mamas">
+                    <input type="checkbox" id="f-has-mamas" checked>
+                    <span class="toggle-label">Has Mama Families? (1st)</span>
+                  </label>
+                  <div class="conditional-fields" id="group-mamas">
+                    <div class="form-row-2">
+                      <div class="form-group" style="flex: 0 0 30%;">
+                        <label class="form-label" for="f-mama-count">How many?</label>
+                        <input class="form-input" id="f-mama-count" type="text" placeholder="e.g. 3">
+                      </div>
+                      <div class="form-group" style="flex: 1;">
+                        <label class="form-label" for="f-mama-loc">Where do they stay?</label>
+                        <input class="form-input" id="f-mama-loc" type="text" placeholder="e.g. 2 in Kolkata, 1 in Bangalore">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Mausi Families (SECOND) -->
+                <div style="border-top: 1px solid rgba(200, 148, 85, 0.15); padding-top: 8px; margin-top: 6px;">
+                  <label class="toggle-row" for="f-has-mausis">
+                    <input type="checkbox" id="f-has-mausis" checked>
+                    <span class="toggle-label">Has Mausi Families? (2nd)</span>
+                  </label>
+                  <div class="conditional-fields" id="group-mausis">
+                    <div class="form-row-2">
+                      <div class="form-group" style="flex: 0 0 30%;">
+                        <label class="form-label" for="f-mausi-count">How many?</label>
+                        <input class="form-input" id="f-mausi-count" type="text" placeholder="e.g. 3">
+                      </div>
+                      <div class="form-group" style="flex: 1;">
+                        <label class="form-label" for="f-mausi-loc">Where do they stay?</label>
+                        <input class="form-input" id="f-mausi-loc" type="text" placeholder="e.g. 2 in Kolkata, 1 in Surat">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </details>
+        </form>
+      </section>
+
+      <!-- RIGHT COLUMN: LIVE REAL-TIME PREVIEW PANEL -->
+      <section class="preview-panel" aria-label="Live Biodata Preview">
+        <div class="preview-toolbar">
+          <div class="preview-status">
+            <span class="live-indicator"></span>
+            <span>Live A4 Preview (Real-Time Reactive)</span>
+          </div>
+          <span style="font-size:0.75rem; color:var(--app-gold); letter-spacing:0.5px; font-weight:500;">
+            Exact Print Frame &middot; 210mm &times; 297mm
+          </span>
+        </div>
+
+        <!-- A4 Overflow Warning Banner -->
+        <div class="overflow-warning" id="overflow-warning">
+          &#9888;&#65039; Content fits within A4 page
+        </div>
+
+        <div class="preview-viewport" id="preview-viewport">
+          <div class="preview-stage" id="preview-stage">
+            <!-- TARGET PRINTABLE BIODATA A4 SHEET -->
+            <div class="page" id="biodata-preview">
+              <!-- Dynamically populated by app.js -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Floating Zoom Control -->
+      </section>
+    </main>
+
+    <!-- NOTIFICATION TOAST -->
+    <div class="toast-message" id="toast">Ready</div>
   </div>
-</footer>
-      
-    </div>
-    <div class="md-dialog" data-md-component="dialog">
-      <div class="md-dialog__inner md-typeset"></div>
-    </div>
-    
-    
-    
-      
-      
-      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": [], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
-    
-    
-      <script src="assets/javascripts/bundle.d7400e89.min.js"></script>
-      
-    
-  </body>
+
+  <!-- Generator Controller -->
+  <script src="app.js"></script>
+</body>
 </html>

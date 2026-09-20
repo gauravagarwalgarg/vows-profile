@@ -11,8 +11,10 @@
       
       
       
-        <link rel="prev" href="../design/">
+        <link rel="prev" href="..">
       
+      
+        <link rel="next" href="../design/">
       
       
         
@@ -23,7 +25,7 @@
     
     
       
-        <title>Architecture - Biodata Generator Docs</title>
+        <title>Requirements - Biodata Generator Docs</title>
       
     
     
@@ -72,7 +74,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#architecture" class="md-skip">
+        <a href="#requirements" class="md-skip">
           Skip to content
         </a>
       
@@ -108,7 +110,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Architecture
+              Requirements
             
           </span>
         </div>
@@ -228,10 +230,37 @@
       
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../requirements/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Requirements
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -247,6 +276,48 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#functional-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Functional Requirements
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#non-functional-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Non-Functional Requirements
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -282,37 +353,10 @@
       
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Architecture
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../architecture/" class="md-nav__link">
         
   
   
@@ -328,59 +372,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#tech-stack" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Tech Stack
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#project-structure" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Project Structure
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#data-flow" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Data Flow
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -412,10 +403,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#tech-stack" class="md-nav__link">
+  <a href="#functional-requirements" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Tech Stack
+        Functional Requirements
       
     </span>
   </a>
@@ -423,21 +414,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#project-structure" class="md-nav__link">
+  <a href="#non-functional-requirements" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Project Structure
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#data-flow" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Data Flow
+        Non-Functional Requirements
       
     </span>
   </a>
@@ -461,27 +441,28 @@
 
 
 
-<h1 id="architecture">Architecture</h1>
-<h2 id="tech-stack">Tech Stack</h2>
-<ul>
-<li><strong>HTML5:</strong> Semantic structure for the generator app and the standalone template.</li>
-<li><strong>CSS3:</strong> Vanilla CSS leveraging modern Grid and Flexbox features.</li>
-<li><strong>JavaScript (Vanilla):</strong> No external frameworks are used. State management, DOM manipulation, and template literal rendering are all handled natively.</li>
-</ul>
-<h2 id="project-structure">Project Structure</h2>
-<ul>
-<li><code>index.html</code>: The main web application interface containing the input form and the preview split-pane.</li>
-<li><code>app.js</code>: The core logic engine. Handles data binding from the form, persisting to <code>localStorage</code>, fetching example JSONs, and rendering the preview via template literals.</li>
-<li><code>style.css</code>: Contains both the application UI styling and the precise A4 print styles for the biodata preview.</li>
-<li><code>Biodata.html</code>: A standalone, production-ready export template that embeds its own copy of the rendering script and data, useful for serverless deployment or direct file sharing.</li>
-<li><code>metadata/</code>: Directory containing placeholder images, ornaments (e.g., Ganesha icon), and the JSON data templates.</li>
-</ul>
-<h2 id="data-flow">Data Flow</h2>
+<h1 id="requirements">Requirements</h1>
+<h2 id="functional-requirements">Functional Requirements</h2>
 <ol>
-<li><strong>Input:</strong> The user types into the form in <code>index.html</code>.</li>
-<li><strong>State Updates:</strong> Event listeners capture changes and update the central JavaScript data object.</li>
-<li><strong>Persistence:</strong> The data object is stringified and saved to <code>localStorage</code> to preserve progress across sessions.</li>
-<li><strong>Rendering:</strong> <code>app.js</code> runs a <code>renderPreview()</code> function that interpolates the data object into HTML strings and injects them into the preview container.</li>
+<li><strong>Form Input:</strong> Users must be able to input personal, educational, professional, and family details.</li>
+<li><strong>Photo Uploads:</strong> Users must be able to upload up to three photos.</li>
+<li><strong>Live Preview:</strong> The biodata preview must update in real-time as the user types.</li>
+<li><strong>Data Persistence:</strong> The application must automatically save progress to the browser's local storage.</li>
+<li><strong>Import/Export:</strong> Users must be able to export their data as a JSON file and import JSON files.</li>
+<li><strong>Example Template:</strong> The application must provide a one-click way to load an example template.</li>
+<li><strong>Multi-Format Export:</strong> The application must support downloading the biodata in the following formats:</li>
+<li><strong>PDF</strong> — High-resolution (300 DPI) A4 document via <code>html2pdf.js</code>.</li>
+<li><strong>JPG</strong> — Compressed raster image via <code>html2canvas</code>.</li>
+<li><strong>PNG</strong> — Lossless raster image via <code>html2canvas</code>.</li>
+<li><strong>DOCX</strong> — Microsoft Word document via <code>html-docx-js</code> (content-accurate, simplified styling).</li>
+<li><strong>Print to PDF:</strong> The application must also support standard browser "Print to PDF" functionality without UI elements interfering.</li>
+</ol>
+<h2 id="non-functional-requirements">Non-Functional Requirements</h2>
+<ol>
+<li><strong>A4 Precision:</strong> The printed output must strictly conform to A4 dimensions (210mm × 297mm).</li>
+<li><strong>Client-Side Only:</strong> All processing, rendering, and data storage must happen entirely in the client's browser for maximum privacy.</li>
+<li><strong>Zero Build Tooling:</strong> The application must work without any build step, transpiler, or <code>node_modules</code>. Plain HTML/CSS/JS only.</li>
+<li><strong>Responsive UI:</strong> The editor form and workspace must be fully responsive, while the preview scales appropriately.</li>
 </ol>
 
 
