@@ -3,42 +3,55 @@ on:
   push:
     branches:
       - main
-      - master
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: 3.x
 
-      - name: Install dependencies
-        run: |
-          pip install mkdocs-material
-          
-      - name: Build MkDocs
-        run: mkdocs build -d site/docs
+      - name: Install MkDocs
+        run: pip install mkdocs-material
 
-      - name: Inject Full App into Build
-        run: |
-          cp index.html site/
-          cp Biodata.html site/
-          cp app.js site/
-          cp app.css site/
-          cp style.css site/
-          cp -r metadata site/
-          cp -r vendor site/
+      - name: Build MkDocs to docs subdirectory
+        run: mkdocs build -d _site/docs
 
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+      - name: Copy Generator Application to site root
+        run: |
+          cp index.html _site/
+          cp Biodata.html _site/ 2>/dev/null || true
+          cp support.html _site/
+          cp app.js _site/
+          cp app.css _site/
+          cp style.css _site/
+          cp -r metadata/ _site/
+          cp -r vendor/ _site/
+
+      - uses: actions/upload-pages-artifact@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./site
+          path: '_site/'
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
