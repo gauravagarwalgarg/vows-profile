@@ -4,8 +4,8 @@
  * Features: LocalStorage auto-save, dynamic entries, A4 overflow detection, customizable headers
  */
 
-const MAP_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 0 1 0-5 2.5 2.5 0 0 1 0 5z"/></svg>';
-const EXT_SVG = '<svg xmlns="http://www.w3.org/2000/svg" class="ext-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7zm5 16H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7h-2v7z"/></svg>';
+const MAP_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff7ec" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 0 1 0-5 2.5 2.5 0 0 1 0 5z"/></svg>';
+const EXT_SVG = '<svg xmlns="http://www.w3.org/2000/svg" class="ext-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="#8c5324" d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7zm5 16H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7h-2v7z"/></svg>';
 const PLACEHOLDER_SVG = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="300" height="400" viewBox="0 0 300 400"><rect width="100%" height="100%" fill="%23ecdac0"/><circle cx="150" cy="140" r="50" fill="%23c4a98b"/><path d="M70 330 C70 230, 230 230, 230 330 Z" fill="%23c4a98b"/><text x="150" y="365" font-family="sans-serif" font-size="14" fill="%237d5d3e" text-anchor="middle">Photo Slot</text></svg>';
 
 const ICON_PATHS = {
@@ -27,6 +27,7 @@ function getSvgIcon(name) {
 // Limits
 const MAX_EDUCATION = 3;
 const MAX_SOCIAL_LINKS = 4;
+const MAX_SIBLINGS = 4;
 const MAX_PHONES = 3;
 const STORAGE_KEY = 'vowsprofile_data';
 
@@ -235,6 +236,7 @@ async function initApp() {
   renderEducationForm();
   renderSocialLinksForm();
   renderPhoneForm();
+  renderSiblingsForm();
 
   // Populate static form controls
   populateForm(appData);
@@ -607,6 +609,79 @@ function updateAddBtnVisibility(btnId, count, max) {
 }
 
 /* ==========================================================================
+   DYNAMIC SIBLINGS FORM
+   ========================================================================== */
+
+function renderSiblingsForm() {
+  const container = document.getElementById('siblings-container');
+  if (!container) return;
+  container.innerHTML = '';
+  const siblings = appData.family.siblings || [];
+  siblings.forEach((sib, i) => {
+    container.appendChild(createSiblingCard(i, sib));
+  });
+  updateAddBtnVisibility('btn-add-sibling', siblings.length, MAX_SIBLINGS);
+}
+
+function createSiblingCard(index, sib) {
+  const card = document.createElement('div');
+  card.className = 'repeatable-entry';
+  card.dataset.sibIndex = index;
+  const label = `SIBLING ${index + 1}`;
+  card.innerHTML = `
+    <div class="entry-header">
+      <span class="entry-label">${label}</span>
+      ${index > 0 ? `<button type="button" class="btn-remove" data-action="remove-sibling" data-index="${index}" title="Remove this sibling">\u2715</button>` : ''}
+    </div>
+    <div class="form-row-2">
+      <div class="form-group">
+        <label class="form-label">Relation</label>
+        <select class="form-input" data-field="sib-rel-${index}">
+          <option value="Elder Brother" ${(sib.relation === 'Elder Brother') ? 'selected' : ''}>Elder Brother</option>
+          <option value="Younger Brother" ${(sib.relation === 'Younger Brother') ? 'selected' : ''}>Younger Brother</option>
+          <option value="Elder Sister" ${(sib.relation === 'Elder Sister') ? 'selected' : ''}>Elder Sister</option>
+          <option value="Younger Sister" ${(sib.relation === 'Younger Sister') ? 'selected' : ''}>Younger Sister</option>
+          <option value="Brother" ${(sib.relation === 'Brother') ? 'selected' : ''}>Brother</option>
+          <option value="Sister" ${(sib.relation === 'Sister') ? 'selected' : ''}>Sister</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Sibling Name</label>
+        <input class="form-input" data-field="sib-name-${index}" type="text" placeholder="e.g. Harshit Agarwal" value="${escapeHtml(sib.name || '')}">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Career Detail (Line 1)</label>
+      <input class="form-input" data-field="sib-d1-${index}" type="text" placeholder="e.g. Senior Manager, Yes Bank" value="${escapeHtml((sib.details && sib.details[0]) || '')}">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Education / Other Detail (Line 2)</label>
+      <input class="form-input" data-field="sib-d2-${index}" type="text" placeholder="e.g. MBA (BM) @ XIMB" value="${escapeHtml((sib.details && sib.details[1]) || '')}">
+    </div>
+  `;
+  return card;
+}
+
+function addSiblingEntry() {
+  if (!appData.family.siblings) appData.family.siblings = [];
+  if (appData.family.siblings.length >= MAX_SIBLINGS) {
+    showToast(`Maximum ${MAX_SIBLINGS} siblings allowed`);
+    return;
+  }
+  appData.family.siblings.push({ relation: 'Elder Brother', name: '', details: [] });
+  appData.family.hasSiblings = true;
+  renderSiblingsForm();
+  triggerUpdate();
+}
+
+function removeSiblingEntry(index) {
+  if (!appData.family.siblings || appData.family.siblings.length <= 1) return;
+  appData.family.siblings.splice(index, 1);
+  renderSiblingsForm();
+  triggerUpdate();
+}
+
+/* ==========================================================================
    POPULATE FORM from state
    ========================================================================== */
 
@@ -670,14 +745,15 @@ function populateForm(d) {
   setVal('f-father-title', d.family.fatherTitle || 'Shri');
   setVal('f-father', d.family.father || '');
 
-  // Siblings
+  // Siblings (dynamic form already rendered)
   setChecked('f-has-siblings', d.family.hasSiblings !== false);
   toggleGroupVisibility('group-siblings', d.family.hasSiblings !== false);
-  const sib = (d.family.siblings && d.family.siblings[0]) || {};
-  setVal('f-sib-rel', sib.relation || 'Elder Brother');
-  setVal('f-sib-name', sib.name || '');
-  setVal('f-sib-d1', (sib.details && sib.details[0]) || '');
-  setVal('f-sib-d2', (sib.details && sib.details[1]) || '');
+  (d.family.siblings || []).forEach((sib, i) => {
+    setDynVal(`sib-rel-${i}`, sib.relation || 'Elder Brother');
+    setDynVal(`sib-name-${i}`, sib.name || '');
+    setDynVal(`sib-d1-${i}`, (sib.details && sib.details[0]) || '');
+    setDynVal(`sib-d2-${i}`, (sib.details && sib.details[1]) || '');
+  });
 
   // Paternal Family
   const pat = d.family.paternalFamily || {};
@@ -850,11 +926,15 @@ function syncStateFromForm() {
   toggleGroupVisibility('group-siblings', hasSiblings);
   appData.family.hasSiblings = hasSiblings;
   if (hasSiblings) {
-    appData.family.siblings = [{
-      relation: getVal('f-sib-rel') || 'Elder Brother',
-      name: getVal('f-sib-name'),
-      details: [getVal('f-sib-d1'), getVal('f-sib-d2')].filter(Boolean)
-    }];
+    appData.family.siblings = [];
+    const sibCards = document.querySelectorAll('[data-sib-index]');
+    sibCards.forEach((card, i) => {
+      appData.family.siblings.push({
+        relation: getDynVal(`sib-rel-${i}`) || 'Elder Brother',
+        name: getDynVal(`sib-name-${i}`),
+        details: [getDynVal(`sib-d1-${i}`), getDynVal(`sib-d2-${i}`)].filter(Boolean)
+      });
+    });
   } else {
     appData.family.siblings = [];
   }
@@ -936,6 +1016,10 @@ function setupDynamicButtons() {
   const btnAddPhone = document.getElementById('btn-add-phone');
   if (btnAddPhone) btnAddPhone.addEventListener('click', addPhoneEntry);
 
+  // Sibling add
+  const btnAddSibling = document.getElementById('btn-add-sibling');
+  if (btnAddSibling) btnAddSibling.addEventListener('click', addSiblingEntry);
+
   // Delegate remove buttons
   document.addEventListener('click', (e) => {
     const btn = e.target.closest('[data-action]');
@@ -945,6 +1029,7 @@ function setupDynamicButtons() {
     if (action === 'remove-edu') removeEducationEntry(index);
     else if (action === 'remove-social') removeSocialLink(index);
     else if (action === 'remove-phone') removePhoneEntry(index);
+    else if (action === 'remove-sibling') removeSiblingEntry(index);
   });
 
   // Export/Import
@@ -1155,6 +1240,7 @@ function setupActions() {
       renderEducationForm();
       renderSocialLinksForm();
       renderPhoneForm();
+      renderSiblingsForm();
       populateForm(appData);
       renderBiodataPreview(appData);
       checkA4Overflow();
@@ -1199,6 +1285,7 @@ function setupActions() {
       renderEducationForm();
       renderSocialLinksForm();
       renderPhoneForm();
+      renderSiblingsForm();
       populateForm(appData);
       renderBiodataPreview(appData);
       checkA4Overflow();
@@ -1251,6 +1338,9 @@ function checkA4Overflow() {
   const banner = document.getElementById('overflow-warning');
   if (!preview || !banner) return;
 
+  // Try auto-fit first
+  autoFitContent(preview);
+
   const a4HeightPx = 1122.5; // 297mm at 96 DPI
   const contentHeight = preview.scrollHeight;
 
@@ -1262,6 +1352,36 @@ function checkA4Overflow() {
   } else {
     banner.classList.remove('is-visible');
     preview.classList.remove('overflow-danger');
+  }
+}
+
+/**
+ * Auto-fit content to A4 page by dynamically reducing font-size
+ * on card bodies when content overflows. Minimum 9pt floor.
+ */
+function autoFitContent(preview) {
+  if (!preview) return;
+
+  const a4HeightPx = 1122.5;
+  const baseFontSizePt = 11.4;
+  const minFontSizePt = 9.0;
+  const stepPt = 0.2;
+
+  // Reset to base size first
+  const cardBodies = preview.querySelectorAll('.entries-timeline, .family-timeline');
+  cardBodies.forEach(el => { el.style.fontSize = ''; });
+
+  // Measure at base size
+  let currentHeight = preview.scrollHeight;
+  if (currentHeight <= a4HeightPx + 2) return; // Already fits
+
+  // Progressively shrink
+  let currentFontPt = baseFontSizePt;
+  while (currentHeight > a4HeightPx + 2 && currentFontPt > minFontSizePt) {
+    currentFontPt -= stepPt;
+    const fontSizeStr = `${currentFontPt}pt`;
+    cardBodies.forEach(el => { el.style.fontSize = fontSizeStr; });
+    currentHeight = preview.scrollHeight;
   }
 }
 
@@ -1710,6 +1830,9 @@ async function generatePDF() {
     sandbox.appendChild(clone);
     document.body.appendChild(sandbox);
 
+    // Normalize clone for html2canvas: resolve computed styles
+    normalizeCloneForCapture(clone);
+
     const safeName = (appData.personal.name || appData.header.name || 'Biodata').replace(/[^a-zA-Z0-9_-]/g, '_');
     const opt = {
       margin: 0,
@@ -1761,6 +1884,11 @@ async function generatePDF() {
 
     document.body.removeChild(sandbox);
     showToast('PDF downloaded successfully!');
+
+    // Open support page after successful download
+    setTimeout(() => {
+      window.open('support.html', '_blank');
+    }, 800);
   } catch (err) {
     console.error('PDF generation error:', err);
     showToast('Failed to generate PDF: ' + err.message);
@@ -1770,6 +1898,36 @@ async function generatePDF() {
       btn.innerHTML = originalText;
     }
   }
+}
+
+/**
+ * Normalize a cloned preview element for html2canvas capture.
+ * Resolves mm-based border-radius to computed px values and
+ * ensures SVG fills use explicit colors instead of currentColor.
+ */
+function normalizeCloneForCapture(clone) {
+  // Convert all mm-based border-radius to computed px
+  const allElements = clone.querySelectorAll('*');
+  allElements.forEach(el => {
+    const computed = window.getComputedStyle(el);
+    const br = computed.borderRadius;
+    if (br && br !== '0px') {
+      el.style.borderRadius = br; // Force computed px value
+    }
+  });
+
+  // Resolve currentColor in SVGs to explicit fill colors
+  const svgs = clone.querySelectorAll('svg');
+  svgs.forEach(svg => {
+    const paths = svg.querySelectorAll('path, circle, rect');
+    paths.forEach(path => {
+      const fill = path.getAttribute('fill');
+      if (fill === 'currentColor' || !fill) {
+        const parentColor = window.getComputedStyle(svg.parentElement || svg).color;
+        path.setAttribute('fill', parentColor || '#3a2515');
+      }
+    });
+  });
 }
 
 function loadScript(src) {

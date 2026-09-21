@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VowsProfile - Support My Work</title>
+  <meta name="description" content="VowsProfile is an ad-free, open-source matrimonial biodata generator. Support the developer's work.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Outfit', 'Inter', sans-serif;
+      background: linear-gradient(135deg, #1a1612 0%, #12100e 40%, #0d0b09 100%);
+      color: #e8dcc8;
+      padding: 24px;
+    }
+
+    .support-card {
+      max-width: 580px;
+      width: 100%;
+      background: linear-gradient(145deg, rgba(30, 24, 18, 0.95), rgba(20, 16, 12, 0.98));
+      border: 1px solid rgba(200, 148, 85, 0.3);
+      border-radius: 20px;
+      padding: 48px 40px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(200, 148, 85, 0.1);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .support-card::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, #c89455, #b8860b, #c89455, transparent);
+    }
+
+    .brand-icon {
+      font-size: 32px;
+      color: #c89455;
+      margin-bottom: 8px;
+    }
+
+    h1 {
+      font-family: 'Cinzel', serif;
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: #c89455;
+      margin-bottom: 4px;
+    }
+    h1 span {
+      color: #e8dcc8;
+    }
+
+    .tagline {
+      font-size: 14px;
+      color: rgba(232, 220, 200, 0.5);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 28px;
+    }
+
+    .divider {
+      border: none;
+      border-top: 1px solid rgba(200, 148, 85, 0.2);
+      margin: 24px 0;
+    }
+
+    .description {
+      font-family: 'Lora', Georgia, serif;
+      font-size: 16px;
+      line-height: 1.7;
+      color: rgba(232, 220, 200, 0.85);
+      margin-bottom: 8px;
+    }
+
+    .badge-row {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin: 20px 0 28px;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      border: 1px solid rgba(200, 148, 85, 0.25);
+      background: rgba(200, 148, 85, 0.08);
+      color: #c89455;
+    }
+
+    .badge svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    h2 {
+      font-family: 'Cinzel', serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: #c89455;
+      letter-spacing: 0.06em;
+      margin-bottom: 16px;
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+    }
+
+    .social-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #e8dcc8;
+      text-decoration: none;
+      background: rgba(200, 148, 85, 0.1);
+      border: 1px solid rgba(200, 148, 85, 0.2);
+      transition: all 0.2s ease;
+    }
+
+    .social-link:hover {
+      background: rgba(200, 148, 85, 0.2);
+      border-color: #c89455;
+      transform: translateY(-1px);
+    }
+
+    .social-link svg {
+      width: 18px;
+      height: 18px;
+      fill: #c89455;
+    }
+
+    .upi-section {
+      background: rgba(200, 148, 85, 0.06);
+      border: 1px solid rgba(200, 148, 85, 0.15);
+      border-radius: 14px;
+      padding: 24px;
+      margin-top: 8px;
+    }
+
+    .upi-section p {
+      font-size: 14px;
+      color: rgba(232, 220, 200, 0.7);
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+
+    .upi-id {
+      display: inline-block;
+      font-family: 'Outfit', monospace;
+      font-size: 18px;
+      font-weight: 600;
+      color: #c89455;
+      background: rgba(200, 148, 85, 0.12);
+      border: 1px dashed rgba(200, 148, 85, 0.35);
+      padding: 10px 24px;
+      border-radius: 10px;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .upi-id:hover {
+      background: rgba(200, 148, 85, 0.2);
+    }
+
+    .upi-id:active::after {
+      content: " ✓ Copied!";
+      font-size: 12px;
+      color: #6cbe6c;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 28px;
+      font-size: 14px;
+      color: rgba(232, 220, 200, 0.5);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .back-link:hover {
+      color: #c89455;
+    }
+
+    .heart {
+      color: #e25555;
+      font-size: 18px;
+      animation: heartbeat 1.5s ease-in-out infinite;
+    }
+
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.15); }
+    }
+
+    @media (max-width: 600px) {
+      .support-card { padding: 32px 24px; }
+      h1 { font-size: 22px; }
+      .social-links { flex-direction: column; align-items: center; }
+    }
+  </style>
+</head>
+<body>
+  <div class="support-card">
+    <div class="brand-icon">&#10054;</div>
+    <h1>Vows<span>Profile</span></h1>
+    <p class="tagline">Matrimonial Biodata Generator</p>
+
+    <hr class="divider">
+
+    <p class="description">
+      Thank you for using VowsProfile! Your biodata has been downloaded successfully.
+      This tool is completely <strong>free</strong> and <strong>ad-free</strong> — built with
+      <span class="heart">♥</span> as an open-source project.
+    </p>
+
+    <div class="badge-row">
+      <span class="badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+        100% Ad-Free
+      </span>
+      <span class="badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        No Data Upload
+      </span>
+      <span class="badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        Open Source
+      </span>
+    </div>
+
+    <hr class="divider">
+
+    <h2>Connect With Me</h2>
+    <div class="social-links">
+      <a href="https://linkedin.com/in/gauravagarwalgarg" target="_blank" rel="noreferrer" class="social-link">
+        <svg viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+        LinkedIn
+      </a>
+      <a href="https://github.com/gauravagarwalgarg" target="_blank" rel="noreferrer" class="social-link">
+        <svg viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/></svg>
+        GitHub
+      </a>
+    </div>
+
+    <div class="upi-section">
+      <h2>Support My Work</h2>
+      <p>
+        If VowsProfile helped you, consider supporting the project.
+        Every contribution helps keep this tool free and maintained.
+      </p>
+      <div class="upi-id" onclick="navigator.clipboard.writeText('gauravagarwalgarg@upi').then(() => this.classList.add('copied'))" title="Click to copy UPI ID">
+        gauravagarwalgarg@upi
+      </div>
+      <p style="margin-top: 12px; font-size: 12px; color: rgba(232, 220, 200, 0.4);">
+        Click to copy UPI ID · Scan with any UPI app (GPay, PhonePe, Paytm)
+      </p>
+    </div>
+
+    <a href="index.html" class="back-link">
+      ← Back to VowsProfile Generator
+    </a>
+  </div>
+
+  <script>
+    // Copy feedback animation
+    document.querySelector('.upi-id').addEventListener('click', function() {
+      const original = this.textContent;
+      this.textContent = 'Copied! ✓';
+      this.style.borderColor = '#6cbe6c';
+      setTimeout(() => {
+        this.textContent = original;
+        this.style.borderColor = '';
+      }, 2000);
+    });
+  </script>
+</body>
+</html>

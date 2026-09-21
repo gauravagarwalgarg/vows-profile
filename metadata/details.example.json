@@ -48,8 +48,22 @@
     {
       "enabled": true,
       "platform": "LinkedIn",
-      "id": "rahulsharma_sample",
+      "id": "rahulsharma_s",
       "url": "https://www.linkedin.com/",
+      "isExternal": true
+    },
+    {
+      "enabled": true,
+      "platform": "Shaadi ID",
+      "id": "SH98765",
+      "url": "https://www.shaadi.com/",
+      "isExternal": false
+    },
+    {
+      "enabled": true,
+      "platform": "Instagram",
+      "id": "rahul_sharma",
+      "url": "https://www.instagram.com/",
       "isExternal": true
     }
   ],
@@ -78,6 +92,14 @@
         "details": [
           "Software Developer, MNC",
           "B.Tech (IT)"
+        ]
+      },
+      {
+        "relation": "Elder Brother",
+        "name": "Amit Sharma",
+        "details": [
+          "Senior Manager, HDFC Bank",
+          "MBA (Finance)"
         ]
       }
     ],
